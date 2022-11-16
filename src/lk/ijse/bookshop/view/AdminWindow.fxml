@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.AdminWindowController">
+   <children>
+      <Pane prefHeight="768.0" prefWidth="287.0">
+         <children>
+            <ImageView fitHeight="81.0" fitWidth="117.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/adminlogo.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="95.0" layoutY="29.0" prefHeight="36.0" prefWidth="67.0" text="Hello,">
+               <font>
+                  <Font name="Arial Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="162.0" layoutY="34.0" prefHeight="25.0" prefWidth="98.0" text="Thusith">
+               <font>
+                  <Font name="Arial Bold" size="22.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btnDashboard" buttonType="RAISED" layoutY="184.0" onAction="#dashboradOnAction" onMousePressed="#mousepressd" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="Dashboard">
+               <font>
+                  <Font name="Segoe UI Bold" size="22.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="sidebarItem" />
+                  <String fx:value="button" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton fx:id="btnEmployee" buttonType="RAISED" layoutY="273.0" onAction="#employeeOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="Employees">
+               <font>
+                  <Font name="Segoe UI Bold" size="22.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="sidebarItem" />
+                  <String fx:value="button" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton fx:id="btnSupplier" buttonType="RAISED" layoutY="362.0" onAction="#supplierOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="Suppliers">
+               <font>
+                  <Font name="Segoe UI Bold" size="22.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="sidebarItem" />
+                  <String fx:value="button" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton fx:id="btnOffers" buttonType="RAISED" layoutY="443.0" onAction="#offerOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="Offers">
+               <font>
+                  <Font name="Segoe UI Bold" size="22.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="sidebarItem" />
+                  <String fx:value="button" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton fx:id="btnPayments" buttonType="RAISED" layoutY="532.0" onAction="#paymentOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="Payments">
+               <font>
+                  <Font name="Segoe UI Bold" size="22.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="sidebarItem" />
+                  <String fx:value="button" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton fx:id="btnExpenditures" buttonType="RAISED" layoutY="622.0" onAction="#expenditureOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="Expenditures">
+               <font>
+                  <Font name="Segoe UI Bold" size="22.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="sidebarItem" />
+                  <String fx:value="button" />
+               </styleClass>
+            </JFXButton>
+            <Label fx:id="lblDate" layoutX="14.0" layoutY="126.0" prefHeight="25.0" prefWidth="121.0">
+               <font>
+                  <Font name="Arial Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTime" alignment="CENTER_RIGHT" layoutX="174.0" layoutY="126.0" prefHeight="25.0" prefWidth="106.0">
+               <font>
+                  <Font name="Arial Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <AnchorPane fx:id="pane2" layoutX="287.0" prefHeight="768.0" prefWidth="1079.0" />
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" focusTraversable="false" layoutX="1343.0" layoutY="51.0" onAction="#closeOnAction" prefHeight="34.0" prefWidth="41.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/close.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" contrast="0.26" hue="0.74" saturation="1.0" />
+               </effect>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btnminimize" alignment="CENTER_RIGHT" buttonType="RAISED" focusTraversable="false" layoutX="1289.0" layoutY="22.0" onAction="#minimizeOnAction" prefHeight="29.0" prefWidth="60.0" AnchorPane.rightAnchor="37.0" AnchorPane.topAnchor="0.0">
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/minimize.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" contrast="0.03" hue="0.57" saturation="0.17" />
+               </effect>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #044721;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.LoadingScreenController">
+   <children>
+      <ProgressBar fx:id="progressBar" layoutX="2.0" layoutY="745.0" prefHeight="18.0" prefWidth="1363.0" progress="0.0" />
+      <Label layoutX="283.0" layoutY="396.0" prefHeight="78.0" prefWidth="872.0" text="Rangi BookShop And Communication" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Black" size="46.0" />
+         </font>
+      </Label>
+      <Label layoutX="11.0" layoutY="710.0" prefHeight="22.0" prefWidth="92.0" text="Loading..." textFill="WHITE">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblLoad" alignment="CENTER_RIGHT" layoutX="1269.0" layoutY="708.0" prefHeight="19.0" prefWidth="80.0" text="0%" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI" size="20.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="233.0" fitWidth="264.0" layoutX="581.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assests/bookshophouse.png" />
+         </image>
+      </ImageView>
+      <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" focusTraversable="false" layoutX="1303.0" layoutY="11.0" onAction="#closeOnAction" prefHeight="34.0" prefWidth="41.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/close.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" contrast="0.26" hue="0.74" saturation="1.0" />
+               </effect>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btnminimize" alignment="CENTER_RIGHT" buttonType="RAISED" focusTraversable="false" layoutX="1250.0" layoutY="12.0" onAction="#minimizeOnAction" prefHeight="29.0" prefWidth="60.0" AnchorPane.topAnchor="0.0">
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/minimize.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" contrast="0.03" hue="0.57" saturation="0.17" />
+               </effect>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>
