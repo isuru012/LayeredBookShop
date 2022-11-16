@@ -126,12 +126,14 @@ public class AdminWindowController {
     public void mousepressd(MouseEvent mouseEvent) {
     }
 
-    public void employeeOnAction(ActionEvent actionEvent) {
+    public void employeeOnAction(ActionEvent actionEvent) throws IOException {
         checkfocus();
+        Navigation.navigate(Routes.EMPLOYEE,pane2);
     }
 
-    public void supplierOnAction(ActionEvent actionEvent) {
+    public void supplierOnAction(ActionEvent actionEvent) throws IOException {
         checkfocus();
+        Navigation.navigate(Routes.SUPPLIERORDER,pane2);
     }
 
     public void offerOnAction(ActionEvent actionEvent) {
