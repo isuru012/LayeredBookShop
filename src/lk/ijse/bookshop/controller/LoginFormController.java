@@ -1,6 +1,7 @@
 package lk.ijse.bookshop.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -24,9 +25,10 @@ import java.io.IOException;
 
 public class LoginFormController {
     public JFXTextField txtUsername;
-    public JFXTextField txtPassword;
+
     public AnchorPane pane;
     public JFXButton btnminimize;
+    public JFXPasswordField txtPasswordField;
 
     public void forgotPasswordOnAction(MouseEvent mouseEvent) throws IOException {
         Navigation.navigate(Routes.PASSWORDRESET, pane);
@@ -37,7 +39,7 @@ public class LoginFormController {
     }
 
     public void signInOnAction(ActionEvent actionEvent) throws IOException {
-        if(txtUsername.getText().equals("admin")&& txtPassword.getText().equals("admin")){
+        if(txtUsername.getText().equals("admin")&& txtPasswordField.getText().equals("admin")){
             Navigation.navigate(Routes.ADMINWINDOW,pane);
         }else{
             Notification.notifie("Login In","Incorrect Username Or Password",NotificationType.ERROR);

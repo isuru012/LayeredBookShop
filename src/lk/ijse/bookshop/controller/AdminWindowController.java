@@ -13,18 +13,26 @@ import lk.ijse.bookshop.util.Routes;
 import lk.ijse.bookshop.util.WindowControll;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class AdminWindowController {
+    @FXML
     public AnchorPane pane;
+    @FXML
     public AnchorPane pane2;
+    @FXML
     public JFXButton btnDashboard;
+    @FXML
     public JFXButton btnEmployee;
+    @FXML
     public Label lblDate;
+    @FXML
     public Label lblTime;
+    @FXML
     Thread t1;
     @FXML
     private JFXButton btnSupplier;
@@ -41,7 +49,9 @@ public class AdminWindowController {
     ArrayList<JFXButton> arrayListButton=new ArrayList<>();
 
 
-    public void initialize() {
+    public void initialize()  {
+
+
         lblDate.setText(String.valueOf(LocalDate.now()));
         t1 = new Thread(() -> {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss a");
@@ -65,7 +75,9 @@ public class AdminWindowController {
         arrayListButton.add(btnOffers);
         arrayListButton.add(btnPayments);
         arrayListButton.add(btnSupplier);
+
     }
+
 
     public void checkButton(JFXButton button){
         for (int i = 0; i <arrayListButton.size(); i++) {

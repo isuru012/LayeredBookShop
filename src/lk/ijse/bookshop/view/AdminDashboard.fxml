@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="768.0" prefWidth="1079.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.AdminDashboardController">
    <children>
-      <LineChart layoutX="47.0" layoutY="269.0" prefHeight="449.0" prefWidth="642.0">
+      <LineChart layoutX="47.0" layoutY="269.0" prefHeight="449.0" prefWidth="642.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="47.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -21,7 +21,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <Pane layoutX="55.0" layoutY="52.0" prefHeight="177.0" prefWidth="306.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;">
+      <Pane layoutX="55.0" layoutY="52.0" prefHeight="177.0" prefWidth="306.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;" AnchorPane.topAnchor="70.0">
          <effect>
             <DropShadow color="#838282" />
          </effect>
@@ -43,7 +43,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="397.0" layoutY="52.0" prefHeight="177.0" prefWidth="306.0" style="-fx-background-radius: 40px; -fx-background-color: #FFFFFF;">
+      <Pane layoutX="397.0" layoutY="52.0" prefHeight="177.0" prefWidth="306.0" style="-fx-background-radius: 40px; -fx-background-color: #FFFFFF;" AnchorPane.topAnchor="70.0">
          <effect>
             <DropShadow color="#838282" />
          </effect>
@@ -65,7 +65,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="737.0" layoutY="52.0" prefHeight="177.0" prefWidth="306.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;">
+      <Pane layoutX="737.0" layoutY="52.0" prefHeight="177.0" prefWidth="306.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;" AnchorPane.topAnchor="70.0">
          <effect>
             <DropShadow color="#838282" />
          </effect>
@@ -87,7 +87,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="737.0" layoutY="269.0" prefHeight="449.0" prefWidth="306.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;">
+      <Pane layoutX="737.0" layoutY="269.0" prefHeight="449.0" prefWidth="306.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="36.0">
          <effect>
             <DropShadow color="#838282" />
          </effect>
