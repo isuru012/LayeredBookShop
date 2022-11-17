@@ -97,38 +97,14 @@ public class CashierWindowController {
         arrayListButton.add(btnPlaceReload);
 
     }
-
-    @FXML
-    void customersOnAction(ActionEvent event) throws IOException {
-        checkfocus();
-        Navigation.navigate(Routes.CASHIERCUSTOMER, pane2);
-
-    }
-
-    @FXML
-    void itemsOnAction(ActionEvent event) {
-        checkfocus();
-
-    }
-
-    @FXML
-    void placeOrderOnAction(ActionEvent event) throws IOException {
-        checkfocus();
-        Navigation.navigate(Routes.CASHIERPLACEORDER,pane2);
-    }
-
-    @FXML
-    void placeReloadOnAction(ActionEvent event) {
-        checkfocus();
-    }
-
-    public void closeOnAction(ActionEvent actionEvent) {
-        t1.stop();
-        WindowControll.window(null, actionEvent);
-    }
-
-    public void minimizeOnAction(ActionEvent actionEvent) {
-        WindowControll.window(pane, actionEvent);
+    public void checkButton(JFXButton button) {
+        for (int i = 0; i < arrayListButton.size(); i++) {
+            if (arrayListButton.get(i) == button) {
+                button.setTextFill(Paint.valueOf("#0aa119"));
+            } else {
+                arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
+            }
+        }
     }
 
     public void checkfocus() {
@@ -146,15 +122,43 @@ public class CashierWindowController {
         }
     }
 
-    public void checkButton(JFXButton button) {
-        for (int i = 0; i < arrayListButton.size(); i++) {
-            if (arrayListButton.get(i) == button) {
-                button.setTextFill(Paint.valueOf("#0aa119"));
-            } else {
-                arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
-            }
-        }
+    @FXML
+    void customersOnAction(ActionEvent event) throws IOException {
+        checkfocus();
+        Navigation.navigate(Routes.CASHIERCUSTOMER, pane2);
+
     }
+
+    @FXML
+    void itemsOnAction(ActionEvent event) throws IOException {
+        checkfocus();
+        Navigation.navigate(Routes.CASHIERITEMS,pane2);
+
+    }
+
+    @FXML
+    void placeOrderOnAction(ActionEvent event) throws IOException {
+        checkfocus();
+        Navigation.navigate(Routes.CASHIERPLACEORDER,pane2);
+    }
+
+    @FXML
+    void placeReloadOnAction(ActionEvent event) throws IOException {
+        checkfocus();
+        Navigation.navigate(Routes.CASHIERMAKERELOAD,pane2);
+    }
+
+    public void closeOnAction(ActionEvent actionEvent) {
+        t1.stop();
+        WindowControll.window(null, actionEvent);
+    }
+
+    public void minimizeOnAction(ActionEvent actionEvent) {
+        WindowControll.window(pane, actionEvent);
+    }
+
+
+
 
 
 }

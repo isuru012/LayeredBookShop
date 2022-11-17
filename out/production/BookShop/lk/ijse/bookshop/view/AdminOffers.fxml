@@ -88,15 +88,7 @@
             <Font name="Segoe UI Black" size="18.0" />
          </font>
       </JFXButton>
-
       <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="161.0" layoutY="279.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add" textFill="WHITE">
-          <font>
-              <Font name="Segoe UI Black" size="18.0" />
-          </font>
-      </JFXButton>
-
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="41.0" layoutY="372.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add" textFill="WHITE">
-
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
@@ -107,9 +99,9 @@
          </font>
       </JFXButton>
       <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="41.0" layoutY="372.0" onAction="#deleteOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #ED5E68; -fx-background-radius: 20px;" text="Delete" textFill="WHITE">
-          <font>
-              <Font name="Segoe UI Black" size="18.0" />
-          </font>
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
       </JFXButton>
       <Label layoutX="408.0" layoutY="14.0" prefHeight="57.0" prefWidth="234.0" text="Offer Details" textFill="#044721">
          <font>

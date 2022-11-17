@@ -17,27 +17,21 @@ public class Navigation {
 
         switch (route) {
             case LOGIN:
-
                 initUI("LoginForm.fxml");
                 break;
             case PASSWORDRESET:
-
                 initUI("PasswordResetForm.fxml");
                 break;
             case TRUERESET:
-
                 initUI("TrueResetPassword.fxml");
                 break;
             case CREATEACCOUNT:
-
                 initUI("CreateAccount.fxml");
                 break;
             case ADMINWINDOW:
-
                 initUI("AdminWindow.fxml");
                 break;
             case DASHBOARD:
-
                 initUI("AdminDashboard.fxml");
                 break;
             case EMPLOYEE:
@@ -67,7 +61,12 @@ public class Navigation {
             case CASHIERPLACEORDER:
                 initUI("CashierPlaceOrder.fxml");
                 break;
-
+            case CASHIERMAKERELOAD:
+                initUI("CashierMakeReload.fxml");
+                break;
+            case CASHIERITEMS:
+                initUI("CashierItems.fxml");
+                break;
             default:
                 new Alert(Alert.AlertType.ERROR, "Not suitable UI found!").show();
         }
