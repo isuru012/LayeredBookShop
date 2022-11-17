@@ -17,20 +17,20 @@
 
 <AnchorPane fx:id="pane" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.AdminWindowController">
    <children>
-      <AnchorPane fx:id="pane2" layoutX="287.0" prefHeight="768.0" prefWidth="1079.0">
+      <AnchorPane fx:id="pane2" layoutX="287.0" prefHeight="768.0" prefWidth="1079.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <LineChart layoutX="47.0" layoutY="287.0" prefHeight="449.0" prefWidth="642.0" AnchorPane.bottomAnchor="32.0">
+            <LineChart layoutX="47.0" layoutY="287.0" prefHeight="449.0" prefWidth="647.0" AnchorPane.bottomAnchor="32.0">
                <xAxis>
                   <CategoryAxis side="BOTTOM" />
                </xAxis>
                <yAxis>
                   <NumberAxis side="LEFT" />
                </yAxis>
+               <effect>
+                  <DropShadow color="#828282" />
+               </effect>
             </LineChart>
             <Pane layoutX="55.0" layoutY="70.0" prefHeight="177.0" prefWidth="306.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;" AnchorPane.topAnchor="70.0">
-               <effect>
-                  <DropShadow color="#838282" />
-               </effect>
                <children>
                   <ImageView fitHeight="44.0" fitWidth="46.0" layoutX="131.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -48,10 +48,13 @@
                      </font>
                   </Label>
                </children>
+               <effect>
+                  <DropShadow color="#838282" spread="0.3" />
+               </effect>
             </Pane>
             <Pane layoutX="397.0" layoutY="70.0" prefHeight="177.0" prefWidth="306.0" style="-fx-background-radius: 40px; -fx-background-color: #FFFFFF;" AnchorPane.topAnchor="70.0">
                <effect>
-                  <DropShadow color="#838282" />
+                  <DropShadow color="#838282" spread="0.3" />
                </effect>
                <children>
                   <ImageView fitHeight="44.0" fitWidth="46.0" layoutX="138.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
@@ -73,7 +76,7 @@
             </Pane>
             <Pane layoutX="737.0" layoutY="70.0" prefHeight="177.0" prefWidth="306.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;" AnchorPane.topAnchor="70.0">
                <effect>
-                  <DropShadow color="#838282" />
+                  <DropShadow color="#838282" spread="0.3" />
                </effect>
                <children>
                   <ImageView fitHeight="44.0" fitWidth="46.0" layoutX="131.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
@@ -95,7 +98,7 @@
             </Pane>
             <Pane layoutX="737.0" layoutY="287.0" prefHeight="449.0" prefWidth="306.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="36.0">
                <effect>
-                  <DropShadow color="#838282" />
+                  <DropShadow color="#838282" spread="0.3" />
                </effect>
                <children>
                   <Label layoutX="55.0" layoutY="27.0" prefHeight="36.0" prefWidth="209.0" text="Trending Products">
@@ -105,6 +108,11 @@
                   </Label>
                </children>
             </Pane>
+            <Label layoutX="408.0" layoutY="745.0" prefHeight="19.0" prefWidth="264.0" text="© 2021 - 2022 IsuruDulakshana - All Rights Reserved">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
       <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" focusTraversable="false" layoutX="1343.0" layoutY="51.0" onAction="#closeOnAction" prefHeight="34.0" prefWidth="41.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <graphic>
@@ -113,7 +121,7 @@
                   <Image url="@../assests/close.png" />
                </image>
                <effect>
-                  <ColorAdjust brightness="1.0" contrast="0.26" hue="0.74" saturation="1.0" />
+                  <ColorAdjust brightness="0.29" contrast="-1.0" saturation="1.0" />
                </effect>
             </ImageView>
          </graphic>
@@ -125,14 +133,14 @@
                   <Image url="@../assests/minimize.png" />
                </image>
                <effect>
-                  <ColorAdjust brightness="1.0" contrast="0.03" hue="0.57" saturation="0.17" />
+                  <ColorAdjust brightness="0.28" contrast="-1.0" hue="-1.0" saturation="0.6" />
                </effect>
             </ImageView>
          </graphic>
       </JFXButton>
       <Pane prefHeight="768.0" prefWidth="287.0" style="-fx-background-color: #FFFFFF;">
          <effect>
-            <DropShadow color="#838282" />
+            <DropShadow color="#838282" spread="0.3" />
          </effect>
          <children>
             <ImageView fitHeight="81.0" fitWidth="117.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -150,7 +158,7 @@
                   <Font name="Arial Bold" size="22.0" />
                </font>
             </Label>
-            <JFXButton fx:id="btnDashboard" buttonType="RAISED" layoutY="188.0" onAction="#dashboradOnAction" onMousePressed="#mousepressd" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="Dashboard">
+            <JFXButton fx:id="btnDashboard" buttonType="RAISED" layoutY="184.0" onAction="#dashboradOnAction" onMousePressed="#mousepressd" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="  Dashboard">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
@@ -158,8 +166,15 @@
                   <String fx:value="sidebarItem" />
                   <String fx:value="button" />
                </styleClass>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/dashboard.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnEmployee" buttonType="RAISED" layoutY="269.0" onAction="#employeeOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="Employees">
+            <JFXButton fx:id="btnEmployee" buttonType="RAISED" layoutY="273.0" onAction="#employeeOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="  Employees">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
@@ -167,8 +182,15 @@
                   <String fx:value="sidebarItem" />
                   <String fx:value="button" />
                </styleClass>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/Employees.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnSupplier" buttonType="RAISED" layoutY="358.0" onAction="#supplierOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="Suppliers">
+            <JFXButton fx:id="btnSupplier" buttonType="RAISED" layoutY="364.0" onAction="#supplierOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="  Suppliers   ">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
@@ -176,8 +198,15 @@
                   <String fx:value="sidebarItem" />
                   <String fx:value="button" />
                </styleClass>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/Suppliers.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnOffers" buttonType="RAISED" layoutY="439.0" onAction="#offerOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="Offers">
+            <JFXButton fx:id="btnOffers" buttonType="RAISED" layoutY="456.0" onAction="#offerOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="  Offers        ">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
@@ -185,8 +214,15 @@
                   <String fx:value="sidebarItem" />
                   <String fx:value="button" />
                </styleClass>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/Offers.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnPayments" buttonType="RAISED" layoutY="528.0" onAction="#paymentOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="Payments">
+            <JFXButton fx:id="btnPayments" buttonType="RAISED" layoutY="550.0" onAction="#paymentOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="  Payments   ">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
@@ -194,8 +230,15 @@
                   <String fx:value="sidebarItem" />
                   <String fx:value="button" />
                </styleClass>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/Payments.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnExpenditures" buttonType="RAISED" layoutY="618.0" onAction="#expenditureOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="Expenditures">
+            <JFXButton fx:id="btnExpenditures" buttonType="RAISED" layoutY="640.0" onAction="#expenditureOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="  Expenditures">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
@@ -203,6 +246,13 @@
                   <String fx:value="sidebarItem" />
                   <String fx:value="button" />
                </styleClass>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/Expenditures.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </JFXButton>
             <Label fx:id="lblDate" layoutX="11.0" layoutY="146.0" prefHeight="25.0" prefWidth="121.0">
                <font>

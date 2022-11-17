@@ -119,6 +119,7 @@ public class AdminWindowController {
 
     public void dashboradOnAction(ActionEvent actionEvent) throws IOException {
         checkfocus();
+
         Navigation.navigate(Routes.DASHBOARD, pane2);
     }
 
@@ -136,15 +137,18 @@ public class AdminWindowController {
         Navigation.navigate(Routes.SUPPLIERORDER,pane2);
     }
 
-    public void offerOnAction(ActionEvent actionEvent) {
+    public void offerOnAction(ActionEvent actionEvent) throws IOException {
         checkfocus();
+        Navigation.navigate(Routes.OFFERS,pane2);
     }
 
-    public void paymentOnAction(ActionEvent actionEvent) {
+    public void paymentOnAction(ActionEvent actionEvent) throws IOException {
         checkfocus();
+        Navigation.navigate(Routes.PAYMENT,pane2);
     }
 
-    public void expenditureOnAction(ActionEvent actionEvent) {
+    public void expenditureOnAction(ActionEvent actionEvent) throws IOException {
         checkfocus();
+        Navigation.navigate(Routes.EXPENDITURE,pane2);
     }
 }

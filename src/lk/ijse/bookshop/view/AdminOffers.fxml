@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.AdminOffersController">
+   <children>
+      <TableView layoutX="41.0" layoutY="424.0" prefHeight="312.0" prefWidth="998.0">
+        <columns>
+          <TableColumn prefWidth="294.0" text="Item Code" />
+          <TableColumn prefWidth="272.0" text="Ammount" />
+            <TableColumn prefWidth="230.0" text="Starting Date" />
+            <TableColumn prefWidth="201.0" text="Ending Date" />
+        </columns>
+      </TableView>
+      <Label layoutX="523.0" layoutY="200.0" prefHeight="21.0" prefWidth="109.0" text="Item Id :">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <JFXComboBox fx:id="cmbItemId" layoutX="653.0" layoutY="194.0" onAction="#cmbItemIdOnAction" prefHeight="33.0" prefWidth="203.0" />
+      <Label layoutX="525.0" layoutY="275.0" text="Item Name:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblItemName" layoutX="673.0" layoutY="272.0" prefHeight="26.0" prefWidth="196.0" textFill="#278d7f">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtOffer" focusColor="#448dc2" focusTraversable="false" layoutX="41.0" layoutY="136.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../css/style.css">
+         <effect>
+            <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
+         </effect>
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="41.0" layoutY="109.0" text="Offer Ammount">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtStartingDate" focusColor="#448dc2" focusTraversable="false" layoutX="525.0" layoutY="130.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../css/style.css">
+         <effect>
+            <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
+         </effect>
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="523.0" layoutY="104.0" text="Starting Date">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtEndingDate" focusColor="#448dc2" focusTraversable="false" layoutX="41.0" layoutY="222.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../css/style.css">
+         <effect>
+            <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
+         </effect>
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="41.0" layoutY="193.0" text="Ending Date">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtPhoneNumber1" focusColor="#448dc2" focusTraversable="false" layoutX="439.0" layoutY="372.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../css/style.css">
+         <effect>
+            <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
+         </effect>
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="893.0" layoutY="372.0" onAction="#searchOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Search" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="161.0" layoutY="279.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="325.0" layoutY="279.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="41.0" layoutY="372.0" onAction="#deleteOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #ED5E68; -fx-background-radius: 20px;" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="408.0" layoutY="14.0" prefHeight="57.0" prefWidth="234.0" text="Offer Details" textFill="#044721">
+         <font>
+            <Font name="Segoe UI Black" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="410.0" layoutY="745.0" prefHeight="19.0" prefWidth="314.0" text="© 2021 - 2022 IsuruDulakshana - All Rights Reserved">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

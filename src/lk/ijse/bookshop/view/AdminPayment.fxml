@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="768.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.AdminPaymentController">
+   <children>
+      <TableView layoutX="31.0" layoutY="310.0" prefHeight="420.0" prefWidth="1032.0">
+        <columns>
+          <TableColumn prefWidth="93.0" text="Code" />
+          <TableColumn prefWidth="176.0" text="Amount" />
+            <TableColumn prefWidth="200.0" text="Date" />
+            <TableColumn prefWidth="145.0" text="Time" />
+            <TableColumn prefWidth="187.0" text="Suplier Name" />
+            <TableColumn prefWidth="230.0" text="Expenditure Description" />
+        </columns>
+      </TableView>
+      <JFXTextField layoutX="31.0" layoutY="226.0" prefHeight="32.0" prefWidth="848.0" />
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="917.0" layoutY="223.0" onAction="#searchOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Search" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="31.0" layoutY="132.0" prefHeight="32.0" prefWidth="130.0" text="Sort by      :">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXComboBox layoutX="165.0" layoutY="136.0" prefHeight="25.0" prefWidth="232.0" />
+      <Label layoutX="393.0" layoutY="21.0" prefHeight="57.0" prefWidth="294.0" text="Payment Details" textFill="#044721">
+         <font>
+            <Font name="Segoe UI Black" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="390.0" layoutY="745.0" prefHeight="19.0" prefWidth="314.0" text="© 2021 - 2022 IsuruDulakshana - All Rights Reserved">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

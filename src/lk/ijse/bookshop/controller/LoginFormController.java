@@ -41,11 +41,12 @@ public class LoginFormController {
     public void signInOnAction(ActionEvent actionEvent) throws IOException {
         if(txtUsername.getText().equals("admin")&& txtPasswordField.getText().equals("admin")){
             Navigation.navigate(Routes.ADMINWINDOW,pane);
-        }else{
+        }else if (txtUsername.getText().equals("cashier")&& txtPasswordField.getText().equals("cashier")){
+            Navigation.navigate(Routes.CASHIERWINDOW,pane);
+
+        }
+        else{
             Notification.notifie("Login In","Incorrect Username Or Password",NotificationType.ERROR);
-
-
-
         }
 
     }

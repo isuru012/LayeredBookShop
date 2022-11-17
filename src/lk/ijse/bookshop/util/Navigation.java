@@ -49,6 +49,25 @@ public class Navigation {
             case SUPPLIERDETAILS:
                 initUI("AdminSupplierDetails.fxml");
                 break;
+            case OFFERS:
+                initUI("AdminOffers.fxml");
+                break;
+            case PAYMENT:
+                initUI("AdminPayment.fxml");
+                break;
+            case EXPENDITURE:
+                initUI("AdminExpenditure.fxml");
+                break;
+            case CASHIERWINDOW:
+                initUI("CashierWindow.fxml");
+                break;
+            case CASHIERCUSTOMER:
+                initUI("CashierCustomers.fxml");
+                break;
+            case CASHIERPLACEORDER:
+                initUI("CashierPlaceOrder.fxml");
+                break;
+
             default:
                 new Alert(Alert.AlertType.ERROR, "Not suitable UI found!").show();
         }

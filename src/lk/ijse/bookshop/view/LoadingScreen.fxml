@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,7 +13,7 @@
 <AnchorPane fx:id="pane" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #044721;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.LoadingScreenController">
    <children>
       <ProgressBar fx:id="progressBar" layoutX="2.0" layoutY="745.0" prefHeight="18.0" prefWidth="1363.0" progress="0.0" />
-      <Label layoutX="283.0" layoutY="396.0" prefHeight="78.0" prefWidth="872.0" text="Rangi BookShop And Communication" textFill="WHITE">
+      <Label layoutX="262.0" layoutY="370.0" prefHeight="78.0" prefWidth="872.0" text="Rangi BookShop And Communication" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="46.0" />
          </font>
@@ -39,7 +40,7 @@
                   <Image url="@../assests/close.png" />
                </image>
                <effect>
-                  <ColorAdjust brightness="1.0" contrast="0.26" hue="0.74" saturation="1.0" />
+                  <ColorAdjust brightness="0.29" contrast="-1.0" saturation="1.0" />
                </effect>
             </ImageView>
          </graphic>
@@ -51,10 +52,11 @@
                   <Image url="@../assests/minimize.png" />
                </image>
                <effect>
-                  <ColorAdjust brightness="1.0" contrast="0.03" hue="0.57" saturation="0.17" />
+                  <ColorAdjust brightness="0.28" contrast="-1.0" hue="-1.0" saturation="0.6" />
                </effect>
             </ImageView>
          </graphic>
       </JFXButton>
+      <Separator layoutX="460.0" layoutY="299.0" prefHeight="0.0" prefWidth="459.0" />
    </children>
 </AnchorPane>
