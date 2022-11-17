@@ -2,17 +2,11 @@ package lk.ijse.bookshop.controller;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 
-public class AdminSupplierDetailsController {
-
+public class AdminExpenditureController {
     public JFXTextField txtPhoneNumber1;
-    public JFXTextField txtPhoneNumber;
-    public JFXTextField txtAddess;
-    public JFXTextField txtName;
-    @FXML
-    private AnchorPane pane2;
+    public JFXTextField txtAmount;
+    public JFXTextField txtDescription;
 
     public void deleteOnAction(ActionEvent actionEvent) {
     }

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="768.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.AdminExpenditureController">
+   <children>
+      <TableView layoutX="42.0" layoutY="442.0" prefHeight="294.0" prefWidth="1007.0">
+        <columns>
+          <TableColumn prefWidth="124.00003051757812" text="Code" />
+          <TableColumn prefWidth="226.0" text="Description" />
+            <TableColumn prefWidth="257.0" text="Time" />
+            <TableColumn prefWidth="184.0" text="Date" />
+            <TableColumn prefWidth="182.0" text="Amount" />
+        </columns>
+      </TableView>
+      <JFXTextField fx:id="txtDescription" focusColor="#448dc2" focusTraversable="false" layoutX="42.0" layoutY="183.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../css/style.css">
+         <effect>
+            <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
+         </effect>
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="42.0" layoutY="156.0" text="Description">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtAmount" focusColor="#448dc2" focusTraversable="false" layoutX="619.0" layoutY="182.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../css/style.css">
+         <effect>
+            <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
+         </effect>
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="617.0" layoutY="156.0" text="Amount">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtPhoneNumber1" focusColor="#448dc2" focusTraversable="false" layoutX="42.0" layoutY="282.0" prefHeight="38.0" prefWidth="489.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../css/style.css">
+         <effect>
+            <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
+         </effect>
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="550.0" layoutY="282.0" onAction="#searchOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Search" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="565.0" layoutY="377.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="734.0" layoutY="377.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="903.0" layoutY="377.0" onAction="#deleteOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #ED5E68; -fx-background-radius: 20px;" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Black" size="18.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="401.0" layoutY="33.0" prefHeight="57.0" prefWidth="360.0" text="Expenditure Details" textFill="#044721">
+         <font>
+            <Font name="Segoe UI Black" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="424.0" layoutY="745.0" prefHeight="19.0" prefWidth="314.0" text="© 2021 - 2022 IsuruDulakshana - All Rights Reserved">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

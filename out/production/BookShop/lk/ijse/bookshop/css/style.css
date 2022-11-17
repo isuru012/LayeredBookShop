@@ -45,7 +45,7 @@
     -fx-border-width: 0px 0px 0px 6px;
 }
 .button:focused{
-    -fx-background-color: #ffffff;
+    -fx-background-color: #dcf6dd;
     -fx-border-color: #0aa119;
     -fx-border-width: 0px 0px 0px 6px;
 }
