@@ -7,9 +7,10 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="768.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.CashierMakeReloadController">
    <children>
@@ -83,6 +84,13 @@
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/search.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
       <TableView layoutX="40.0" layoutY="186.0" prefHeight="89.0" prefWidth="1019.0">
          <columns>
@@ -123,36 +131,78 @@
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/plus2.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
       <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="744.0" layoutY="140.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/update.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="913.0" layoutY="470.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add To Cart" textFill="WHITE">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="856.0" layoutY="470.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="203.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add To Cart" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/placeOrder.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
       <Label layoutX="424.0" layoutY="14.0" prefHeight="53.0" prefWidth="232.0" text="Reload Form" textFill="#044721">
          <font>
             <Font name="Segoe UI Black" size="36.0" />
          </font>
       </Label>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="578.0" layoutY="470.0" onAction="#deleteOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #ED5E68; -fx-background-radius: 20px;" text="Delete" textFill="WHITE">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="521.0" layoutY="470.0" onAction="#deleteOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #ED5E68; -fx-background-radius: 20px;" text="Delete" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/remove.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="747.0" layoutY="470.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="690.0" layoutY="470.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/update.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="913.0" layoutY="720.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #015719; -fx-background-radius: 20px;" text="Place Order" textFill="WHITE">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="856.0" layoutY="720.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="203.0" ripplerFill="WHITE" style="-fx-background-color: #015719; -fx-background-radius: 20px;" text="Place Order" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/placeorder2.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
       <Label layoutX="39.0" layoutY="720.0" prefHeight="45.0" prefWidth="115.0" text="Total :" textFill="#044721">
          <font>

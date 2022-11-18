@@ -112,6 +112,18 @@
                   </ImageView>
                </graphic>
             </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="55.0" layoutY="721.0" onAction="#logOutOnAction" prefHeight="25.0" prefWidth="178.0" style="-fx-background-color: #21a24a;" text="Log Out">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/logout.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
          </children>
       </Pane>
       <AnchorPane fx:id="pane2" layoutX="287.0" prefHeight="768.0" prefWidth="1079.0">
@@ -154,21 +166,49 @@
                <font>
                   <Font name="Segoe UI Black" size="18.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/search.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </JFXButton>
             <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="909.0" layoutY="237.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Black" size="18.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/plus2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </JFXButton>
             <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="721.0" layoutY="237.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Black" size="18.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/update.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </JFXButton>
             <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="56.0" layoutY="328.0" onAction="#deleteOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #ED5E68; -fx-background-radius: 20px;" text="Delete" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Black" size="18.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/remove.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </JFXButton>
             <JFXTextField fx:id="txtSearch" focusColor="#448dc2" focusTraversable="false" layoutX="260.0" layoutY="328.0" prefHeight="38.0" prefWidth="628.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../css/style.css">
                <effect>
@@ -183,6 +223,7 @@
                   <Font name="Segoe UI Black" size="36.0" />
                </font>
             </Label>
+            <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="595.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true" />
          </children></AnchorPane>
       <JFXButton alignment="CENTER_RIGHT" buttonType="RAISED" focusTraversable="false" layoutX="1353.0" layoutY="61.0" onAction="#closeOnAction" prefHeight="34.0" prefWidth="41.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <graphic>

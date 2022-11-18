@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -109,16 +111,37 @@
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/plus2.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
       <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="721.0" layoutY="331.0" onAction="#deleteOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #ED5E68; -fx-background-radius: 20px;" text="Delete" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/remove.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="903.0" layoutY="702.0" onAction="#placeOrderOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Place Order" textFill="WHITE">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="823.0" layoutY="702.0" onAction="#placeOrderOnAction" prefHeight="38.0" prefWidth="226.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Place Order" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/placeorder2.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
       <Label layoutX="28.0" layoutY="693.0" prefHeight="57.0" prefWidth="129.0" text="Total  :" textFill="#044721">
          <font>
@@ -137,14 +160,28 @@
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/orders.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="853.0" layoutY="45.0" onAction="#btnSeeSupplierDetailsOnAction" prefHeight="33.0" prefWidth="203.0" style="-fx-background-color: #039944;" text="See Suppliers Details" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="793.0" layoutY="45.0" onAction="#btnSeeSupplierDetailsOnAction" prefHeight="33.0" prefWidth="263.0" style="-fx-background-color: #039944;" text="See Suppliers Details" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <font>
             <Font name="Arial Bold" size="17.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/Suppliers.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
       <Label layoutX="421.0" layoutY="741.0" prefHeight="19.0" prefWidth="314.0" text="© 2021 - 2022 IsuruDulakshana - All Rights Reserved">
          <font>

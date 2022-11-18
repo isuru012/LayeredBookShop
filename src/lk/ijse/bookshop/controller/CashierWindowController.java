@@ -158,7 +158,7 @@ public class CashierWindowController {
     }
 
 
-
-
-
+    public void logOutOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.LOGIN,pane);
+    }
 }

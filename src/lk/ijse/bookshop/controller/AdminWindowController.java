@@ -151,4 +151,8 @@ public class AdminWindowController {
         checkfocus();
         Navigation.navigate(Routes.EXPENDITURE,pane2);
     }
+
+    public void logOutOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.LOGIN,pane);
+    }
 }

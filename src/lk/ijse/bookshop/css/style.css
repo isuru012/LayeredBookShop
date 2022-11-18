@@ -49,3 +49,9 @@
     -fx-border-color: #0aa119;
     -fx-border-width: 0px 0px 0px 6px;
 }
+.green-progress-bar .bar {
+    -fx-background-color: #066406;
+}
+.progress-bar.bar{
+
+}
