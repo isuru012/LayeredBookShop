@@ -37,6 +37,9 @@ public class Navigation {
             case EMPLOYEE:
                 initUI("AdminEmployee.fxml");
                 break;
+            case ADMINITEMS:
+                initUI("AdminItems.fxml");
+                break;
             case SUPPLIERORDER:
                 initUI("AdminSupplier.fxml");
                 break;

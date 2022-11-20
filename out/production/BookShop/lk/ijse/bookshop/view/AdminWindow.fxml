@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import java.lang.String?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -19,7 +20,7 @@
    <children>
       <AnchorPane fx:id="pane2" layoutX="287.0" prefHeight="768.0" prefWidth="1079.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <LineChart layoutX="47.0" layoutY="287.0" prefHeight="449.0" prefWidth="647.0" AnchorPane.bottomAnchor="32.0">
+            <LineChart fx:id="lineChart" layoutX="47.0" layoutY="287.0" legendVisible="false" prefHeight="449.0" prefWidth="647.0" AnchorPane.bottomAnchor="32.0">
                <xAxis>
                   <CategoryAxis side="BOTTOM" />
                </xAxis>
@@ -34,7 +35,7 @@
                <children>
                   <ImageView fitHeight="44.0" fitWidth="46.0" layoutX="131.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assests/orders.png" />
+                        <Image url="@../assests/logos/orders.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="123.0" layoutY="59.0" prefHeight="36.0" prefWidth="62.0" text="Orders">
@@ -59,7 +60,7 @@
                <children>
                   <ImageView fitHeight="44.0" fitWidth="46.0" layoutX="138.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assests/products.png" />
+                        <Image url="@../assests/logos/products.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="120.0" layoutY="59.0" prefHeight="36.0" prefWidth="80.0" text="Products">
@@ -81,7 +82,7 @@
                <children>
                   <ImageView fitHeight="44.0" fitWidth="46.0" layoutX="131.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assests/customers.png" />
+                        <Image url="@../assests/logos/customers.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="106.0" layoutY="59.0" prefHeight="36.0" prefWidth="94.0" text="Customers">
@@ -118,25 +119,31 @@
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assests/close.png" />
+                  <Image url="@../assests/logos/close.png" />
                </image>
                <effect>
                   <ColorAdjust brightness="0.29" contrast="-1.0" saturation="1.0" />
                </effect>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <JFXButton fx:id="btnminimize" alignment="CENTER_RIGHT" buttonType="RAISED" focusTraversable="false" layoutX="1289.0" layoutY="22.0" onAction="#minimizeOnAction" prefHeight="29.0" prefWidth="60.0" AnchorPane.rightAnchor="37.0" AnchorPane.topAnchor="0.0">
          <graphic>
             <ImageView fitHeight="28.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assests/minimize.png" />
+                  <Image url="@../assests/logos/minimize.png" />
                </image>
                <effect>
                   <ColorAdjust brightness="0.28" contrast="-1.0" hue="-1.0" saturation="0.6" />
                </effect>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <Pane prefHeight="768.0" prefWidth="287.0" style="-fx-background-color: #FFFFFF;">
          <effect>
@@ -145,7 +152,7 @@
          <children>
             <ImageView fitHeight="81.0" fitWidth="117.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assests/adminlogo.png" />
+                  <Image url="@../assests/logos/adminlogo.png" />
                </image>
             </ImageView>
             <Label layoutX="95.0" layoutY="33.0" prefHeight="36.0" prefWidth="67.0" text="Hello,">
@@ -158,7 +165,26 @@
                   <Font name="Arial Bold" size="22.0" />
                </font>
             </Label>
-            <JFXButton fx:id="btnDashboard" buttonType="RAISED" layoutY="184.0" onAction="#dashboradOnAction" onMousePressed="#mousepressd" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="  Dashboard">
+            <JFXButton fx:id="btnDashboard" buttonType="RAISED" layoutY="189.0" onAction="#dashboradOnAction" onMousePressed="#mousepressd" prefHeight="65.0" prefWidth="287.0" stylesheets="@../assests/css/style.css" text="  Dashboard">
+               <font>
+                  <Font name="Segoe UI Bold" size="22.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/logos/dashboard.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="sidebarItem" />
+                  <String fx:value="button" />
+               </styleClass>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="btnEmployee" buttonType="RAISED" layoutY="263.0" onAction="#employeeOnAction" prefHeight="65.0" prefWidth="287.0" stylesheets="@../assests/css/style.css" text="  Employees">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
@@ -169,12 +195,15 @@
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assests/dashboard.png" />
+                        <Image url="@../assests/logos/Employees.png" />
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
-            <JFXButton fx:id="btnEmployee" buttonType="RAISED" layoutY="273.0" onAction="#employeeOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="  Employees">
+            <JFXButton fx:id="btnSupplier" buttonType="RAISED" layoutY="335.0" onAction="#supplierOnAction" prefHeight="65.0" prefWidth="287.0" stylesheets="@../assests/css/style.css" text="  Suppliers   ">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
@@ -185,12 +214,15 @@
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assests/Employees.png" />
+                        <Image url="@../assests/logos/Suppliers.png" />
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
-            <JFXButton fx:id="btnSupplier" buttonType="RAISED" layoutY="364.0" onAction="#supplierOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="  Suppliers   ">
+            <JFXButton fx:id="btnOffers" buttonType="RAISED" layoutY="485.0" onAction="#offerOnAction" prefHeight="65.0" prefWidth="287.0" stylesheets="@../assests/css/style.css" text="  Offers        ">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
@@ -201,12 +233,15 @@
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assests/Suppliers.png" />
+                        <Image url="@../assests/logos/Offers.png" />
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
-            <JFXButton fx:id="btnOffers" buttonType="RAISED" layoutY="456.0" onAction="#offerOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="  Offers        ">
+            <JFXButton fx:id="btnPayments" buttonType="RAISED" layoutY="560.0" onAction="#paymentOnAction" prefHeight="65.0" prefWidth="287.0" stylesheets="@../assests/css/style.css" text="  Payments   ">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
@@ -217,28 +252,15 @@
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assests/Offers.png" />
+                        <Image url="@../assests/logos/Payments.png" />
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
-            <JFXButton fx:id="btnPayments" buttonType="RAISED" layoutY="550.0" onAction="#paymentOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="  Payments   ">
-               <font>
-                  <Font name="Segoe UI Bold" size="22.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="sidebarItem" />
-                  <String fx:value="button" />
-               </styleClass>
-               <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assests/Payments.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="btnExpenditures" buttonType="RAISED" layoutY="640.0" onAction="#expenditureOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../css/style.css" text="  Expenditures">
+            <JFXButton fx:id="btnExpenditures" buttonType="RAISED" layoutY="634.0" onAction="#expenditureOnAction" prefHeight="65.0" prefWidth="287.0" stylesheets="@../assests/css/style.css" text="  Expenditures">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
@@ -249,10 +271,13 @@
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assests/Expenditures.png" />
+                        <Image url="@../assests/logos/Expenditures.png" />
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
             <Label fx:id="lblDate" layoutX="11.0" layoutY="146.0" prefHeight="25.0" prefWidth="121.0">
                <font>
@@ -272,10 +297,32 @@
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assests/logout.png" />
+                        <Image url="@../assests/logos/logout.png" />
                      </image>
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="btnItems" buttonType="RAISED" layoutY="410.0" onAction="#itemsOnAction" prefHeight="65.0" prefWidth="287.0" stylesheets="@../assests/css/style.css" text="  Items         ">
+               <font>
+                  <Font name="Segoe UI Bold" size="22.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/logos/items.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="sidebarItem" />
+                  <String fx:value="button" />
+               </styleClass>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </JFXButton>
          </children>
       </Pane>

@@ -13,12 +13,12 @@
 
 <AnchorPane prefHeight="768.0" prefWidth="1079.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.AdminDashboardController">
    <children>
-      <LineChart layoutX="47.0" layoutY="269.0" prefHeight="449.0" prefWidth="642.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="47.0">
+      <LineChart fx:id="lineChart" layoutX="47.0" layoutY="269.0" legendVisible="false" prefHeight="449.0" prefWidth="642.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="47.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <CategoryAxis side="BOTTOM" fx:id="xAxis" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis fx:id="yAxis" side="LEFT" />
         </yAxis>
       </LineChart>
       <Pane layoutX="55.0" layoutY="52.0" prefHeight="177.0" prefWidth="306.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;" AnchorPane.topAnchor="70.0">
@@ -28,7 +28,7 @@
          <children>
             <ImageView fitHeight="44.0" fitWidth="46.0" layoutX="131.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assests/orders.png" />
+                  <Image url="@../assests/logos/orders.png" />
                </image>
             </ImageView>
             <Label layoutX="123.0" layoutY="59.0" prefHeight="36.0" prefWidth="62.0" text="Orders">
@@ -50,7 +50,7 @@
          <children>
             <ImageView fitHeight="44.0" fitWidth="46.0" layoutX="138.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assests/products.png" />
+                  <Image url="@../assests/logos/products.png" />
                </image>
             </ImageView>
             <Label layoutX="120.0" layoutY="59.0" prefHeight="36.0" prefWidth="80.0" text="Products">
@@ -72,7 +72,7 @@
          <children>
             <ImageView fitHeight="44.0" fitWidth="46.0" layoutX="131.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assests/customers.png" />
+                  <Image url="@../assests/logos/customers.png" />
                </image>
             </ImageView>
             <Label layoutX="106.0" layoutY="59.0" prefHeight="36.0" prefWidth="94.0" text="Customers">

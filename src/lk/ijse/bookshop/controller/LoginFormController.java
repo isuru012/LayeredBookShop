@@ -29,13 +29,14 @@ public class LoginFormController {
     public AnchorPane pane;
     public JFXButton btnminimize;
     public JFXPasswordField txtPasswordField;
+    public AnchorPane pane2;
 
     public void forgotPasswordOnAction(MouseEvent mouseEvent) throws IOException {
-        Navigation.navigate(Routes.PASSWORDRESET, pane);
+        Navigation.navigate(Routes.PASSWORDRESET, pane2);
     }
 
     public void createAccountOnAction(MouseEvent mouseEvent) throws IOException {
-        Navigation.navigate(Routes.CREATEACCOUNT, pane);
+        Navigation.navigate(Routes.CREATEACCOUNT, pane2);
     }
 
     public void signInOnAction(ActionEvent actionEvent) throws IOException {

@@ -30,7 +30,7 @@ public class CashierWindowController {
     @FXML
     private Label lblTime;
     @FXML
-    public static JFXButton btnCustomers;
+    public  JFXButton btnCustomers;
     @FXML
     private JFXButton btnPlaceOrder;
     @FXML
@@ -72,7 +72,8 @@ public class CashierWindowController {
     private static boolean bool = false;
 
     public void initialize() {
-
+        btnCustomers.setTextFill(Paint.valueOf("#0aa119"));
+        btnCustomers.setStyle("-fx-background-color: #dcf6dd");
         lblDate.setText(String.valueOf(LocalDate.now()));
         t1 = new Thread(() -> {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss a");
@@ -103,13 +104,13 @@ public class CashierWindowController {
                 button.setTextFill(Paint.valueOf("#0aa119"));
             } else {
                 arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
+                btnCustomers.setStyle(null);
             }
         }
     }
 
     public void checkfocus() {
-        if(btnCustomers!=null) {
-            if (btnCustomers.isFocused()) {
+        if (btnCustomers.isFocused()) {
                 checkButton(btnCustomers);
 
             } else if (btnItems.isFocused()) {
@@ -118,7 +119,7 @@ public class CashierWindowController {
                 checkButton(btnPlaceOrder);
             } else if (btnPlaceReload.isFocused()) {
                 checkButton(btnPlaceReload);
-            }
+
         }
     }
 

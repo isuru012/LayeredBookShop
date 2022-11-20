@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -32,6 +34,8 @@ public class AdminWindowController {
     public Label lblDate;
     @FXML
     public Label lblTime;
+    public JFXButton btnItems;
+    public LineChart lineChart;
     @FXML
     Thread t1;
     @FXML
@@ -46,12 +50,13 @@ public class AdminWindowController {
     @FXML
     private JFXButton btnExpenditures;
     private static boolean bool = false;
-    ArrayList<JFXButton> arrayListButton=new ArrayList<>();
+    ArrayList<JFXButton> arrayListButton = new ArrayList<>();
 
 
-    public void initialize()  {
-
-
+    public void initialize() {
+        returnLineChart();
+        btnDashboard.setTextFill(Paint.valueOf("#0aa119"));
+        btnDashboard.setStyle("-fx-background-color: #dcf6dd");
         lblDate.setText(String.valueOf(LocalDate.now()));
         t1 = new Thread(() -> {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss a");
@@ -75,16 +80,35 @@ public class AdminWindowController {
         arrayListButton.add(btnOffers);
         arrayListButton.add(btnPayments);
         arrayListButton.add(btnSupplier);
+        arrayListButton.add(btnItems);
 
+    }
+    public void returnLineChart(){
+        XYChart.Series series = new XYChart.Series();
+
+
+        series.getData().add(new XYChart.Data("Mon", 5000));
+        series.getData().add(new XYChart.Data("Tue", 8000));
+        series.getData().add(new XYChart.Data("Wed", 12000));
+        series.getData().add(new XYChart.Data("Thu", 25000));
+        series.getData().add(new XYChart.Data("Fri", 15000));
+        series.getData().add(new XYChart.Data("Sat", 11000));
+        series.getData().add(new XYChart.Data("Sun", 22000));
+
+        lineChart.getData().addAll(series);
+        lineChart.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
+        lineChart.getXAxis().setLabel("Days of the week");
+        lineChart.getYAxis().setLabel("Amount  earned");
     }
 
 
-    public void checkButton(JFXButton button){
-        for (int i = 0; i <arrayListButton.size(); i++) {
-            if (arrayListButton.get(i)==button){
+    public void checkButton(JFXButton button) {
+        for (int i = 0; i < arrayListButton.size(); i++) {
+            if (arrayListButton.get(i) == button) {
                 button.setTextFill(Paint.valueOf("#0aa119"));
-            }else{
+            } else {
                 arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
+                btnDashboard.setStyle(null);
             }
         }
     }
@@ -92,18 +116,20 @@ public class AdminWindowController {
     public void checkfocus() {
 
         if (btnDashboard.isFocused()) {
-             checkButton(btnDashboard);
+            checkButton(btnDashboard);
 
         } else if (btnEmployee.isFocused()) {
             checkButton(btnEmployee);
-        }else if (btnSupplier.isFocused()){
-           checkButton(btnSupplier);
-        }else if (btnPayments.isFocused()){
+        } else if (btnSupplier.isFocused()) {
+            checkButton(btnSupplier);
+        } else if (btnItems.isFocused()) {
+            checkButton(btnItems);
+        } else if (btnPayments.isFocused()) {
             checkButton(btnPayments);
-        }else if (btnOffers.isFocused()){
-           checkButton(btnOffers);
+        } else if (btnOffers.isFocused()) {
+            checkButton(btnOffers);
 
-        }else if (btnExpenditures.isFocused()){
+        } else if (btnExpenditures.isFocused()) {
             checkButton(btnExpenditures);
         }
     }
@@ -129,30 +155,35 @@ public class AdminWindowController {
 
     public void employeeOnAction(ActionEvent actionEvent) throws IOException {
         checkfocus();
-        Navigation.navigate(Routes.EMPLOYEE,pane2);
+        Navigation.navigate(Routes.EMPLOYEE, pane2);
     }
 
     public void supplierOnAction(ActionEvent actionEvent) throws IOException {
         checkfocus();
-        Navigation.navigate(Routes.SUPPLIERORDER,pane2);
+        Navigation.navigate(Routes.SUPPLIERORDER, pane2);
     }
 
     public void offerOnAction(ActionEvent actionEvent) throws IOException {
         checkfocus();
-        Navigation.navigate(Routes.OFFERS,pane2);
+        Navigation.navigate(Routes.OFFERS, pane2);
     }
 
     public void paymentOnAction(ActionEvent actionEvent) throws IOException {
         checkfocus();
-        Navigation.navigate(Routes.PAYMENT,pane2);
+        Navigation.navigate(Routes.PAYMENT, pane2);
     }
 
     public void expenditureOnAction(ActionEvent actionEvent) throws IOException {
         checkfocus();
-        Navigation.navigate(Routes.EXPENDITURE,pane2);
+        Navigation.navigate(Routes.EXPENDITURE, pane2);
     }
 
     public void logOutOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.LOGIN,pane);
+        Navigation.navigate(Routes.LOGIN, pane);
+    }
+
+    public void itemsOnAction(ActionEvent actionEvent) throws IOException {
+        checkfocus();
+        Navigation.navigate(Routes.ADMINITEMS, pane2);
     }
 }

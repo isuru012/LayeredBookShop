@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -80,18 +81,6 @@
             <Font name="Arial" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="800.0" layoutY="73.0" onAction="#searchOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Search" textFill="WHITE">
-         <font>
-            <Font name="Segoe UI Black" size="18.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assests/search.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </JFXButton>
       <TableView layoutX="40.0" layoutY="186.0" prefHeight="89.0" prefWidth="1019.0">
          <columns>
             <TableColumn prefWidth="190.0" text="Code" />
@@ -100,8 +89,11 @@
             <TableColumn prefWidth="279.0" text="JoinedDate" />
          </columns>
       </TableView>
-      <JFXTextField layoutX="39.0" layoutY="79.0" prefHeight="26.0" prefWidth="717.0" />
-      <JFXTextField fx:id="txtName" focusColor="#448dc2" focusTraversable="false" layoutX="39.0" layoutY="150.0" prefHeight="26.0" prefWidth="314.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../css/style.css">
+      <JFXTextField layoutX="39.0" layoutY="68.0" prefHeight="37.0" prefWidth="1019.0" promptText="Search Here">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font></JFXTextField>
+      <JFXTextField fx:id="txtName" focusColor="#448dc2" focusTraversable="false" layoutX="39.0" layoutY="150.0" prefHeight="26.0" prefWidth="314.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -114,7 +106,7 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtPhoneNumber" focusColor="#448dc2" focusTraversable="false" layoutX="398.0" layoutY="150.0" prefHeight="26.0" prefWidth="333.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../css/style.css">
+      <JFXTextField fx:id="txtPhoneNumber" focusColor="#448dc2" focusTraversable="false" layoutX="398.0" layoutY="150.0" prefHeight="26.0" prefWidth="333.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -134,10 +126,13 @@
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assests/plus2.png" />
+                  <Image url="@../assests/logos/plus2.png" />
                </image>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="744.0" layoutY="140.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
          <font>
@@ -146,10 +141,13 @@
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assests/update.png" />
+                  <Image url="@../assests/logos/update.png" />
                </image>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="856.0" layoutY="470.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="203.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add To Cart" textFill="WHITE">
          <font>
@@ -158,10 +156,13 @@
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assests/placeOrder.png" />
+                  <Image url="@../assests/logos/placeOrder.png" />
                </image>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <Label layoutX="424.0" layoutY="14.0" prefHeight="53.0" prefWidth="232.0" text="Reload Form" textFill="#044721">
          <font>
@@ -175,10 +176,13 @@
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assests/remove.png" />
+                  <Image url="@../assests/logos/remove.png" />
                </image>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="690.0" layoutY="470.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
          <font>
@@ -187,10 +191,13 @@
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assests/update.png" />
+                  <Image url="@../assests/logos/update.png" />
                </image>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="856.0" layoutY="720.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="203.0" ripplerFill="WHITE" style="-fx-background-color: #015719; -fx-background-radius: 20px;" text="Place Order" textFill="WHITE">
          <font>
@@ -199,10 +206,13 @@
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assests/placeorder2.png" />
+                  <Image url="@../assests/logos/placeorder2.png" />
                </image>
             </ImageView>
          </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
       <Label layoutX="39.0" layoutY="720.0" prefHeight="45.0" prefWidth="115.0" text="Total :" textFill="#044721">
          <font>
