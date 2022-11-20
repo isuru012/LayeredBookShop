@@ -12,6 +12,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lk.ijse.bookshop.model.UserCreation;
+import lk.ijse.bookshop.to.User;
 import lk.ijse.bookshop.util.Navigation;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.util.Routes;
@@ -22,6 +24,7 @@ import tray.notification.TrayNotification;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class LoginFormController {
     public JFXTextField txtUsername;
@@ -39,14 +42,16 @@ public class LoginFormController {
         Navigation.navigate(Routes.CREATEACCOUNT, pane2);
     }
 
-    public void signInOnAction(ActionEvent actionEvent) throws IOException {
-        if(txtUsername.getText().equals("admin")&& txtPasswordField.getText().equals("admin")){
-            Navigation.navigate(Routes.ADMINWINDOW,pane);
-        }else if (txtUsername.getText().equals("cashier")&& txtPasswordField.getText().equals("cashier")){
-            Navigation.navigate(Routes.CASHIERWINDOW,pane);
+    public void signInOnAction(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
+        User user= UserCreation.getLoginData(txtUsername.getText(),txtPasswordField.getText());
 
-        }
-        else{
+        if (user != null){
+            if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Admin") ){
+                Navigation.navigate(Routes.ADMINWINDOW,pane);
+            }else if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Employee")){
+                Navigation.navigate(Routes.CASHIERWINDOW,pane);
+            }
+        }else {
             Notification.notifie("Login In","Incorrect Username Or Password",NotificationType.ERROR);
         }
 

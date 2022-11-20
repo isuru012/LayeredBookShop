@@ -1,5 +1,6 @@
 package lk.ijse.bookshop.controller;
 
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -9,18 +10,25 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.bookshop.model.UserCreation;
 import lk.ijse.bookshop.util.Navigation;
+import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.util.Routes;
 import lk.ijse.bookshop.util.WindowControll;
+import tray.notification.NotificationType;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class TrueResetPasswordController {
-    public JFXTextField txtUsername1;
-    public JFXTextField txtPassword1;
-    public JFXTextField txtPassword2;
+
+    
     public AnchorPane pane;
     public Label lblBack;
+    public JFXPasswordField txtPassword;
+    public JFXPasswordField txtPassword2;
+    public JFXTextField txtUsername;
+
 
     public void backOnAction(MouseEvent mouseEvent) throws IOException {
         Stage stage = (Stage) lblBack.getScene().getWindow();
@@ -28,7 +36,25 @@ public class TrueResetPasswordController {
         stage.setScene(new Scene(root));
     }
 
-    public void resetPasswordOnAction(ActionEvent actionEvent) {
+    public void resetPasswordOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
+        if(txtUsername.getText().equals("") && txtPassword.getText().equals("") && txtPassword2.getText().equals("") ){
+            Notification.notifie("Password Reset","Fill All Fields First", NotificationType.ERROR);
+
+        }else{
+            if(txtPassword.getText().equals(txtPassword2.getText()) && txtPassword.getText().equals(null) && txtPassword2.getText().equals(null)){
+                boolean passwordReset = UserCreation.passwordReset(txtUsername.getText(), txtPassword.getText());
+                if (passwordReset){
+                    Notification.notifie("Password Reset","Password Reseted Successfully", NotificationType.NOTICE);
+                    Stage stage = (Stage) pane.getScene().getWindow();
+                    Parent root= FXMLLoader.load(getClass().getResource("../view/LoginForm.fxml"));
+                    stage.setScene(new Scene(root));
+                }else{
+                    Notification.notifie("Password Reset","Password Reset Failed", NotificationType.ERROR);
+                }
+            }else{
+                Notification.notifie("Password Reset","Password Fields Not Matching", NotificationType.ERROR);
+            }
+        }
 
     }
 

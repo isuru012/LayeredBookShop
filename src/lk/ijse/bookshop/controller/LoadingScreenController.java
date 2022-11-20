@@ -61,7 +61,7 @@ public class LoadingScreenController {
 
 
                     try {
-                        t1.sleep(350);
+                        t1.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

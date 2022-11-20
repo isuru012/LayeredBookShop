@@ -10,11 +10,16 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.bookshop.model.UserCreation;
+import lk.ijse.bookshop.to.User;
 import lk.ijse.bookshop.util.Navigation;
+import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.util.Routes;
 import lk.ijse.bookshop.util.WindowControll;
+import tray.notification.NotificationType;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class CreateAccountController {
 
@@ -35,27 +40,45 @@ public class CreateAccountController {
     @FXML
     private JFXTextField txtPhoneNumber;
 
-    @FXML
-    private JFXTextField txtSalary;
 
     @FXML
     void backOnAction(MouseEvent event) throws IOException {
         /*Navigation.navigate(Routes.LOGIN, pane);*/
         Stage stage = (Stage) lblBack.getScene().getWindow();
-        Parent root= FXMLLoader.load(getClass().getResource("../view/LoginForm.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/LoginForm.fxml"));
         stage.setScene(new Scene(root));
     }
 
     @FXML
     void createAccountOnAction(ActionEvent event) throws IOException {
-        Navigation.navigate(Routes.CREATEACCOUNT, pane);
+        if (!(txtUsername.getText().equals("")) && !(txtPassword.getText().equals("")) && !(txtName.getText().equals("")) && !(txtAddess.getText().equals("")) && !(txtPhoneNumber.getText().equals(""))) {
+            User user = new User();
+            user.setUserName(txtUsername.getText());
+            user.setPassword(txtPassword.getText());
+            user.setRole("Employee");
+
+
+            try {
+                boolean isAdded = UserCreation.userAllDetailSave(user);
+                if (isAdded) {
+                    Notification.notifie("User Creation", "User Added", NotificationType.INFORMATION);
+                } else {
+                    Notification.notifie("User Creation", "User Not Added", NotificationType.ERROR);
+                }
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Notification.notifie("User Creation", "Enter All details first", NotificationType.ERROR);
+        }
+
     }
 
     public void closeOnAction(ActionEvent actionEvent) {
-        WindowControll.window(null,actionEvent);
+        WindowControll.window(null, actionEvent);
     }
 
     public void minimizeOnAction(ActionEvent actionEvent) {
-        WindowControll.window(pane,actionEvent);
+        WindowControll.window(pane, actionEvent);
     }
 }
