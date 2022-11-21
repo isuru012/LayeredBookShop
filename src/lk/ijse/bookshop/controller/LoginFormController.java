@@ -43,18 +43,22 @@ public class LoginFormController {
     }
 
     public void signInOnAction(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
-        User user= UserCreation.getLoginData(txtUsername.getText(),txtPasswordField.getText());
+        if (!txtUsername.getText().equals("") & !txtPasswordField.getText().equals("")) {
+            User user = UserCreation.getLoginData(txtUsername.getText(), txtPasswordField.getText());
 
-        if (user != null){
-            if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Admin") ){
-                Navigation.navigate(Routes.ADMINWINDOW,pane);
-            }else if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Employee")){
-                Navigation.navigate(Routes.CASHIERWINDOW,pane);
+            if (user != null) {
+                if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Admin")) {
+                    Navigation.navigate(Routes.ADMINWINDOW, pane);
+                } else if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Employee")) {
+                    Navigation.navigate(Routes.CASHIERWINDOW, pane);
+                }
+            } else {
+                Notification.notifie("Login In", "Incorrect Username Or Password", NotificationType.ERROR);
             }
-        }else {
-            Notification.notifie("Login In","Incorrect Username Or Password",NotificationType.ERROR);
-        }
+        }else{
+            Notification.notifie("Login In", "Enter All Fields First", NotificationType.ERROR);
 
+        }
     }
 
     public void minimizeOnAction(ActionEvent actionEvent) {

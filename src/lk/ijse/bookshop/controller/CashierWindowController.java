@@ -79,7 +79,7 @@ public class CashierWindowController {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss a");
             while (!bool) {
                 try {
-                    t1.sleep(1000);
+                    t1.sleep(10);
                 } catch (InterruptedException e) {
                     System.out.println(e);
                 }

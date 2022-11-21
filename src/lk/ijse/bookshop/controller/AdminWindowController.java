@@ -62,7 +62,7 @@ public class AdminWindowController {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss a");
             while (!bool) {
                 try {
-                    t1.sleep(1000);
+                    t1.sleep(10);
                 } catch (InterruptedException e) {
                     System.out.println(e);
                 }
@@ -96,8 +96,9 @@ public class AdminWindowController {
         series.getData().add(new XYChart.Data("Sun", 22000));
 
         lineChart.getData().addAll(series);
-        lineChart.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
+        lineChart.lookup(".chart-plot-background").setStyle("-fx-background-color: WHITE;");
         lineChart.getXAxis().setLabel("Days of the week");
+
         lineChart.getYAxis().setLabel("Amount  earned");
     }
 
