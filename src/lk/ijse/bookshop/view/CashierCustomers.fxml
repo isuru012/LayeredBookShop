@@ -14,12 +14,12 @@
 
 <AnchorPane prefHeight="768.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.CashierCustomersController">
    <children>
-      <TableView layoutX="31.0" layoutY="403.0" prefHeight="337.0" prefWidth="1018.0">
+      <TableView fx:id="tblCustomer" layoutX="31.0" layoutY="403.0" onMouseClicked="#onMouseClicked" prefHeight="337.0" prefWidth="1018.0">
         <columns>
-          <TableColumn prefWidth="213.0" text="Code" />
-          <TableColumn prefWidth="266.0" text="Name" />
-            <TableColumn prefWidth="262.0" text="PhoneNumber" />
-            <TableColumn prefWidth="276.0" text="JoinedDate" />
+          <TableColumn fx:id="colCode" prefWidth="213.0" text="Code" />
+          <TableColumn fx:id="colName" prefWidth="266.0" text="Name" />
+            <TableColumn fx:id="colPhoneNumber" prefWidth="262.0" text="PhoneNumber" />
+            <TableColumn fx:id="colJoinedDate" prefWidth="276.0" text="JoinedDate" />
         </columns>
       </TableView>
       <JFXTextField fx:id="txtName" focusColor="#448dc2" focusTraversable="false" layoutX="31.0" layoutY="164.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
@@ -93,7 +93,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXTextField fx:id="txtSearch" focusColor="#448dc2" focusTraversable="false" layoutX="31.0" layoutY="320.0" prefHeight="38.0" prefWidth="852.0" promptText="Search Here" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtSearch" focusColor="#448dc2" focusTraversable="false" layoutX="31.0" layoutY="320.0" onKeyReleased="#searchOnAction" prefHeight="38.0" prefWidth="852.0" promptText="Search Here" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>

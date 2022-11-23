@@ -3,20 +3,33 @@ package lk.ijse.bookshop.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
+import lk.ijse.bookshop.model.CustomerModel;
+import lk.ijse.bookshop.model.UserCreationModel;
+import lk.ijse.bookshop.to.Customer;
 import lk.ijse.bookshop.util.Navigation;
+import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.util.Routes;
 import lk.ijse.bookshop.util.WindowControll;
+import lk.ijse.bookshop.view.tm.CustomerTm;
+import tray.notification.NotificationType;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 
 public class CashierWindowController {
 
@@ -40,6 +53,21 @@ public class CashierWindowController {
     @FXML
     private AnchorPane pane2;
     @FXML
+    private TableView<CustomerTm> tblCustomer;
+
+    @FXML
+    private TableColumn<?, ?> colCode;
+
+    @FXML
+    private TableColumn<?, ?> colName;
+
+    @FXML
+    private TableColumn<?, ?> colPhoneNumber;
+
+    @FXML
+    private TableColumn<?, ?> colJoinedDate;
+
+    @FXML
     private JFXTextField txtName;
 
     @FXML
@@ -47,31 +75,13 @@ public class CashierWindowController {
 
     @FXML
     private JFXTextField txtSearch;
-
-    @FXML
-    void addOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void deleteOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void searchOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void updateOnAction(ActionEvent event) {
-
-    }
-
     Thread t1;
     private static boolean bool = false;
 
-    public void initialize() {
+    public void initialize() throws SQLException, ClassNotFoundException {
+
+        lblNameSet.setText(UserCreationModel.getEmployeeName(LoginFormController.employeeId));
+        CashierCustomersController.observableList.clear();
         btnCustomers.setTextFill(Paint.valueOf("#0aa119"));
         btnCustomers.setStyle("-fx-background-color: #dcf6dd");
         lblDate.setText(String.valueOf(LocalDate.now()));
@@ -97,7 +107,134 @@ public class CashierWindowController {
         arrayListButton.add(btnPlaceOrder);
         arrayListButton.add(btnPlaceReload);
 
+        colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
+
+        ArrayList arrayList = CustomerModel.getAllDetails();
+        for (Object customerTm : arrayList) {
+            CashierCustomersController.observableList.add(customerTm);
+        }
+        /*tblCustomer.setItems(observableList);*/
+
+        searchPart();
+
     }
+    private void searchPart() {
+        FilteredList<CustomerTm> filteredList = new FilteredList(CashierCustomersController.observableList, b -> true);
+
+        txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(customerTm -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (customerTm.getCode().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (customerTm.getName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (String.valueOf(customerTm.getPhoneNumber()).indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            });
+        });
+
+        SortedList<CustomerTm> sortedList = new SortedList(filteredList);
+        sortedList.comparatorProperty().bind(tblCustomer.comparatorProperty());
+        tblCustomer.setItems(sortedList);
+    }
+
+    @FXML
+    void onMouseClicked(MouseEvent event) {
+        CustomerTm tm = tblCustomer.getItems().get(tblCustomer.getSelectionModel().getSelectedIndex());
+        txtName.setText(tm.getName());
+        txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
+        CashierCustomersController.CusId = tm.getCode();
+    }
+
+    @FXML
+    void addOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        String name = txtName.getText();
+        int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+        String cusId = generateNextCustomeId(CustomerModel.getOrderId());
+        /*LocalDate date= LocalDate.now();*/
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        String employeeId = LoginFormController.employeeId;
+
+        Customer customer = new Customer(cusId, name, phoneNumber, date, employeeId);
+        boolean customerData = CustomerModel.insertCustomerData(customer);
+        if (customerData) {
+            Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
+        } else {
+            Notification.notifie("Customer Data", "Customer Data  Not Added", NotificationType.ERROR);
+        }
+
+        CustomerTm customerTm = new CustomerTm(cusId, name, phoneNumber, date);
+        colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
+
+        CashierCustomersController.observableList.add(customerTm);
+        searchPart();
+    }
+    private String generateNextCustomeId(String orderId) {
+        if (orderId != null) {
+            String[] split = orderId.split("C0");
+            int id = Integer.parseInt(split[1]);
+
+            id += 1;
+            return "C0" + id;
+        }
+        return "C01";
+    }
+
+    @FXML
+    void deleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Customer Data");
+        alert.setContentText("Do you want to delete customer "+txtName.getText()+"?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            boolean deleteCustomer = CustomerModel.deleteCustomer(CashierCustomersController.CusId);
+            if (deleteCustomer) {
+                txtName.setText("");
+                txtPhoneNumber.setText("");
+                Notification.notifie("Customer Data", "Customer Data Deleted", NotificationType.INFORMATION);
+                CashierCustomersController.observableList.clear();
+                initialize();
+            } else {
+                Notification.notifie("Customer Data", "Customer Data  Not Updated", NotificationType.ERROR);
+            }
+        }
+    }
+
+    @FXML
+    void searchOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void updateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        String name = txtName.getText();
+        int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+
+
+        boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CashierCustomersController.CusId);
+        if (updateCustomer) {
+            Notification.notifie("Customer Data", "Customer Data Updated", NotificationType.INFORMATION);
+            CashierCustomersController.observableList.clear();
+            initialize();
+        } else {
+            Notification.notifie("Customer Data", "Customer Data  Not Updated", NotificationType.ERROR);
+        }
+    }
+
+
     public void checkButton(JFXButton button) {
         for (int i = 0; i < arrayListButton.size(); i++) {
             if (arrayListButton.get(i) == button) {

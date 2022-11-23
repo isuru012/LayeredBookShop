@@ -11,5 +11,7 @@
     <orderEntry type="library" name="jfoenix-8.0.7" level="project" />
     <orderEntry type="library" name="mysql-connector-java-8.0.11" level="project" />
     <orderEntry type="library" name="TrayTester" level="project" />
+    <orderEntry type="library" name="swingx-all-1.6.4" level="project" />
+    <orderEntry type="library" name="controlsfx-8.40.11" level="project" />
   </component>
 </module>

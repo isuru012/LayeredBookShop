@@ -10,11 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.bookshop.model.UserCreation;
+import lk.ijse.bookshop.model.UserCreationModel;
 import lk.ijse.bookshop.to.User;
-import lk.ijse.bookshop.util.Navigation;
 import lk.ijse.bookshop.util.Notification;
-import lk.ijse.bookshop.util.Routes;
 import lk.ijse.bookshop.util.WindowControll;
 import tray.notification.NotificationType;
 
@@ -59,7 +57,7 @@ public class CreateAccountController {
 
 
             try {
-                boolean isAdded = UserCreation.userAllDetailSave(user);
+                boolean isAdded = UserCreationModel.userAllDetailSave(user);
                 if (isAdded) {
                     Notification.notifie("User Creation", "User Added", NotificationType.INFORMATION);
                 } else {

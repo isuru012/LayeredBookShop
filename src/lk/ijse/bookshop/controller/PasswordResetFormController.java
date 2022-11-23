@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.bookshop.model.UserCreation;
+import lk.ijse.bookshop.model.UserCreationModel;
 import lk.ijse.bookshop.util.Navigation;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.util.Routes;
@@ -37,8 +37,8 @@ public class PasswordResetFormController {
 
     public void continueOnAction(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
 
-        if (UserCreation.checkUsername(txtUsername.getText())) {
-            if (UserCreation.role.equals("Admin")) {
+        if (UserCreationModel.checkUsername(txtUsername.getText())) {
+            if (UserCreationModel.role.equals("Admin")) {
                 Notification.notifie("Password Reset", "Admin can't reset password", NotificationType.ERROR);
             } else {
                 Navigation.navigate(Routes.TRUERESET, pane);

@@ -6,7 +6,7 @@ import lk.ijse.bookshop.util.CrudUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserCreation {
+public class UserCreationModel {
     public static String role;
     public static boolean userAllDetailSave(User user) throws SQLException, ClassNotFoundException {
         String sql="INSERT INTO user VALUES(?,?,?)";
@@ -33,5 +33,23 @@ public class UserCreation {
     public static boolean passwordReset(String username,String password) throws SQLException, ClassNotFoundException {
         String sql="UPDATE user SET Password=? WHERE Username=?";
         return CrudUtil.execute(sql,password,username);
+    }
+    public static String getEmployeeId(String Username) throws SQLException, ClassNotFoundException {
+        String sql="SELECT EmployeeId FROM employee WHERE Username=? ";
+       ResultSet resultSet=CrudUtil.execute(sql,Username);
+       if (resultSet.next()){
+           return resultSet.getString(1);
+       }
+       return null;
+    }
+    public static String getEmployeeName(String id) throws SQLException, ClassNotFoundException {
+        String sql="SELECT Name FROM employee WHERE EmployeeId=?";
+        ResultSet resultSet= CrudUtil.execute(sql,id);
+        if (resultSet.next()){
+
+            return resultSet.getString(1);
+        }
+
+        return null;
     }
 }

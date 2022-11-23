@@ -10,10 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.bookshop.model.UserCreation;
-import lk.ijse.bookshop.util.Navigation;
+import lk.ijse.bookshop.model.UserCreationModel;
 import lk.ijse.bookshop.util.Notification;
-import lk.ijse.bookshop.util.Routes;
 import lk.ijse.bookshop.util.WindowControll;
 import tray.notification.NotificationType;
 
@@ -43,7 +41,7 @@ public class TrueResetPasswordController {
         }else {
             if (!txtPassword.getText().equals("") && !txtPassword2.getText().equals("")) {
                 if (txtPassword.getText().equals(txtPassword2.getText())) {
-                    boolean passwordReset = UserCreation.passwordReset(txtUsername.getText(), txtPassword.getText());
+                    boolean passwordReset = UserCreationModel.passwordReset(txtUsername.getText(), txtPassword.getText());
                     if (passwordReset) {
                         Notification.notifie("Password Reset", "Password Reseted Successfully", NotificationType.NOTICE);
                         Stage stage = (Stage) pane.getScene().getWindow();
