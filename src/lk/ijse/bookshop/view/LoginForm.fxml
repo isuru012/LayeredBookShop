@@ -16,7 +16,7 @@
 
 <AnchorPane fx:id="pane" focusTraversable="true" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.LoginFormController">
    <children>
-      <AnchorPane fx:id="pane2" layoutX="743.0" layoutY="49.0" prefHeight="667.0" prefWidth="570.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;">
+      <AnchorPane fx:id="pane2" focusTraversable="true" layoutX="743.0" layoutY="49.0" prefHeight="667.0" prefWidth="570.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;">
          <effect>
             <DropShadow />
          </effect>
@@ -65,7 +65,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXPasswordField fx:id="txtPasswordField" focusColor="#448dc2" layoutX="52.0" layoutY="298.0" prefHeight="36.0" prefWidth="430.0" promptText="     Enter Password" style="-fx-background-color: #fcfcfc;">
+            <JFXPasswordField fx:id="txtPasswordField" focusColor="#448dc2" layoutX="52.0" layoutY="298.0" onKeyReleased="#signInOnEnterKey" prefHeight="36.0" prefWidth="430.0" promptText="     Enter Password" style="-fx-background-color: #fcfcfc;">
                <font>
                   <Font name="Arial" size="13.0" />
                </font>
