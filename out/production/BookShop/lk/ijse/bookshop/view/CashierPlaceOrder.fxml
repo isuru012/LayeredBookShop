@@ -45,7 +45,7 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="424.0" layoutY="274.0" text="Code:">
+      <Label layoutX="424.0" layoutY="274.0" text="Item Code:">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -82,9 +82,9 @@
       </Label>
       <TableView fx:id="tblOrder" layoutX="24.0" layoutY="454.0" onMouseClicked="#onMouseClickOrder" prefHeight="163.0" prefWidth="1019.0">
         <columns>
-          <TableColumn fx:id="colItemCode" prefWidth="257.0" text="Code" />
-          <TableColumn fx:id="colDescription" prefWidth="121.0" text="Description" />
-            <TableColumn fx:id="colQty" prefWidth="243.0" text="Qty" />
+          <TableColumn fx:id="colItemCode" prefWidth="153.00003051757812" text="Code" />
+          <TableColumn fx:id="colDescription" prefWidth="282.33331298828125" text="Description" />
+            <TableColumn fx:id="colQty" prefWidth="185.66668701171875" text="Qty" />
             <TableColumn fx:id="colUnitPrice" prefWidth="161.0" text="Unit Price" />
             <TableColumn fx:id="colTotal" prefWidth="236.0" text="Total" />
         </columns>

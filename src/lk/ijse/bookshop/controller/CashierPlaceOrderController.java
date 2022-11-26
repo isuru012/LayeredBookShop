@@ -190,10 +190,6 @@ public class CashierPlaceOrderController {
         return "C01";
     }
 
-    @FXML
-    void cmbItemOnAction(ActionEvent event) {
-
-    }
 
     @FXML
     void deleteOnAction(ActionEvent event) {
@@ -216,8 +212,7 @@ public class CashierPlaceOrderController {
     public void updateCartOnAction(ActionEvent actionEvent) {
         int qty = Integer.parseInt(txtQty.getText());
         double sellingUnitPrice = Double.parseDouble(String.valueOf(cmbUnitPrice.getSelectionModel().getSelectedItem()));
-        /*OrderTm orderTm = tblOrder.getItems().get(tblOrder.getSelectionModel().getSelectedIndex());
-        orderTm.setQty(qty);*/
+
         observableList1.get(tblOrder.getSelectionModel().getSelectedIndex()).setQty(qty);
         observableList1.get(tblOrder.getSelectionModel().getSelectedIndex()).setTotal(qty * sellingUnitPrice);
         tblOrder.refresh();

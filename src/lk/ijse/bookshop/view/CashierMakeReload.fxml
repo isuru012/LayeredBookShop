@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -20,7 +19,7 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblOrderId" layoutX="128.0" layoutY="291.0" prefHeight="26.0" prefWidth="203.0" textFill="#278d7f">
+      <Label fx:id="lblOrderId" layoutX="46.0" layoutY="325.0" prefHeight="26.0" prefWidth="203.0" textFill="#278d7f">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -30,17 +29,17 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblOrderDate" layoutX="457.0" layoutY="295.0" prefHeight="23.0" prefWidth="203.0" textFill="#278d7f">
+      <Label fx:id="lblOrderDate" layoutX="354.0" layoutY="325.0" prefHeight="26.0" prefWidth="203.0" textFill="#278d7f">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="688.0" layoutY="296.0" text="Customer Name:">
+      <Label layoutX="647.0" layoutY="296.0" text="Customer Name:">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblCustomerName" layoutX="856.0" layoutY="295.0" prefHeight="23.0" prefWidth="203.0" textFill="#278d7f">
+      <Label fx:id="lblCustomerName" layoutX="649.0" layoutY="325.0" prefHeight="26.0" prefWidth="203.0" textFill="#278d7f">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -50,49 +49,44 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="cmbItemCode" layoutX="48.0" layoutY="389.0" onAction="#cmbItemOnAction" prefHeight="37.0" prefWidth="183.0" />
-      <Label layoutX="386.0" layoutY="361.0" text="Description:">
+      <Label layoutX="302.0" layoutY="361.0" prefHeight="20.0" prefWidth="203.0" text="Service Provider :">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblDescription" layoutX="292.0" layoutY="397.0" prefHeight="23.0" prefWidth="348.0" textFill="#278d7f">
+      <Label fx:id="lblIReloadCode" layoutX="47.0" layoutY="389.0" prefHeight="35.0" prefWidth="146.0" textFill="#278d7f">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="682.0" layoutY="360.0" text="Unit Price:">
+      <Label layoutX="907.0" layoutY="292.0" text="Amount :">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblUnitPrice" layoutX="682.0" layoutY="395.0" prefHeight="23.0" prefWidth="135.0" textFill="#278d7f">
-         <font>
-            <Font name="Arial Bold" size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="931.0" layoutY="361.0" text="Quantity:">
-         <font>
-            <Font name="Arial Bold" size="16.0" />
-         </font>
-      </Label>
-      <JFXTextField layoutX="931.0" layoutY="395.0" prefHeight="37.0" prefWidth="135.0">
+      <JFXTextField fx:id="txtAmount" layoutX="907.0" layoutY="322.0" onKeyReleased="#addToCartOnEnterKey" prefHeight="37.0" prefWidth="129.0" style="-fx-background-color: #ffffff;">
          <font>
             <Font name="Arial" size="20.0" />
          </font>
+         <effect>
+            <DropShadow color="#0000002e" />
+         </effect>
       </JFXTextField>
-      <TableView layoutX="40.0" layoutY="186.0" prefHeight="89.0" prefWidth="1019.0">
+      <TableView fx:id="tblCustomer" layoutX="40.0" layoutY="186.0" prefHeight="89.0" prefWidth="1019.0">
          <columns>
-            <TableColumn prefWidth="190.0" text="Code" />
-            <TableColumn prefWidth="238.0" text="Name" />
-            <TableColumn prefWidth="311.0" text="PhoneNumber" />
-            <TableColumn prefWidth="279.0" text="JoinedDate" />
+            <TableColumn fx:id="colCode" prefWidth="190.0" text="Code" />
+            <TableColumn fx:id="colName" prefWidth="238.0" text="Name" />
+            <TableColumn fx:id="colPhoneNumber" prefWidth="311.0" text="PhoneNumber" />
+            <TableColumn fx:id="colJoinedDate" prefWidth="279.0" text="JoinedDate" />
          </columns>
       </TableView>
-      <JFXTextField layoutX="39.0" layoutY="68.0" prefHeight="37.0" prefWidth="1019.0" promptText="Search Here">
+      <JFXTextField fx:id="txtSearch" layoutX="39.0" layoutY="68.0" prefHeight="37.0" prefWidth="1019.0" promptText="Search Here" style="-fx-background-color: #FFFFFF;">
          <font>
             <Font name="Arial" size="15.0" />
-         </font></JFXTextField>
+         </font>
+         <effect>
+            <DropShadow color="#0000002e" />
+         </effect></JFXTextField>
       <JFXTextField fx:id="txtName" focusColor="#448dc2" focusTraversable="false" layoutX="39.0" layoutY="150.0" prefHeight="26.0" prefWidth="314.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
@@ -119,7 +113,7 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="913.0" layoutY="140.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add" textFill="WHITE">
+      <JFXButton fx:id="btnAdd" buttonType="RAISED" focusTraversable="false" layoutX="913.0" layoutY="140.0" onAction="#addCustomerOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
@@ -134,7 +128,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="744.0" layoutY="140.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="744.0" layoutY="140.0" onAction="#updateCustomerOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
@@ -149,7 +143,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="856.0" layoutY="470.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="203.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add To Cart" textFill="WHITE">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="856.0" layoutY="371.0" onAction="#addToCartOnAction" prefHeight="38.0" prefWidth="203.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add To Cart" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
@@ -169,7 +163,7 @@
             <Font name="Segoe UI Black" size="36.0" />
          </font>
       </Label>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="521.0" layoutY="470.0" onAction="#deleteOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #ED5E68; -fx-background-radius: 20px;" text="Delete" textFill="WHITE">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="744.0" layoutY="423.0" onAction="#deleteOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #ED5E68; -fx-background-radius: 20px;" text="Delete" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
@@ -184,7 +178,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="690.0" layoutY="470.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="913.0" layoutY="423.0" onAction="#updateCartOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
@@ -199,7 +193,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="856.0" layoutY="720.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="203.0" ripplerFill="WHITE" style="-fx-background-color: #015719; -fx-background-radius: 20px;" text="Place Order" textFill="WHITE">
+      <JFXButton fx:id="btnPlaceOrder" buttonType="RAISED" focusTraversable="false" layoutX="856.0" layoutY="722.0" onAction="#placeOrderOnAction" prefHeight="38.0" prefWidth="203.0" ripplerFill="WHITE" style="-fx-background-color: #015719; -fx-background-radius: 20px;" text="Place Order" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
@@ -214,24 +208,71 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <Label layoutX="39.0" layoutY="720.0" prefHeight="45.0" prefWidth="115.0" text="Total :" textFill="#044721">
+      <Label layoutX="281.0" layoutY="618.0" prefHeight="35.0" prefWidth="166.0" text="Total            :" textFill="#044721">
          <font>
-            <Font name="Segoe UI Black" size="32.0" />
+            <Font name="Segoe UI Black" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="165.0" layoutY="720.0" prefHeight="45.0" prefWidth="221.0" textFill="#6b0505">
+      <Label fx:id="lblTotal" layoutX="465.0" layoutY="624.0" prefHeight="26.0" prefWidth="214.0" textFill="#6b0505">
          <font>
-            <Font name="Segoe UI Black" size="32.0" />
+            <Font name="Segoe UI Black" size="24.0" />
          </font>
       </Label>
-      <TableView layoutX="40.0" layoutY="526.0" prefHeight="188.0" prefWidth="1019.0">
+      <TableView fx:id="tblOrder" layoutX="40.0" layoutY="470.0" onMouseClicked="#onMouseClickTblOrder" prefHeight="146.0" prefWidth="1019.0">
          <columns>
-            <TableColumn prefWidth="257.0" text="Code" />
-            <TableColumn prefWidth="121.0" text="Description" />
-            <TableColumn prefWidth="243.0" text="Qty" />
-            <TableColumn prefWidth="161.0" text="Unit Price" />
-            <TableColumn prefWidth="236.0" text="Total" />
+            <TableColumn fx:id="colReloadCode" prefWidth="281.0" text="Code" />
+            <TableColumn fx:id="colDescription" prefWidth="427.0" text="Service Provider" />
+            <TableColumn fx:id="colTotal" prefWidth="310.0" text="Total" />
          </columns>
       </TableView>
+      <JFXTextField fx:id="txtDescription" focusColor="#448dc2" focusTraversable="false" layoutX="304.0" layoutY="389.0" onKeyReleased="#keyReleasedOnAction" prefHeight="35.0" prefWidth="252.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+         <effect>
+            <DropShadow color="#0000002e" height="15.07" radius="8.5175" />
+         </effect>
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="702.0" layoutY="624.0" prefHeight="35.0" prefWidth="115.0" text="Cash      :" textFill="#044721">
+         <font>
+            <Font name="Segoe UI Black" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="281.0" layoutY="672.0" prefHeight="35.0" prefWidth="166.0" text="Discount % :" textFill="#044721">
+         <font>
+            <Font name="Segoe UI Black" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="702.0" layoutY="672.0" prefHeight="20.0" prefWidth="115.0" text="Balance :" textFill="#044721">
+         <font>
+            <Font name="Segoe UI Black" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblBalance" layoutX="850.0" layoutY="672.0" prefHeight="26.0" prefWidth="214.0" textFill="#6b0505">
+         <font>
+            <Font name="Segoe UI Black" size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="37.0" fitWidth="46.0" layoutX="41.0" layoutY="24.0" onMouseClicked="#onMouseClickRefresh" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assests/logos/update.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="txtDiscount" layoutX="465.0" layoutY="671.0" onKeyReleased="#discountOnReleased" prefHeight="37.0" prefWidth="203.0" style="-fx-background-color: #ffffff;">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+         <effect>
+            <DropShadow color="#0000002e" />
+         </effect>
+      </JFXTextField>
+      <JFXTextField fx:id="txtCash" layoutX="856.0" layoutY="623.0" onKeyReleased="#cashOnReleased" prefHeight="37.0" prefWidth="203.0" style="-fx-background-color: #ffffff;">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+         <effect>
+            <DropShadow color="#0000002e" />
+         </effect>
+      </JFXTextField>
    </children>
 </AnchorPane>
