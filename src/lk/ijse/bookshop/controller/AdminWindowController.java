@@ -10,12 +10,14 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
+import lk.ijse.bookshop.model.DashboardModel;
 import lk.ijse.bookshop.util.Navigation;
 import lk.ijse.bookshop.util.Routes;
 import lk.ijse.bookshop.util.WindowControll;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -36,6 +38,9 @@ public class AdminWindowController {
     public Label lblTime;
     public JFXButton btnItems;
     public LineChart lineChart;
+    public Label lblProduct;
+    public Label lblCustomer;
+    public Label lblOrder;
     @FXML
     Thread t1;
     @FXML
@@ -53,7 +58,7 @@ public class AdminWindowController {
     ArrayList<JFXButton> arrayListButton = new ArrayList<>();
 
 
-    public void initialize() {
+    public void initialize() throws SQLException, ClassNotFoundException {
         returnLineChart();
         btnDashboard.setTextFill(Paint.valueOf("#0aa119"));
         btnDashboard.setStyle("-fx-background-color: #dcf6dd");
@@ -74,6 +79,16 @@ public class AdminWindowController {
 
         });
         t1.start();
+
+        int ordersAmount = DashboardModel.getOrdersAmount();
+        lblOrder.setText(String.valueOf(ordersAmount));
+        int products = DashboardModel.getProductsAmount();
+        lblProduct.setText(String.valueOf(products));
+        int customers=DashboardModel.getCustomersAmount();
+        lblCustomer.setText(String.valueOf(customers));
+
+
+
         arrayListButton.add(btnDashboard);
         arrayListButton.add(btnEmployee);
         arrayListButton.add(btnExpenditures);

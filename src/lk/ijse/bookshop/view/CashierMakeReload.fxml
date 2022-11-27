@@ -72,7 +72,7 @@
             <DropShadow color="#0000002e" />
          </effect>
       </JFXTextField>
-      <TableView fx:id="tblCustomer" layoutX="40.0" layoutY="186.0" prefHeight="89.0" prefWidth="1019.0">
+      <TableView fx:id="tblCustomer" layoutX="40.0" layoutY="186.0" onMouseClicked="#onMouseClicked" prefHeight="89.0" prefWidth="1019.0">
          <columns>
             <TableColumn fx:id="colCode" prefWidth="190.0" text="Code" />
             <TableColumn fx:id="colName" prefWidth="238.0" text="Name" />

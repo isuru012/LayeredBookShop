@@ -143,13 +143,24 @@ public class CashierPlaceOrderController {
 
     private String generateNextOrderId(String orderId) {
         if (orderId != null) {
-            String[] split = orderId.split("O0");
+            String[] split = orderId.split("O");
             int id = Integer.parseInt(split[1]);
 
             id += 1;
-            return "O0" + id;
+            if (id>=10){
+                return "O000" + id;
+            }else if(id>=100){
+                return "O00" +id;
+            }else if(id>=1000){
+                return "O0"+id;
+            }else if(id>=10000){
+                return "O"+id;
+            }else{
+
+                return "O0000" + id;
+            }
         }
-        return "O01";
+        return "O00001";
     }
 
     private void searchPart() {
@@ -181,13 +192,24 @@ public class CashierPlaceOrderController {
 
     private String generateNextCustomeId(String orderId) {
         if (orderId != null) {
-            String[] split = orderId.split("C0");
+            String[] split = orderId.split("C");
             int id = Integer.parseInt(split[1]);
 
             id += 1;
-            return "C0" + id;
+            if (id>=10){
+                return "C000" + id;
+            }else if(id>=100){
+                return "C00" +id;
+            }else if(id>=1000){
+                return "C0"+id;
+            }else if(id>=10000){
+                return "C"+id;
+            }else{
+
+                return "C0000" + id;
+            }
         }
-        return "C01";
+        return "C00001";
     }
 
 
@@ -255,10 +277,6 @@ public class CashierPlaceOrderController {
             }
 
             CustomerTm customerTm = new CustomerTm(cusId, name, phoneNumber, date);
-            colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
-            colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-            colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-            colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
 
             observableList.add(customerTm);
             searchPart();
@@ -281,27 +299,27 @@ public class CashierPlaceOrderController {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
         Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
         String cusId = tblCustomer.getSelectionModel().getSelectedItem().getCode();
-        String employeeId=LoginFormController.employeeId;
-        ArrayList<CustomerOrderDetail> customerOrderDetailArrayList=new ArrayList<>();
+        String employeeId = LoginFormController.employeeId;
+        ArrayList<CustomerOrderDetail> customerOrderDetailArrayList = new ArrayList<>();
         for (int i = 0; i < tblOrder.getItems().size(); i++) {
-            String itemCode= String.valueOf(colItemCode.getCellData(i));
-            double unitPrice=Double.parseDouble(String.valueOf(colUnitPrice.getCellData(i)));
-            int orderQuantity=Integer.parseInt(String.valueOf(colQty.getCellData(i)));
-            double total=unitPrice*orderQuantity;
+            String itemCode = String.valueOf(colItemCode.getCellData(i));
+            double unitPrice = Double.parseDouble(String.valueOf(colUnitPrice.getCellData(i)));
+            int orderQuantity = Integer.parseInt(String.valueOf(colQty.getCellData(i)));
+            double total = unitPrice * orderQuantity;
 
-            CustomerOrderDetail customerOrderDetail=new CustomerOrderDetail(orderId,itemCode,unitPrice,orderQuantity,total);
+            CustomerOrderDetail customerOrderDetail = new CustomerOrderDetail(orderId, itemCode, unitPrice, orderQuantity, total);
             customerOrderDetailArrayList.add(customerOrderDetail);
 
         }
-        CustomerOrder customerOrder=new CustomerOrder(orderId,date,time,cusId,employeeId,customerOrderDetailArrayList);
-           boolean placeOrder= PlaceOrderModel.placeOrder(customerOrder);
-           if (placeOrder){
-               Notification.notifie("Place Order","Order Added",NotificationType.INFORMATION);
-               clearFields();
-               initialize();
-           }else{
-               Notification.notifie("Place Order","Order Failed",NotificationType.ERROR);
-           }
+        CustomerOrder customerOrder = new CustomerOrder(orderId, date, time, cusId, employeeId, customerOrderDetailArrayList);
+        boolean placeOrder = PlaceOrderModel.placeOrder(customerOrder);
+        if (placeOrder) {
+            Notification.notifie("Place Order", "Order Added", NotificationType.INFORMATION);
+            clearFields();
+            initialize();
+        } else {
+            Notification.notifie("Place Order", "Order Failed", NotificationType.ERROR);
+        }
 
 
     }
@@ -345,8 +363,9 @@ public class CashierPlaceOrderController {
         }
     }
 
-    public void onMouseClickRefresh(MouseEvent mouseEvent) {
+    public void onMouseClickRefresh(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
         clearFields();
+
         btnPlaceOrder.setDisable(false);
         btnAdd.setDisable(false);
 
@@ -429,7 +448,8 @@ public class CashierPlaceOrderController {
                 discount = Double.parseDouble(txtDiscount.getText()) / 100 * Double.parseDouble(lblTotal.getText());
             }
 
-            String balance = String.valueOf(Double.parseDouble(txtCash.getText()) - (Double.parseDouble(lblTotal.getText()) - discount));
+            String balance = String.valueOf(Double.parseDouble(txtCash.getText()) -
+                    (Double.parseDouble(lblTotal.getText()) - discount));
             lblBalance.setText(balance);
             if (Double.parseDouble(lblBalance.getText()) >= 0) {
                 btnPlaceOrder.setDisable(false);
@@ -448,7 +468,8 @@ public class CashierPlaceOrderController {
                 discount = Double.parseDouble(txtDiscount.getText()) / 100 * Double.parseDouble(lblTotal.getText());
             }
 
-            String balance = String.valueOf(Double.parseDouble(txtCash.getText()) - (Double.parseDouble(lblTotal.getText()) - discount));
+            String balance = String.valueOf(Double.parseDouble(txtCash.getText()) - (Double.parseDouble(lblTotal.getText())
+                    - discount));
             lblBalance.setText(balance);
             if (Double.parseDouble(lblBalance.getText()) >= 0) {
                 btnPlaceOrder.setDisable(false);

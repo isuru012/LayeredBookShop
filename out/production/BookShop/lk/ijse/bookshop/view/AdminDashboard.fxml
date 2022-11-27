@@ -36,7 +36,7 @@
                   <Font name="Segoe UI Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="102.0" layoutY="103.0" prefHeight="52.0" prefWidth="103.0" text="1524">
+            <Label fx:id="lblOrder" alignment="CENTER" contentDisplay="CENTER" layoutX="102.0" layoutY="103.0" prefHeight="52.0" prefWidth="103.0" text="1524">
                <font>
                   <Font name="Segoe UI Bold" size="42.0" />
                </font>
@@ -58,7 +58,7 @@
                   <Font name="Segoe UI Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="120.0" layoutY="103.0" prefHeight="44.0" prefWidth="80.0" text="500">
+            <Label fx:id="lblProduct" alignment="CENTER" contentDisplay="CENTER" layoutX="120.0" layoutY="103.0" prefHeight="44.0" prefWidth="80.0" text="500">
                <font>
                   <Font name="Segoe UI Bold" size="42.0" />
                </font>
@@ -80,7 +80,7 @@
                   <Font name="Segoe UI Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="102.0" layoutY="103.0" prefHeight="52.0" prefWidth="103.0" text="1260">
+            <Label fx:id="lblCustomer" alignment="CENTER" contentDisplay="CENTER" layoutX="102.0" layoutY="103.0" prefHeight="52.0" prefWidth="103.0" text="1260">
                <font>
                   <Font name="Segoe UI Bold" size="42.0" />
                </font>

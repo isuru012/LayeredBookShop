@@ -10,7 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.bookshop.model.EmployeeModel;
 import lk.ijse.bookshop.model.UserCreationModel;
+import lk.ijse.bookshop.to.Employee;
 import lk.ijse.bookshop.to.User;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.util.WindowControll;
@@ -48,16 +50,24 @@ public class CreateAccountController {
     }
 
     @FXML
-    void createAccountOnAction(ActionEvent event) throws IOException {
-        if (!(txtUsername.getText().equals("")) && !(txtPassword.getText().equals("")) && !(txtName.getText().equals("")) && !(txtAddess.getText().equals("")) && !(txtPhoneNumber.getText().equals(""))) {
+    void createAccountOnAction(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
+        if (!(txtUsername.getText().equals("")) && !(txtPassword.getText().equals("")) &&
+                !(txtName.getText().equals("")) && !(txtAddess.getText().equals("")) &&
+                !(txtPhoneNumber.getText().equals(""))) {
             User user = new User();
             user.setUserName(txtUsername.getText());
             user.setPassword(txtPassword.getText());
             user.setRole("Employee");
-
+            Employee employee=new Employee();
+            employee.setEmployeeId(generateNextEmployeeId(EmployeeModel.currentEmployeeId()));
+            employee.setAddress(txtAddess.getText());
+            employee.setName(txtName.getText());
+            employee.setSalary(0);
+            employee.setPhoneNumber(Integer.parseInt(txtPhoneNumber.getText()));
+            employee.setUserName(txtUsername.getText());
 
             try {
-                boolean isAdded = UserCreationModel.userAllDetailSave(user);
+                boolean isAdded = UserCreationModel.userAllDetailSave(user,employee);
                 if (isAdded) {
                     Notification.notifie("User Creation", "User Added", NotificationType.INFORMATION);
                 } else {
@@ -71,6 +81,28 @@ public class CreateAccountController {
         }
 
     }
+
+    private String generateNextEmployeeId(String currentEmployeeId) {
+        if (currentEmployeeId != null) {
+            String[] split = currentEmployeeId.split("E");
+            int id = Integer.parseInt(split[1]);
+            id += 1;
+            if (id>=10){
+                return "E000" + id;
+            }else if(id>=100){
+                return "E00" +id;
+            }else if(id>=1000){
+                return "E0"+id;
+            }else if(id>=10000){
+                return "E"+id;
+            }else{
+
+                return "E0000" + id;
+            }
+        }
+        return "E00001";
+    }
+
 
     public void closeOnAction(ActionEvent actionEvent) {
         WindowControll.window(null, actionEvent);

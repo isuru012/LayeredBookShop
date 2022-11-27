@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
 .title-text {
     -fx-font : 94px "Brush Script MT";
     -fx-padding : 10;
@@ -44,11 +46,20 @@
     -fx-border-color: #0aa119;
     -fx-border-width: 0px 0px 0px 6px;
 }
-.button:focused{
+.btn:focused{
+    -fx-background-color: #dcf6dd;
+    -fx-border-color: #0aa119;
+    -fx-border-width: 0px 0px 0px 6px;
+}
+#btnPlaceOrder:focused{
     -fx-background-color: #dcf6dd;
     -fx-border-color: #0aa119;
     -fx-border-width: 0px 0px 0px 6px;
 }
 .green-progress-bar .bar {
     -fx-background-color: #066406;
+}
+.fontforlabel{
+    font-family: 'Ubuntu', sans-serif;
+
 }

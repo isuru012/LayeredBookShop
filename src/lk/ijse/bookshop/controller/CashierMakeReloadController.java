@@ -127,17 +127,33 @@ public class CashierMakeReloadController {
         lblOrderId.setText(generateNextReloadId(PlaceReloadModel.getOrderId()));
         ArrayList loadAllServiceProviders = PlaceReloadModel.loadAllServiceProviders();
         TextFields.bindAutoCompletion(txtDescription, loadAllServiceProviders);
+
+        colReloadCode.setCellValueFactory(new PropertyValueFactory<>("reloadCode"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("serviceProvider"));
+        colTotal.setCellValueFactory(new PropertyValueFactory<>("totalAmount"));
+
     }
 
     private String generateNextReloadId(String orderId) {
         if (orderId != null) {
-            String[] split = orderId.split("U0");
+            String[] split = orderId.split("U");
             int id = Integer.parseInt(split[1]);
 
             id += 1;
-            return "U0" + id;
+            if (id>=10){
+                return "U000" + id;
+            }else if(id>=100){
+                return "U00" +id;
+            }else if(id>=1000){
+                return "U0"+id;
+            }else if(id>=10000){
+                return "U"+id;
+            }else{
+
+                return "U0000" + id;
+            }
         }
-        return "U01";
+        return "U00001";
     }
 
     private void searchPart() {
@@ -186,10 +202,6 @@ public class CashierMakeReloadController {
             }
 
             CustomerTm customerTm = new CustomerTm(cusId, name, phoneNumber, date);
-            colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
-            colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-            colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-            colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
 
             observableList.add(customerTm);
             searchPart();
@@ -197,13 +209,24 @@ public class CashierMakeReloadController {
     }
     private String generateNextCustomeId(String orderId) {
         if (orderId != null) {
-            String[] split = orderId.split("C0");
+            String[] split = orderId.split("C");
             int id = Integer.parseInt(split[1]);
 
             id += 1;
-            return "C0" + id;
+            if (id>=10){
+                return "C000" + id;
+            }else if(id>=100){
+                return "C00" +id;
+            }else if(id>=1000){
+                return "C0"+id;
+            }else if(id>=10000){
+                return "C"+id;
+            }else{
+
+                return "C0000" + id;
+            }
         }
-        return "C01";
+        return "C00001";
     }
 
     ObservableList<ReloadTm> observableList1 = FXCollections.observableArrayList();
@@ -218,6 +241,20 @@ public class CashierMakeReloadController {
         double amount = Integer.parseInt(txtAmount.getText());
 
         ReloadTm reloadTm=new ReloadTm(code,description,amount);
+        for (int i = 0; i < tblOrder.getItems().size(); i++) {
+            if (colReloadCode.getCellData(i).equals(lblIReloadCode.getText())) {
+
+                double tempTotal = observableList1.get(i).getTotalAmount() + amount;
+
+
+                observableList1.get(i).setTotalAmount(tempTotal);
+
+                tblOrder.refresh();
+                generateTotal();
+                return;
+            }
+
+        }
 
 
         observableList1.add(reloadTm);
@@ -236,7 +273,10 @@ public class CashierMakeReloadController {
 
     @FXML
     void addToCartOnEnterKey(KeyEvent event) {
-        addToTableOrder();
+        if (event.getCode() == KeyCode.ENTER) {
+            addToTableOrder();
+
+        }
     }
 
     @FXML
@@ -251,7 +291,8 @@ public class CashierMakeReloadController {
                 discount = Double.parseDouble(txtDiscount.getText()) / 100 * Double.parseDouble(lblTotal.getText());
             }
 
-            String balance = String.valueOf(Double.parseDouble(txtCash.getText()) - (Double.parseDouble(lblTotal.getText()) - discount));
+            String balance = String.valueOf(Double.parseDouble(txtCash.getText()) -
+                    (Double.parseDouble(lblTotal.getText()) - discount));
             lblBalance.setText(balance);
             if (Double.parseDouble(lblBalance.getText()) >= 0) {
                 btnPlaceOrder.setDisable(false);
@@ -277,7 +318,8 @@ public class CashierMakeReloadController {
                 discount = Double.parseDouble(txtDiscount.getText()) / 100 * Double.parseDouble(lblTotal.getText());
             }
 
-            String balance = String.valueOf(Double.parseDouble(txtCash.getText()) - (Double.parseDouble(lblTotal.getText()) - discount));
+            String balance = String.valueOf(Double.parseDouble(txtCash.getText()) -
+                    (Double.parseDouble(lblTotal.getText()) - discount));
             lblBalance.setText(balance);
             if (Double.parseDouble(lblBalance.getText()) >= 0) {
                 btnPlaceOrder.setDisable(false);
@@ -340,7 +382,8 @@ public class CashierMakeReloadController {
 
             boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CusId);
             if (updateCustomer) {
-                Notification.notifie("Customer Data", "Customer Data Updated", NotificationType.INFORMATION);
+                Notification.notifie("Customer Data", "Customer Data Updated",
+                        NotificationType.INFORMATION);
                 observableList.clear();
                 initialize();
             } else {
@@ -356,6 +399,7 @@ public class CashierMakeReloadController {
         Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
         String cusId = tblCustomer.getSelectionModel().getSelectedItem().getCode();
         String employeeId=LoginFormController.employeeId;
+
         ArrayList<CustomerReloadDetail> customerReloadDetailArrayList=new ArrayList<>();
         for (int i = 0; i < tblOrder.getItems().size(); i++) {
             String reloadCode= String.valueOf(colReloadCode.getCellData(i));
@@ -366,18 +410,29 @@ public class CashierMakeReloadController {
             customerReloadDetailArrayList.add(customerReloadDetail);
 
         }
-        CustomerReload customerReload=new CustomerReload(reloadId,date,time,cusId,employeeId,customerReloadDetailArrayList);
+        CustomerReload customerReload=new CustomerReload(reloadId,date,time,cusId,employeeId
+                ,customerReloadDetailArrayList);
 
         boolean placeReload= PlaceReloadModel.placeReload(customerReload);
         if (placeReload){
-            Notification.notifie("Place Order","Order Added",NotificationType.INFORMATION);
+            Notification.notifie("Place Reload","Reload Added",NotificationType.INFORMATION);
             clearFields();
             initialize();
         }else{
-            Notification.notifie("Place Order","Order Failed",NotificationType.ERROR);
+            Notification.notifie("Place Reload","Reload Failed",NotificationType.ERROR);
         }
 
     }
+    public void onMouseClicked(MouseEvent mouseEvent) {
+        CustomerTm tm = tblCustomer.getItems().get(tblCustomer.getSelectionModel().getSelectedIndex());
+        txtName.setText(tm.getName());
+        txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
+        CusId = tm.getCode();
+        lblCustomerName.setText(txtName.getText());
+        btnAdd.setDisable(true);
+        txtDescription.requestFocus();
+    }
+
 
     public void onMouseClickTblOrder(MouseEvent mouseEvent) {
         ReloadTm reloadTm = tblOrder.getItems().get(tblOrder.getSelectionModel().getSelectedIndex());

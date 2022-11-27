@@ -60,22 +60,18 @@
                      </image>
                   </ImageView>
                </graphic>
-               <styleClass>
-                  <String fx:value="sidebarItem" />
-                  <String fx:value="button" />
-               </styleClass>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="sidebarItem" />
+               </styleClass>
             </JFXButton>
-            <JFXButton fx:id="btnPlaceOrder" buttonType="RAISED" layoutY="319.0" onAction="#placeOrderOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../assests/css/style.css" text="  PlaceOrder     ">
+            <JFXButton id="btnPlaceOrder" fx:id="btnPlaceOrder" buttonType="RAISED" layoutY="319.0" onAction="#placeOrderOnAction" prefHeight="81.0" prefWidth="287.0" styleClass="sidebarItem" stylesheets="@../assests/css/style.css" text="  PlaceOrder     ">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
-               <styleClass>
-                  <String fx:value="sidebarItem" />
-                  <String fx:value="button" />
-               </styleClass>
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -91,10 +87,6 @@
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
-               <styleClass>
-                  <String fx:value="sidebarItem" />
-                  <String fx:value="button" />
-               </styleClass>
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -105,15 +97,15 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="sidebarItem" />
+               </styleClass>
             </JFXButton>
             <JFXButton fx:id="btnItems" buttonType="RAISED" layoutY="502.0" onAction="#itemsOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../assests/css/style.css" text="  Items               ">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
                </font>
-               <styleClass>
-                  <String fx:value="sidebarItem" />
-                  <String fx:value="button" />
-               </styleClass>
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -124,6 +116,10 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="sidebarItem" />
+               </styleClass>
             </JFXButton>
             <JFXButton buttonType="RAISED" layoutX="55.0" layoutY="721.0" onAction="#logOutOnAction" prefHeight="25.0" prefWidth="178.0" style="-fx-background-color: #21a24a;" text="Log Out">
                <font>

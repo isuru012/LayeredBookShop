@@ -1,17 +1,45 @@
 package lk.ijse.bookshop.model;
 
+import lk.ijse.bookshop.db.DBConnection;
+import lk.ijse.bookshop.to.Employee;
 import lk.ijse.bookshop.to.User;
 import lk.ijse.bookshop.util.CrudUtil;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserCreationModel {
     public static String role;
-    public static boolean userAllDetailSave(User user) throws SQLException, ClassNotFoundException {
-        String sql="INSERT INTO user VALUES(?,?,?)";
-        return CrudUtil.execute(sql,user.getUserName(),user.getPassword(),user.getRole());
+    public static boolean userAllDetailSave(User user, Employee employee) throws SQLException, ClassNotFoundException {
+        try {
+            DBConnection.getDBConnection().getConnection().setAutoCommit(false);
+            PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO user VALUES(?,?,?) ");
+            statement.setObject(1,user.getUserName());
+            statement.setObject(2,user.getPassword());
+            statement.setObject(3,user.getRole());
+
+
+            boolean isAddedOrder=statement.executeUpdate()>0;
+            if (isAddedOrder) {
+                boolean updateEmployeeTable = EmployeeModel.updateTable(employee);
+                if (updateEmployeeTable) {
+                    DBConnection.getDBConnection().getConnection().commit();
+                    return true;
+
+                }
+            }
+            DBConnection.getDBConnection().getConnection().rollback();
+            return false;
+
+        }finally {
+            DBConnection.getDBConnection().getConnection().setAutoCommit(true);
+        }
+
     }
+
+
+
     public static User getLoginData(String username,String password) throws SQLException, ClassNotFoundException {
         String sql="SELECT * FROM user WHERE Username=? AND Password=?";
         ResultSet resultSet=CrudUtil.execute(sql,username,password);

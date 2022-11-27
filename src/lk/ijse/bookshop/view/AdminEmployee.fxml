@@ -14,14 +14,13 @@
 
 <AnchorPane fx:id="pane2" prefHeight="768.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.AdminEmployeeController">
    <children>
-      <TableView layoutX="98.0" layoutY="443.0" prefHeight="282.0" prefWidth="920.0">
+      <TableView fx:id="tblEmployee" layoutX="98.0" layoutY="443.0" onMouseClicked="#onMouseClickOnEmployeeTable" prefHeight="282.0" prefWidth="920.0">
         <columns>
-          <TableColumn prefWidth="148.0" text="Username" />
-          <TableColumn prefWidth="192.0" text="Password" />
-            <TableColumn prefWidth="136.0" text="Name" />
-            <TableColumn prefWidth="181.0" text="Address" />
-            <TableColumn prefWidth="136.0" text="Phone Number" />
-            <TableColumn prefWidth="136.0" text="Email" />
+          <TableColumn fx:id="colEmployeeId" prefWidth="114.0" text="EmployeeId" />
+            <TableColumn fx:id="colName" prefWidth="212.0" text="Name" />
+            <TableColumn fx:id="colAddress" prefWidth="246.0" text="Address" />
+            <TableColumn fx:id="colPhoneNumber" prefWidth="172.0" text="Phone Number" />
+            <TableColumn fx:id="colSalary" prefWidth="175.0" text="Salary" />
         </columns>
       </TableView>
       <JFXTextField fx:id="txtName" focusColor="#448dc2" focusTraversable="false" layoutX="101.0" layoutY="157.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
@@ -63,7 +62,7 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtEmail" focusColor="#448dc2" focusTraversable="false" layoutX="586.0" layoutY="271.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtSalary" focusColor="#448dc2" focusTraversable="false" layoutX="586.0" layoutY="271.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -71,12 +70,12 @@
             <Font name="Arial" size="13.0" />
          </font>
       </JFXTextField>
-      <Label layoutX="586.0" layoutY="242.0" text="Email">
+      <Label layoutX="586.0" layoutY="242.0" text="Salary">
          <font>
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="693.0" layoutY="365.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="693.0" layoutY="365.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>

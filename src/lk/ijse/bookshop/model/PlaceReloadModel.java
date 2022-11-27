@@ -15,7 +15,7 @@ public class PlaceReloadModel {
 
     public static Reload searchDescription(String text) throws SQLException, ClassNotFoundException {
         String searchText="%"+text+"%";
-        String sql="SELECT * FROM reload WHERE Description LIKE ?";
+        String sql="SELECT * FROM reload WHERE ServiceProvider LIKE ?";
         ResultSet resultSet= CrudUtil.execute(sql,searchText);
         if (resultSet.next()){
             return new Reload(resultSet.getString(1), resultSet.getString(2),
@@ -45,21 +45,21 @@ public class PlaceReloadModel {
     }
 
     public static boolean placeReload(CustomerReload customerReload) throws SQLException, ClassNotFoundException {
-        /*try {
+        try {
             DBConnection.getDBConnection().getConnection().setAutoCommit(false);
             PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO cusreload VALUES(?,?,?,?,?) ");
             statement.setObject(1,customerReload.getCusReloadId());
             statement.setObject(2,customerReload.getDate());
             statement.setObject(3,customerReload.getTime());
-            statement.setObject(4,customerOrder.getCusId());
-            statement.setObject(5,customerOrder.getEmployeeId());
+            statement.setObject(4,customerReload.getCusId());
+            statement.setObject(5,customerReload.getEmployeeId());
 
             boolean isAddedOrder=statement.executeUpdate()>0;
             if (isAddedOrder){
-                boolean saveOrderDetails=OrderDetailModel.saveOrderDetails(customerOrder.getCustomerOrderDetails());
-                if (saveOrderDetails){
-                    boolean updateStock=ItemModel.updateStock(customerOrder.getCustomerOrderDetails());
-                    if (updateStock){
+                boolean saveReloadDetails=ReloadDetailModel.saveReloadDetails(customerReload.getCustomerReloadDetails());
+                if (saveReloadDetails){
+                    boolean updateAmount=ReloadModel.updateAmount(customerReload.getCustomerReloadDetails());
+                    if (updateAmount){
                         DBConnection.getDBConnection().getConnection().commit();
                         return true;
                     }
@@ -70,7 +70,7 @@ public class PlaceReloadModel {
 
         }finally {
             DBConnection.getDBConnection().getConnection().setAutoCommit(true);
-        }*/
-        return true;
+        }
+
     }
 }

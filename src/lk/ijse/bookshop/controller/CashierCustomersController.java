@@ -132,13 +132,24 @@ public class CashierCustomersController {
 
     private String generateNextCustomeId(String orderId) {
         if (orderId != null) {
-            String[] split = orderId.split("C0");
+            String[] split = orderId.split("C");
             int id = Integer.parseInt(split[1]);
 
             id += 1;
-            return "C0" + id;
+            if (id>=10){
+                return "C000" + id;
+            }else if(id>=100){
+                return "C00" +id;
+            }else if(id>=1000){
+                return "C0"+id;
+            }else if(id>=10000){
+                return "C"+id;
+            }else{
+
+                return "C0000" + id;
+            }
         }
-        return "C01";
+        return "C00001";
     }
 
     @FXML

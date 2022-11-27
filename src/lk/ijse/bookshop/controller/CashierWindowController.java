@@ -43,7 +43,7 @@ public class CashierWindowController {
     @FXML
     private Label lblTime;
     @FXML
-    public  JFXButton btnCustomers;
+    public JFXButton btnCustomers;
     @FXML
     private JFXButton btnPlaceOrder;
     @FXML
@@ -103,9 +103,9 @@ public class CashierWindowController {
         t1.start();
 
         arrayListButton.add(btnCustomers);
-        arrayListButton.add(btnItems);
         arrayListButton.add(btnPlaceOrder);
         arrayListButton.add(btnPlaceReload);
+        arrayListButton.add(btnItems);
 
         colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -121,7 +121,9 @@ public class CashierWindowController {
         searchPart();
 
     }
+
     private void searchPart() {
+
         FilteredList<CustomerTm> filteredList = new FilteredList(CashierCustomersController.observableList, b -> true);
 
         txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -182,22 +184,34 @@ public class CashierWindowController {
         CashierCustomersController.observableList.add(customerTm);
         searchPart();
     }
+
     private String generateNextCustomeId(String orderId) {
         if (orderId != null) {
-            String[] split = orderId.split("C0");
+            String[] split = orderId.split("C");
             int id = Integer.parseInt(split[1]);
 
             id += 1;
-            return "C0" + id;
+            if (id>=10){
+                return "C000" + id;
+            }else if(id>=100){
+                return "C00" +id;
+            }else if(id>=1000){
+                return "C0"+id;
+            }else if(id>=10000){
+                return "C"+id;
+            }else{
+
+                return "C0000" + id;
+            }
         }
-        return "C01";
+        return "C00001";
     }
 
     @FXML
     void deleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Customer Data");
-        alert.setContentText("Do you want to delete customer "+txtName.getText()+"?");
+        alert.setContentText("Do you want to delete customer " + txtName.getText() + "?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             boolean deleteCustomer = CustomerModel.deleteCustomer(CashierCustomersController.CusId);
@@ -213,10 +227,6 @@ public class CashierWindowController {
         }
     }
 
-    @FXML
-    void searchOnAction(ActionEvent event) {
-
-    }
 
     @FXML
     void updateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
@@ -248,15 +258,15 @@ public class CashierWindowController {
 
     public void checkfocus() {
         if (btnCustomers.isFocused()) {
-                checkButton(btnCustomers);
+            checkButton(btnCustomers);
 
-            } else if (btnItems.isFocused()) {
-                checkButton(btnItems);
-            } else if (btnPlaceOrder.isFocused()) {
-                checkButton(btnPlaceOrder);
-            } else if (btnPlaceReload.isFocused()) {
-                checkButton(btnPlaceReload);
+        } else if (btnPlaceOrder.isFocused()) {
+            checkButton(btnPlaceOrder);
+        } else if (btnPlaceReload.isFocused()) {
+            checkButton(btnPlaceReload);
 
+        } else if (btnItems.isFocused()) {
+            checkButton(btnItems);
         }
     }
 
@@ -270,20 +280,20 @@ public class CashierWindowController {
     @FXML
     void itemsOnAction(ActionEvent event) throws IOException {
         checkfocus();
-        Navigation.navigate(Routes.CASHIERITEMS,pane2);
+        Navigation.navigate(Routes.CASHIERITEMS, pane2);
 
     }
 
     @FXML
     void placeOrderOnAction(ActionEvent event) throws IOException {
         checkfocus();
-        Navigation.navigate(Routes.CASHIERPLACEORDER,pane2);
+        Navigation.navigate(Routes.CASHIERPLACEORDER, pane2);
     }
 
     @FXML
     void placeReloadOnAction(ActionEvent event) throws IOException {
         checkfocus();
-        Navigation.navigate(Routes.CASHIERMAKERELOAD,pane2);
+        Navigation.navigate(Routes.CASHIERMAKERELOAD, pane2);
     }
 
     public void closeOnAction(ActionEvent actionEvent) {
@@ -297,6 +307,6 @@ public class CashierWindowController {
 
 
     public void logOutOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.LOGIN,pane);
+        Navigation.navigate(Routes.LOGIN, pane);
     }
 }

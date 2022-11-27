@@ -6,8 +6,11 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import lk.ijse.bookshop.model.DashboardModel;
 import lk.ijse.bookshop.util.WindowControll;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 
 public class AdminDashboardController {
@@ -15,20 +18,23 @@ public class AdminDashboardController {
     public LineChart lineChart;
     public CategoryAxis xAxis;
     public NumberAxis yAxis;
+    public Label lblOrder;
+    public Label lblProduct;
+    public Label lblCustomer;
 
-    public void initialize(){
-        /*xAxis = new CategoryAxis();
-        xAxis.setCategories(FXCollections.<String>observableArrayList
-                (Arrays.asList("Mon", "Tue","Wed","Thu","Fri","Sat","Sun")));
-        xAxis.setLabel("Days");
-        yAxis = new NumberAxis(0, 35000, 5000);
-        yAxis.setLabel("Amount Earned");
-        LineChart linechart = new LineChart(xAxis, yAxis);*/
+    public void initialize() throws SQLException, ClassNotFoundException {
+
         returnLineChart();
-
+        int ordersAmount = DashboardModel.getOrdersAmount();
+        lblOrder.setText(String.valueOf(ordersAmount));
+        int products = DashboardModel.getProductsAmount();
+        lblProduct.setText(String.valueOf(products));
+        int customers=DashboardModel.getCustomersAmount();
+        lblCustomer.setText(String.valueOf(customers));
 
     }
-    public void returnLineChart(){
+
+    public void returnLineChart() {
         XYChart.Series series = new XYChart.Series();
 
 
