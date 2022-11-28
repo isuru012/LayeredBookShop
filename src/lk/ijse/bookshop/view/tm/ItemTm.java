@@ -6,18 +6,18 @@ public class ItemTm {
     private String description;
     private double sellingUnitPrice;
     private int quantityOnHand;
-    private String offerId;
+    private double offerAmount;
 
     public ItemTm() {
     }
 
-    public ItemTm(String itemId, int batchNumber, String description, double sellingUnitPrice, int quantityOnHand, String offerId) {
+    public ItemTm(String itemId, int batchNumber, String description, double sellingUnitPrice, int quantityOnHand, double offerAmount) {
         this.itemId = itemId;
         this.batchNumber = batchNumber;
         this.description = description;
         this.sellingUnitPrice = sellingUnitPrice;
         this.quantityOnHand = quantityOnHand;
-        this.offerId = offerId;
+        this.offerAmount = offerAmount;
     }
 
     public String getItemId() {
@@ -60,11 +60,11 @@ public class ItemTm {
         this.quantityOnHand = quantityOnHand;
     }
 
-    public String getOfferId() {
-        return offerId;
+    public double getOfferAmount() {
+        return offerAmount;
     }
 
-    public void setOfferId(String offerId) {
-        this.offerId = offerId;
+    public void setOfferAmount(double offerAmount) {
+        this.offerAmount = offerAmount;
     }
 }

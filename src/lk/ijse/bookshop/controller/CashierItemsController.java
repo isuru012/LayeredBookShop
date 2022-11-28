@@ -52,7 +52,7 @@ public class CashierItemsController {
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colSellingPrice.setCellValueFactory(new PropertyValueFactory<>("sellingUnitPrice"));
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantityOnHand"));
-        colOffer.setCellValueFactory(new PropertyValueFactory<>("offerId"));
+        colOffer.setCellValueFactory(new PropertyValueFactory<>("offerAmount"));
 
         ArrayList arrayList = ItemModel.getAllDetails();
         for (Object customerTm : arrayList) {

@@ -2,6 +2,7 @@ package lk.ijse.bookshop.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,16 +17,19 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.bookshop.model.PlaceOrderModel;
 import lk.ijse.bookshop.model.SupplierOrderModel;
-import lk.ijse.bookshop.to.Item;
-import lk.ijse.bookshop.to.Supplier;
+import lk.ijse.bookshop.to.*;
 import lk.ijse.bookshop.util.Navigation;
+import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.util.Routes;
-import lk.ijse.bookshop.view.tm.OrderTm;
 import lk.ijse.bookshop.view.tm.SupplierTm;
 import org.controlsfx.control.textfield.TextFields;
+import tray.notification.NotificationType;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -83,7 +87,7 @@ public class AdminSupplierController {
     private JFXButton btnSeeSupplierDetails;
 
     @FXML
-    private JFXTextField txtSupplierName;
+    public  JFXTextField txtSupplierName;
 
     @FXML
     private JFXTextField txtDescription;
@@ -99,9 +103,12 @@ public class AdminSupplierController {
 
     @FXML
     private JFXTextField txtSellingUnitPrice;
+
+    public static double sellingUnitPrice=0;
     ObservableList<SupplierTm> observableList1 = FXCollections.observableArrayList();
 
     public void initialize() throws SQLException, ClassNotFoundException {
+        Platform.runLater(() -> txtSupplierName.requestFocus());
         lblOrderDate.setText(String.valueOf(LocalDate.now()));
         lblOrderId.setText(generateNextOrderId(SupplierOrderModel.getOrderId()));
         ArrayList loadAllSupplierNames = SupplierOrderModel.loadAllSupplierNames();
@@ -116,11 +123,13 @@ public class AdminSupplierController {
         colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
 
-        if (tblSupplierOrder.getItems().size()>=1){
-btnPlaceOrder.setDisable(false);
-        }else{
+        if (tblSupplierOrder.getItems().size() >= 1) {
+            btnPlaceOrder.setDisable(false);
+        } else {
             btnPlaceOrder.setDisable(true);
         }
+
+
 
     }
 
@@ -160,6 +169,7 @@ btnPlaceOrder.setDisable(false);
         lblTotalPrice.setText(String.valueOf(total));
 
     }
+
     private void clearFields() {
         txtSupplierName.setText("");
 
@@ -175,10 +185,11 @@ btnPlaceOrder.setDisable(false);
         txtBuyingUnitPrice.setText("");
         tblSupplierOrder.getItems().clear();
     }
-    private void checkPlaceOrder(){
-        if (tblSupplierOrder.getItems().size()>=1){
+
+    private void checkPlaceOrder() {
+        if (tblSupplierOrder.getItems().size() >= 1) {
             btnPlaceOrder.setDisable(false);
-        }else{
+        } else {
             btnPlaceOrder.setDisable(true);
         }
     }
@@ -193,7 +204,7 @@ btnPlaceOrder.setDisable(false);
 
     @FXML
     void btnSeeSupplierDetailsOnAction(ActionEvent event) throws IOException {
-        Navigation.navigate(Routes.SUPPLIERDETAILS,pane2);
+        Navigation.navigate(Routes.SUPPLIERDETAILS, pane2);
     }
 
     @FXML
@@ -201,6 +212,15 @@ btnPlaceOrder.setDisable(false);
         tblSupplierOrder.getItems().removeAll(tblSupplierOrder.getSelectionModel().getSelectedItems());
         generateTotal();
         checkPlaceOrder();
+        clearTableSelection();
+        btnAdd.setDisable(false);
+
+    }
+
+    public void clearTableSelection() {
+        if (!tblSupplierOrder.isFocused()) {
+            tblSupplierOrder.getSelectionModel().clearSelection();
+        }
     }
 
     @FXML
@@ -210,27 +230,61 @@ btnPlaceOrder.setDisable(false);
         txtDescription.setText(supplierTm.getDescription());
         txtQty.setText(String.valueOf(supplierTm.getQuantity()));
         lblQtyOnHand.setText(String.valueOf(SupplierOrderModel.getItemQuantity(lblItemCode.getText())));
-        txtSellingUnitPrice.setText(String.valueOf(SupplierOrderModel.getSellingUnitPrice(lblItemCode.getText())));
+        txtBuyingUnitPrice.setText(String.valueOf(SupplierOrderModel.getSellingUnitPrice(lblItemCode.getText())));
         btnAdd.setDisable(true);
         checkPlaceOrder();
+
+
     }
 
     @FXML
-    void placeOrderOnAction(ActionEvent event) {
+    void placeOrderOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        String SupOrderId = lblOrderId.getText();
+        Date date = Date.valueOf(lblOrderDate.getText());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
+        Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
+        String SupplierId = lblSupplierId.getText();
+        String getUsername=SupplierOrderModel.getUserName();
 
+        sellingUnitPrice= Double.parseDouble(txtSellingUnitPrice.getText());
+
+
+        ArrayList<SupplierOrderDetail> supplierOrderDetails = new ArrayList<>();
+        for (int i = 0; i < tblSupplierOrder.getItems().size(); i++) {
+            String itemCode = String.valueOf(colItemCode.getCellData(i));
+            double unitPrice = Double.parseDouble(String.valueOf(colUnitPrice.getCellData(i)));
+            int orderQuantity = Integer.parseInt(String.valueOf(colQuantity.getCellData(i)));
+            double total = unitPrice * orderQuantity;
+
+            SupplierOrderDetail supplierOrderDetail = new SupplierOrderDetail(SupOrderId,itemCode,unitPrice,orderQuantity
+                    ,total);
+            supplierOrderDetails.add(supplierOrderDetail);
+
+        }
+        SupplierOrder supplierOrder = new SupplierOrder(SupOrderId,date,time,SupplierId,getUsername,supplierOrderDetails);
+        boolean placeOrder = SupplierOrderModel.placeOrder(supplierOrder);
+        if (placeOrder) {
+            Notification.notifie("Place Order", "Order Added", NotificationType.INFORMATION);
+            clearFields();
+            initialize();
+        } else {
+            Notification.notifie("Place Order", "Order Failed", NotificationType.ERROR);
+        }
 
     }
 
     @FXML
     void updateOnAction(ActionEvent event) {
         int qty = Integer.parseInt(txtQty.getText());
-        double buyingUnitPrice =Double.parseDouble(txtBuyingUnitPrice.getText());
+        double buyingUnitPrice = Double.parseDouble(txtBuyingUnitPrice.getText());
 
         observableList1.get(tblSupplierOrder.getSelectionModel().getSelectedIndex()).setQuantity(qty);
         observableList1.get(tblSupplierOrder.getSelectionModel().getSelectedIndex()).setTotal(qty * buyingUnitPrice);
         tblSupplierOrder.refresh();
         generateTotal();
         checkPlaceOrder();
+        clearTableSelection();
+        btnAdd.setDisable(false);
     }
 
     public void keyReleasedOnActionSupplierName(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
@@ -243,6 +297,8 @@ btnPlaceOrder.setDisable(false);
                 txtDescription.requestFocus();
             }
         }
+        clearTableSelection();
+        btnAdd.setDisable(false);
     }
 
     public void keyReleasedOnActionDescription(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
@@ -251,12 +307,14 @@ btnPlaceOrder.setDisable(false);
         if (item != null) {
             lblItemCode.setText(item.getItemId());
 
-            lblQtyOnHand.setText(String.valueOf(item.getQuantityOnHand()));
+            lblQtyOnHand.setText(String.valueOf(SupplierOrderModel.getQtyTotalOfOneItem(item.getItemId())));
 
             if (keyEvent.getCode() == KeyCode.ENTER) {
                 txtBuyingUnitPrice.requestFocus();
             }
         }
+        clearTableSelection();
+        btnAdd.setDisable(false);
     }
 
     public void keyReleasedOnActionQuantity(KeyEvent keyEvent) {
@@ -266,41 +324,50 @@ btnPlaceOrder.setDisable(false);
 
         }
 
+
     }
 
     private void addToTable() {
-        String code = lblItemCode.getText();
-        String description = txtDescription.getText();
-        int qty = Integer.parseInt(txtQty.getText());
-        double buyingUnitPrice = Double.parseDouble(txtBuyingUnitPrice.getText());
-        double total = qty * buyingUnitPrice;
+        if (!btnAdd.isDisabled()) {
+            String code = lblItemCode.getText();
+            String description = txtDescription.getText();
+            int qty = Integer.parseInt(txtQty.getText());
+            double buyingUnitPrice = Double.parseDouble(txtBuyingUnitPrice.getText());
+            double total = qty * buyingUnitPrice;
 
-        SupplierTm supplierTm = new SupplierTm(code, description, qty, buyingUnitPrice, total);
+            SupplierTm supplierTm = new SupplierTm(code, description, qty, buyingUnitPrice, total);
 
 
-        for (int i = 0; i < tblSupplierOrder.getItems().size(); i++) {
-            if (colItemCode.getCellData(i).equals(lblItemCode.getText())) {
+            for (int i = 0; i < tblSupplierOrder.getItems().size(); i++) {
+                if (colItemCode.getCellData(i).equals(lblItemCode.getText())) {
 
-                int tempQty = observableList1.get(i).getQuantity() + qty;
-                double tempTotal = buyingUnitPrice * tempQty;
+                    int tempQty = observableList1.get(i).getQuantity() + qty;
+                    double tempTotal = buyingUnitPrice * tempQty;
 
-                observableList1.get(i).setQuantity(tempQty);
-                observableList1.get(i).setTotal(tempTotal);
+                    observableList1.get(i).setQuantity(tempQty);
+                    observableList1.get(i).setTotal(tempTotal);
 
-                tblSupplierOrder.refresh();
-                generateTotal();
-                checkPlaceOrder();
-                return;
+                    tblSupplierOrder.refresh();
+                    generateTotal();
+                    checkPlaceOrder();
+                    return;
 
+                }
             }
+            observableList1.add(supplierTm);
+            tblSupplierOrder.setItems(observableList1);
+            generateTotal();
+            checkPlaceOrder();
         }
-        observableList1.add(supplierTm);
-        tblSupplierOrder.setItems(observableList1);
-        generateTotal();
-        checkPlaceOrder();
     }
 
     public void keyReleasedOnActionBuyingUnitPrice(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            txtSellingUnitPrice.requestFocus();
+        }
+    }
+
+    public void keyReleasedOnActionSellingUnitPrice(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             txtQty.requestFocus();
         }

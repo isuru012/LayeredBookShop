@@ -24,6 +24,7 @@ import tray.notification.NotificationType;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -160,29 +161,34 @@ public class CashierWindowController {
 
     @FXML
     void addOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String name = txtName.getText();
-        int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-        String cusId = generateNextCustomeId(CustomerModel.getOrderId());
-        /*LocalDate date= LocalDate.now();*/
-        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-        String employeeId = LoginFormController.employeeId;
+        try {
 
-        Customer customer = new Customer(cusId, name, phoneNumber, date, employeeId);
-        boolean customerData = CustomerModel.insertCustomerData(customer);
-        if (customerData) {
-            Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
-        } else {
-            Notification.notifie("Customer Data", "Customer Data  Not Added", NotificationType.ERROR);
+            String name = txtName.getText();
+            int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+            String cusId = generateNextCustomeId(CustomerModel.getOrderId());
+            /*LocalDate date= LocalDate.now();*/
+            java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+            String employeeId = LoginFormController.employeeId;
+
+            Customer customer = new Customer(cusId, name, phoneNumber, date, employeeId);
+            boolean customerData = CustomerModel.insertCustomerData(customer);
+            if (customerData) {
+                Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
+            } else {
+                Notification.notifie("Customer Data", "Customer Data  Not Added", NotificationType.ERROR);
+            }
+
+            CustomerTm customerTm = new CustomerTm(cusId, name, phoneNumber, date);
+            colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+            colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+            colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
+
+            CashierCustomersController.observableList.add(customerTm);
+            searchPart();
+        }catch (SQLIntegrityConstraintViolationException exception){
+            Notification.notifie("Alert","Data Already Exists",NotificationType.ERROR);
         }
-
-        CustomerTm customerTm = new CustomerTm(cusId, name, phoneNumber, date);
-        colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
-
-        CashierCustomersController.observableList.add(customerTm);
-        searchPart();
     }
 
     private String generateNextCustomeId(String orderId) {

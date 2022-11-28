@@ -176,6 +176,7 @@ public class AdminWindowController {
 
     public void supplierOnAction(ActionEvent actionEvent) throws IOException {
         checkfocus();
+
         Navigation.navigate(Routes.SUPPLIERORDER, pane2);
     }
 
