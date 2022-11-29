@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="pane2" prefHeight="768.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.AdminItemsController">
    <children>
-      <JFXTextField fx:id="txtName" focusColor="#448dc2" focusTraversable="false" layoutX="36.0" layoutY="120.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtDesCription" focusColor="#448dc2" focusTraversable="false" layoutX="36.0" layoutY="120.0" onKeyReleased="#descriptionKeyReleasedOnAction" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -27,7 +27,7 @@
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtPhoneNumber" focusColor="#448dc2" focusTraversable="false" layoutX="617.0" layoutY="119.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtBuyingPrice" focusColor="#448dc2" focusTraversable="false" layoutX="617.0" layoutY="119.0" onKeyReleased="#buyingPriceKeyReleasedOnAction" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -40,7 +40,7 @@
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="901.0" layoutY="273.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add" textFill="WHITE">
+      <JFXButton fx:id="btnAdd" buttonType="RAISED" focusTraversable="false" layoutX="901.0" layoutY="273.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
@@ -55,7 +55,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="713.0" layoutY="273.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" focusTraversable="false" layoutX="713.0" layoutY="273.0" onAction="#updateOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #0056A3; -fx-background-radius: 20px;" text="Update" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
@@ -70,7 +70,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="901.0" layoutY="355.0" onAction="#deleteOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #ED5E68; -fx-background-radius: 20px;" text="Delete" textFill="WHITE">
+      <JFXButton fx:id="btnDelete" buttonType="RAISED" focusTraversable="false" layoutX="901.0" layoutY="355.0" onAction="#deleteOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #ED5E68; -fx-background-radius: 20px;" text="Delete" textFill="WHITE">
          <font>
             <Font name="Segoe UI Black" size="18.0" />
          </font>
@@ -93,7 +93,7 @@
             <Font name="Arial" size="18.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="txtPhoneNumber1" focusColor="#448dc2" focusTraversable="false" layoutX="37.0" layoutY="209.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtSellingPrice" focusColor="#448dc2" focusTraversable="false" layoutX="37.0" layoutY="209.0" onKeyReleased="#sellingPriceKeyReleasedOnAction" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -106,7 +106,7 @@
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtPhoneNumber11" focusColor="#448dc2" focusTraversable="false" layoutX="617.0" layoutY="209.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtQty" focusColor="#448dc2" focusTraversable="false" layoutX="617.0" layoutY="209.0" onKeyReleased="#quantityKeyReleasedOnAction" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -119,15 +119,15 @@
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <TableView layoutX="26.0" layoutY="416.0" prefHeight="326.0" prefWidth="1027.0">
+      <TableView fx:id="tblItem" layoutX="26.0" layoutY="416.0" onMouseClicked="#tblItemOnActionMouseClick" prefHeight="326.0" prefWidth="1027.0">
          <columns>
-            <TableColumn prefWidth="75.0" text="Code" />
-            <TableColumn prefWidth="113.0" text="BatchNumber" />
-            <TableColumn prefWidth="172.0" text="Description" />
-            <TableColumn prefWidth="145.0" text="BuyingUnitPrice" />
-            <TableColumn prefWidth="168.0" text="SellingUnitPrice" />
-            <TableColumn prefWidth="142.0" text="QuantityOnHand" />
-            <TableColumn prefWidth="211.0" text="OfferAmount" />
+            <TableColumn fx:id="colItemCode" prefWidth="75.0" text="Code" />
+            <TableColumn fx:id="colBatchNumber" prefWidth="113.0" text="BatchNumber" />
+            <TableColumn fx:id="colDescription" prefWidth="172.0" text="Description" />
+            <TableColumn fx:id="colBuyingPrice" prefWidth="145.0" text="BuyingUnitPrice" />
+            <TableColumn fx:id="colSellingPrice" prefWidth="168.0" text="SellingUnitPrice" />
+            <TableColumn fx:id="colQuantity" prefWidth="142.0" text="QuantityOnHand" />
+            <TableColumn fx:id="colOfferAmount" prefWidth="211.0" text="OfferAmount" />
          </columns>
       </TableView>
       <Label layoutX="461.0" layoutY="22.0" prefHeight="53.0" prefWidth="187.0" text="Item Form" textFill="#044721">
@@ -140,23 +140,25 @@
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="214.0" layoutY="265.0" text="BatchNumber">
+      <Label layoutX="277.0" layoutY="266.0" text="BatchNumber">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="36.0" layoutY="292.0" prefHeight="26.0" prefWidth="83.0">
+      <Label fx:id="lblCode" layoutX="36.0" layoutY="292.0" prefHeight="26.0" prefWidth="132.0">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtPhoneNumber12" focusColor="#448dc2" focusTraversable="false" layoutX="214.0" layoutY="292.0" prefHeight="17.0" prefWidth="187.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
-         <effect>
-            <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
-         </effect>
+      <Label fx:id="lblBatchNumber" alignment="CENTER" contentDisplay="CENTER" layoutX="277.0" layoutY="293.0" prefHeight="26.0" prefWidth="116.0" text="1">
          <font>
-            <Font name="Arial" size="13.0" />
+            <Font name="Arial Bold" size="18.0" />
          </font>
-      </JFXTextField>
+      </Label>
+      <ImageView fitHeight="37.0" fitWidth="46.0" layoutX="41.0" layoutY="24.0" onMouseClicked="#onMouseClickRefresh" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assests/logos/update.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

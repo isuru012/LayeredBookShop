@@ -10,17 +10,17 @@
 
 <AnchorPane prefHeight="768.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.AdminPaymentController">
    <children>
-      <TableView layoutX="31.0" layoutY="310.0" prefHeight="420.0" prefWidth="1032.0">
+      <TableView fx:id="tblPayment" layoutX="31.0" layoutY="310.0" prefHeight="420.0" prefWidth="1032.0">
         <columns>
-          <TableColumn prefWidth="93.0" text="Code" />
-          <TableColumn prefWidth="176.0" text="Amount" />
-            <TableColumn prefWidth="200.0" text="Date" />
-            <TableColumn prefWidth="145.0" text="Time" />
-            <TableColumn prefWidth="187.0" text="Suplier Name" />
-            <TableColumn prefWidth="230.0" text="Expenditure Description" />
+          <TableColumn fx:id="colCode" prefWidth="93.0" text="Code" />
+          <TableColumn fx:id="colAmount" prefWidth="176.0" text="Amount" />
+            <TableColumn fx:id="colDate" prefWidth="200.0" text="Date" />
+            <TableColumn fx:id="colTime" prefWidth="145.0" text="Time" />
+            <TableColumn fx:id="colSupplierName" prefWidth="187.0" text="Suplier Id" />
+            <TableColumn fx:id="colExpenditure" prefWidth="230.0" text="Expenditure Id" />
         </columns>
       </TableView>
-      <JFXTextField layoutX="31.0" layoutY="218.0" prefHeight="40.0" prefWidth="1000.0" promptText="Search Here">
+      <JFXTextField fx:id="txtSearch" layoutX="31.0" layoutY="218.0" prefHeight="40.0" prefWidth="1032.0" promptText="Search Here">
          <font>
             <Font name="Arial" size="17.0" />
          </font></JFXTextField>
@@ -29,7 +29,7 @@
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <JFXComboBox layoutX="165.0" layoutY="136.0" prefHeight="25.0" prefWidth="232.0" />
+      <JFXComboBox fx:id="cmbSort" layoutX="161.0" layoutY="132.0" prefHeight="32.0" prefWidth="233.0" />
       <Label layoutX="393.0" layoutY="21.0" prefHeight="57.0" prefWidth="294.0" text="Payment Details" textFill="#044721">
          <font>
             <Font name="Segoe UI Black" size="36.0" />

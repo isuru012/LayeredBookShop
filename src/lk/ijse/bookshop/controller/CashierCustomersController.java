@@ -69,7 +69,7 @@ public class CashierCustomersController {
         for (Object customerTm : arrayList) {
             observableList.add(customerTm);
         }
-        /*tblCustomer.setItems(observableList);*/
+
 
         searchPart();
 
@@ -113,22 +113,27 @@ public class CashierCustomersController {
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             String employeeId = LoginFormController.employeeId;
 
-            Customer customer = new Customer(cusId, name, phoneNumber, date, employeeId);
-            boolean customerData = CustomerModel.insertCustomerData(customer);
-            if (customerData) {
-                Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
-            } else {
-                Notification.notifie("Customer Data", "Customer Data  Not Added", NotificationType.ERROR);
-            }
-
             CustomerTm customerTm = new CustomerTm(cusId, name, phoneNumber, date);
             colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
             colName.setCellValueFactory(new PropertyValueFactory<>("name"));
             colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
             colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
 
-            observableList.add(customerTm);
-            searchPart();
+            Customer customer = new Customer(cusId, name, phoneNumber, date, employeeId);
+
+            boolean customerData = CustomerModel.insertCustomerData(customer);
+
+            if (customerData) {
+                Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
+                observableList.add(customerTm);
+                searchPart();
+            } else {
+                Notification.notifie("Customer Data", "Customer Data  Not Added", NotificationType.ERROR);
+            }
+
+
+
+
         }catch (SQLIntegrityConstraintViolationException exception){
             Notification.notifie("Alert","Data Already Exists",NotificationType.ERROR);
         }

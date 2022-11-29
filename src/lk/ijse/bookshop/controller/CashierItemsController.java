@@ -9,10 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.ItemModel;
 import lk.ijse.bookshop.view.tm.CustomerTm;
-import lk.ijse.bookshop.view.tm.ItemTm;
+import lk.ijse.bookshop.view.tm.CashierItemTm;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -58,11 +57,13 @@ public class CashierItemsController {
         for (Object customerTm : arrayList) {
             observableList.add(customerTm);
         }
+
         searchPart();
+
     }
 
     private void searchPart() {
-        FilteredList<ItemTm> filteredList = new FilteredList(observableList, b -> true);
+        FilteredList<CashierItemTm> filteredList = new FilteredList(observableList, b -> true);
 
         txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredList.setPredicate(itemTm -> {

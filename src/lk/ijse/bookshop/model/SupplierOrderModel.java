@@ -2,15 +2,12 @@ package lk.ijse.bookshop.model;
 
 import lk.ijse.bookshop.controller.AdminSupplierController;
 import lk.ijse.bookshop.db.DBConnection;
-import lk.ijse.bookshop.to.Item;
-import lk.ijse.bookshop.to.Supplier;
-import lk.ijse.bookshop.to.SupplierOrder;
-import lk.ijse.bookshop.to.SupplierOrderDetail;
+import lk.ijse.bookshop.to.*;
 import lk.ijse.bookshop.util.CrudUtil;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class SupplierOrderModel {
@@ -123,8 +120,11 @@ public class SupplierOrderModel {
 
                     boolean updateStock=checkItem(supplierOrder.getSupplierOrderDetails());
                     if (updateStock){
-                        DBConnection.getDBConnection().getConnection().commit();
-                        return true;
+                        boolean updatePayment=updatePayment(supplierOrder.getSupplierId(),supplierOrder.getSupOrderId());
+                        if(updatePayment) {
+                            DBConnection.getDBConnection().getConnection().commit();
+                            return true;
+                        }
                     }
                 }
             }
@@ -134,6 +134,65 @@ public class SupplierOrderModel {
         }finally {
             DBConnection.getDBConnection().getConnection().setAutoCommit(true);
         }
+    }
+
+    private static boolean updatePayment(String supplierId, String supOrderId) throws SQLException, ClassNotFoundException {
+        String paymentId=generateNextPaymentId(PaymentModel.generateCurrentPaymentId());
+
+        double amount=0;
+
+        String sql="SELECT SUM(suporderdetails.TotalPrice) FROM suporderdetails WHERE SupOrderId=?";
+        ResultSet resultSet=CrudUtil.execute(sql,supOrderId);
+
+        if (resultSet.next()){
+            amount=resultSet.getDouble(1);
+        }
+
+        Date date = Date.valueOf(LocalDate.now());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
+        Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
+
+        String username="ss";
+
+        Payment payment=new Payment(paymentId,amount,date,time,username,supOrderId,null);
+
+        PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO payment VALUES(?,?,?,?,?,?,?) ");
+        statement.setObject(1,payment.getPaymentId());
+        statement.setObject(2,payment.getAmount());
+        statement.setObject(3,payment.getDate());
+        statement.setObject(4,payment.getTime());
+        statement.setObject(5,payment.getUsername());
+        statement.setObject(6,payment.getSupplierOrderId());
+        statement.setObject(7,null);
+
+        return statement.executeUpdate()>0;
+
+
+
+
+
+    }
+
+    private static String generateNextPaymentId(String generateCurrentPaymentId) {
+        if (generateCurrentPaymentId != null) {
+            String[] split = generateCurrentPaymentId.split("P");
+            int id = Integer.parseInt(split[1]);
+
+            id += 1;
+            if (id>=10){
+                return "P000" + id;
+            }else if(id>=100){
+                return "P00" +id;
+            }else if(id>=1000){
+                return "P0"+id;
+            }else if(id>=10000){
+                return "P"+id;
+            }else{
+
+                return "P0000" + id;
+            }
+        }
+        return "P00001";
     }
 
     public static boolean checkItem(ArrayList<SupplierOrderDetail> supplierOrderDetails) throws SQLException, ClassNotFoundException {
