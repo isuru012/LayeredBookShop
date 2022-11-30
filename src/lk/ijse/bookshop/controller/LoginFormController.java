@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 
@@ -51,6 +53,8 @@ public class LoginFormController {
     }
 
     public void signInOnAction(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
+
+
         if (!txtUsername.getText().equals("") & !txtPasswordField.getText().equals("")) {
             User user = UserCreationModel.getLoginData(txtUsername.getText(), txtPasswordField.getText());
 
