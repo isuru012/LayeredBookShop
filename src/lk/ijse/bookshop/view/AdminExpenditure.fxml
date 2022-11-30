@@ -23,7 +23,7 @@
             <TableColumn fx:id="colAmount" prefWidth="198.0" text="Amount" />
         </columns>
       </TableView>
-      <JFXTextField fx:id="txtDescription" focusColor="#448dc2" focusTraversable="false" layoutX="42.0" layoutY="183.0" onKeyReleased="#descriptionOnKeyReleased" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtDescription" focusColor="#448dc2" focusTraversable="false" layoutX="42.0" layoutY="183.0" onKeyReleased="#descriptionOnKeyReleased" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -36,7 +36,7 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtAmount" focusColor="#448dc2" focusTraversable="false" layoutX="619.0" layoutY="182.0" onKeyReleased="#amountOnKeyReleased" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtAmount" focusColor="#448dc2" focusTraversable="false" layoutX="619.0" layoutY="182.0" onKeyReleased="#amountOnKeyReleased" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -49,12 +49,12 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtSearch" focusColor="#448dc2" focusTraversable="false" layoutX="42.0" layoutY="282.0" prefHeight="38.0" prefWidth="1007.0" promptText="Search Here" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtSearch" focusColor="#448dc2" focusTraversable="false" layoutX="42.0" layoutY="282.0" prefHeight="38.0" prefWidth="1007.0" promptText="Search Here" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
          <font>
-            <Font name="Arial" size="16.0" />
+            <Font name="Arial" size="14.0" />
          </font>
       </JFXTextField>
       <JFXButton fx:id="btnAdd" buttonType="RAISED" focusTraversable="false" layoutX="565.0" layoutY="377.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add" textFill="WHITE">

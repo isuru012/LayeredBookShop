@@ -22,7 +22,7 @@
             <TableColumn fx:id="colJoinedDate" prefWidth="276.0" text="JoinedDate" />
         </columns>
       </TableView>
-      <JFXTextField fx:id="txtName" focusColor="#448dc2" focusTraversable="false" layoutX="31.0" layoutY="164.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtName" focusColor="#448dc2" focusTraversable="false" layoutX="31.0" layoutY="164.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -35,7 +35,7 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtPhoneNumber" focusColor="#448dc2" focusTraversable="false" layoutX="619.0" layoutY="158.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtPhoneNumber" focusColor="#448dc2" focusTraversable="false" layoutX="619.0" layoutY="158.0" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -93,12 +93,12 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXTextField fx:id="txtSearch" focusColor="#448dc2" focusTraversable="false" layoutX="31.0" layoutY="320.0" onKeyReleased="#searchOnAction" prefHeight="38.0" prefWidth="852.0" promptText="Search Here" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtSearch" focusColor="#448dc2" focusTraversable="false" layoutX="31.0" layoutY="320.0" onKeyReleased="#searchOnAction" prefHeight="38.0" prefWidth="852.0" promptText="Search Here" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
          <font>
-            <Font name="Arial" size="13.0" />
+            <Font name="Arial" size="14.0" />
          </font>
       </JFXTextField>
       <Label layoutX="387.0" layoutY="21.0" prefHeight="57.0" prefWidth="307.0" text="Customer Details" textFill="#044721">

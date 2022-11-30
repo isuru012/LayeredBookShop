@@ -64,7 +64,7 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtAmount" layoutX="907.0" layoutY="322.0" onKeyReleased="#addToCartOnEnterKey" prefHeight="37.0" prefWidth="129.0" style="-fx-background-color: #ffffff;">
+      <JFXTextField fx:id="txtAmount" layoutX="907.0" layoutY="317.0" onKeyReleased="#addToCartOnEnterKey" prefHeight="38.0" prefWidth="129.0" style="-fx-background-color: #ffffff; -fx-padding: 10px;">
          <font>
             <Font name="Arial" size="20.0" />
          </font>
@@ -80,14 +80,14 @@
             <TableColumn fx:id="colJoinedDate" prefWidth="279.0" text="JoinedDate" />
          </columns>
       </TableView>
-      <JFXTextField fx:id="txtSearch" layoutX="39.0" layoutY="68.0" prefHeight="37.0" prefWidth="1019.0" promptText="Search Here" style="-fx-background-color: #FFFFFF;">
+      <JFXTextField fx:id="txtSearch" layoutX="39.0" layoutY="68.0" prefHeight="37.0" prefWidth="1019.0" promptText="Search Here" style="-fx-background-color: #FFFFFF; -fx-padding: 10px;">
          <font>
-            <Font name="Arial" size="15.0" />
+            <Font name="Arial" size="14.0" />
          </font>
          <effect>
             <DropShadow color="#0000002e" />
          </effect></JFXTextField>
-      <JFXTextField fx:id="txtName" focusColor="#448dc2" focusTraversable="false" layoutX="39.0" layoutY="150.0" prefHeight="26.0" prefWidth="314.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtName" focusColor="#448dc2" focusTraversable="false" layoutX="41.0" layoutY="141.0" prefHeight="26.0" prefWidth="314.0" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -100,7 +100,7 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtPhoneNumber" focusColor="#448dc2" focusTraversable="false" layoutX="398.0" layoutY="150.0" prefHeight="26.0" prefWidth="333.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtPhoneNumber" focusColor="#448dc2" focusTraversable="false" layoutX="400.0" layoutY="141.0" prefHeight="26.0" prefWidth="333.0" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -225,7 +225,7 @@
             <TableColumn fx:id="colTotal" prefWidth="310.0" text="Total" />
          </columns>
       </TableView>
-      <JFXTextField fx:id="txtDescription" focusColor="#448dc2" focusTraversable="false" layoutX="304.0" layoutY="389.0" onKeyReleased="#keyReleasedOnAction" prefHeight="35.0" prefWidth="252.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtDescription" focusColor="#448dc2" focusTraversable="false" layoutX="304.0" layoutY="389.0" onKeyReleased="#keyReleasedOnAction" prefHeight="35.0" prefWidth="252.0" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002e" height="15.07" radius="8.5175" />
          </effect>
@@ -258,7 +258,7 @@
             <Image url="@../assests/logos/update.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="txtDiscount" layoutX="465.0" layoutY="671.0" onKeyReleased="#discountOnReleased" prefHeight="37.0" prefWidth="203.0" style="-fx-background-color: #ffffff;">
+      <JFXTextField fx:id="txtDiscount" layoutX="465.0" layoutY="671.0" onKeyReleased="#discountOnReleased" prefHeight="37.0" prefWidth="203.0" style="-fx-background-color: #ffffff; -fx-padding: 10px;">
          <font>
             <Font name="Arial" size="20.0" />
          </font>
@@ -266,7 +266,7 @@
             <DropShadow color="#0000002e" />
          </effect>
       </JFXTextField>
-      <JFXTextField fx:id="txtCash" layoutX="856.0" layoutY="623.0" onKeyReleased="#cashOnReleased" prefHeight="37.0" prefWidth="203.0" style="-fx-background-color: #ffffff;">
+      <JFXTextField fx:id="txtCash" layoutX="856.0" layoutY="623.0" onKeyReleased="#cashOnReleased" prefHeight="37.0" prefWidth="203.0" style="-fx-background-color: #ffffff; -fx-padding: 10px;">
          <font>
             <Font name="Arial" size="20.0" />
          </font>

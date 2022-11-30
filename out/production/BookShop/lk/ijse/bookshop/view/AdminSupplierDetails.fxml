@@ -22,7 +22,7 @@
             <TableColumn fx:id="colTotalOrders" prefWidth="256.0" text="Total Orders" />
         </columns>
       </TableView>
-      <JFXTextField fx:id="txtName" focusColor="#448dc2" focusTraversable="false" layoutX="35.0" layoutY="131.0" onKeyReleased="#keyReleasedName" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtName" focusColor="#448dc2" focusTraversable="false" layoutX="35.0" layoutY="131.0" onKeyReleased="#keyReleasedName" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -35,7 +35,7 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtAddess" focusColor="#448dc2" focusTraversable="false" layoutX="621.0" layoutY="125.0" onKeyReleased="#keyReleasedAddress" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtAddess" focusColor="#448dc2" focusTraversable="false" layoutX="621.0" layoutY="125.0" onKeyReleased="#keyReleasedAddress" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -48,7 +48,7 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtPhoneNumber" focusColor="#448dc2" focusTraversable="false" layoutX="38.0" layoutY="223.0" onKeyReleased="#keyReleasedPhone" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtPhoneNumber" focusColor="#448dc2" focusTraversable="false" layoutX="38.0" layoutY="223.0" onKeyReleased="#keyReleasedPhone" prefHeight="38.0" prefWidth="430.0" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
@@ -61,12 +61,12 @@
             <Font name="Arial" size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtSearch" focusColor="#448dc2" focusTraversable="false" layoutX="39.0" layoutY="299.0" onKeyPressed="#searchOnKeyReleased" prefHeight="38.0" prefWidth="1006.0" promptText="Search Here" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtSearch" focusColor="#448dc2" focusTraversable="false" layoutX="39.0" layoutY="299.0" onKeyPressed="#searchOnKeyReleased" prefHeight="38.0" prefWidth="1006.0" promptText="Search Here" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
          <font>
-            <Font name="Arial" size="17.0" />
+            <Font name="Arial" size="14.0" />
          </font>
       </JFXTextField>
       <JFXButton fx:id="btnAdd" buttonType="RAISED" focusTraversable="false" layoutX="543.0" layoutY="365.0" onAction="#addOnAction" prefHeight="38.0" prefWidth="146.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Add" textFill="WHITE">

@@ -188,12 +188,12 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtSupplierName" alignment="CENTER" layoutX="850.0" layoutY="174.0" onKeyReleased="#keyReleasedOnActionSupplierName" prefHeight="33.0" prefWidth="196.0" style="-fx-background-color: #FFFFFF;">
+      <JFXTextField fx:id="txtSupplierName" alignment="CENTER" layoutX="850.0" layoutY="174.0" onKeyReleased="#keyReleasedOnActionSupplierName" prefHeight="33.0" prefWidth="196.0" style="-fx-background-color: #FFFFFF; -fx-padding: 10px;">
          <effect>
             <DropShadow color="#0000002e" />
          </effect>
       </JFXTextField>
-      <JFXTextField fx:id="txtDescription" alignment="CENTER" layoutX="28.0" layoutY="262.0" onKeyReleased="#keyReleasedOnActionDescription" prefHeight="33.0" prefWidth="196.0" style="-fx-background-color: #FFFFFF;">
+      <JFXTextField fx:id="txtDescription" alignment="CENTER" layoutX="28.0" layoutY="262.0" onKeyReleased="#keyReleasedOnActionDescription" prefHeight="33.0" prefWidth="196.0" style="-fx-background-color: #FFFFFF; -fx-padding: 10px;">
          <effect>
             <DropShadow color="#0000002e" />
          </effect>
@@ -213,7 +213,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXTextField fx:id="txtQty" alignment="CENTER" layoutX="943.0" layoutY="262.0" onKeyReleased="#keyReleasedOnActionQuantity" prefHeight="33.0" prefWidth="101.0" style="-fx-background-color: #FFFFFF;">
+      <JFXTextField fx:id="txtQty" alignment="CENTER" layoutX="943.0" layoutY="262.0" onKeyReleased="#keyReleasedOnActionQuantity" prefHeight="33.0" prefWidth="101.0" style="-fx-background-color: #FFFFFF; -fx-padding: 10px;">
          <effect>
             <DropShadow color="#0000002e" />
          </effect>
@@ -223,12 +223,12 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtBuyingUnitPrice" alignment="CENTER" layoutX="273.0" layoutY="262.0" onKeyReleased="#keyReleasedOnActionBuyingUnitPrice" prefHeight="33.0" prefWidth="146.0" style="-fx-background-color: #FFFFFF;">
+      <JFXTextField fx:id="txtBuyingUnitPrice" alignment="CENTER" layoutX="273.0" layoutY="262.0" onKeyReleased="#keyReleasedOnActionBuyingUnitPrice" prefHeight="33.0" prefWidth="146.0" style="-fx-background-color: #FFFFFF; -fx-padding: 10px;">
          <effect>
             <DropShadow color="#0000002e" />
          </effect>
       </JFXTextField>
-      <JFXTextField fx:id="txtSellingUnitPrice" alignment="CENTER" layoutX="447.0" layoutY="262.0" onKeyReleased="#keyReleasedOnActionSellingUnitPrice" prefHeight="33.0" prefWidth="134.0" style="-fx-background-color: #FFFFFF;" text="0">
+      <JFXTextField fx:id="txtSellingUnitPrice" alignment="CENTER" layoutX="447.0" layoutY="262.0" onKeyReleased="#keyReleasedOnActionSellingUnitPrice" prefHeight="33.0" prefWidth="134.0" style="-fx-background-color: #FFFFFF; -fx-padding: 10px;" text="0">
          <effect>
             <DropShadow color="#0000002e" />
          </effect>
