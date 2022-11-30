@@ -4,7 +4,6 @@ import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.to.Employee;
 import lk.ijse.bookshop.util.CrudUtil;
 import lk.ijse.bookshop.view.tm.EmployeeTm;
-import lk.ijse.bookshop.view.tm.ItemTm;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

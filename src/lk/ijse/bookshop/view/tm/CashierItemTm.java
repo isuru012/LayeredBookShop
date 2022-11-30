@@ -1,6 +1,6 @@
 package lk.ijse.bookshop.view.tm;
 
-public class ItemTm {
+public class CashierItemTm {
     private String itemId;
     private int batchNumber;
     private String description;
@@ -8,10 +8,10 @@ public class ItemTm {
     private int quantityOnHand;
     private double offerAmount;
 
-    public ItemTm() {
+    public CashierItemTm() {
     }
 
-    public ItemTm(String itemId, int batchNumber, String description, double sellingUnitPrice, int quantityOnHand, double offerAmount) {
+    public CashierItemTm(String itemId, int batchNumber, String description,double sellingUnitPrice, int quantityOnHand, double offerAmount) {
         this.itemId = itemId;
         this.batchNumber = batchNumber;
         this.description = description;
@@ -67,4 +67,5 @@ public class ItemTm {
     public void setOfferAmount(double offerAmount) {
         this.offerAmount = offerAmount;
     }
+
 }

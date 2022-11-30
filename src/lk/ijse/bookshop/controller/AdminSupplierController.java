@@ -262,6 +262,7 @@ public class AdminSupplierController {
 
         }
         SupplierOrder supplierOrder = new SupplierOrder(SupOrderId,date,time,SupplierId,getUsername,supplierOrderDetails);
+
         boolean placeOrder = SupplierOrderModel.placeOrder(supplierOrder);
         if (placeOrder) {
             Notification.notifie("Place Order", "Order Added", NotificationType.INFORMATION);

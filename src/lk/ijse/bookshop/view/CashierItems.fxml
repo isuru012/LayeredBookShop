@@ -10,12 +10,12 @@
 
 <AnchorPane prefHeight="768.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.CashierItemsController">
    <children>
-      <JFXTextField fx:id="txtSearch" focusColor="#448dc2" focusTraversable="false" layoutX="41.0" layoutY="125.0" prefHeight="44.0" prefWidth="1008.0" promptText="Search Here" style="-fx-background-color: #fcfcfc;" stylesheets="@../assests/css/style.css">
+      <JFXTextField fx:id="txtSearch" focusColor="#448dc2" focusTraversable="false" layoutX="41.0" layoutY="125.0" prefHeight="44.0" prefWidth="1008.0" promptText="Search Here" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002d" height="15.07" radius="8.5175" />
          </effect>
          <font>
-            <Font name="Arial" size="16.0" />
+            <Font name="Arial" size="14.0" />
          </font>
       </JFXTextField>
       <TableView id="my-table" fx:id="tblItem" layoutX="44.0" layoutY="201.0" prefHeight="530.0" prefWidth="1008.0" stylesheets="@../assests/css/style.css">

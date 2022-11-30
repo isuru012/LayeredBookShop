@@ -1,6 +1,7 @@
 package lk.ijse.bookshop.controller;
 
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +11,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.bookshop.model.CustomerModel;
@@ -25,7 +28,7 @@ import java.util.Optional;
 
 public class AdminEmployeeController {
 
-    public TableView <EmployeeTm>tblEmployee;
+    public TableView<EmployeeTm> tblEmployee;
     @FXML
     private AnchorPane pane2;
 
@@ -58,6 +61,7 @@ public class AdminEmployeeController {
     ObservableList observableList = FXCollections.observableArrayList();
 
     public void initialize() throws SQLException, ClassNotFoundException {
+        Platform.runLater(() -> txtName.requestFocus());
         observableList.clear();
         colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -77,9 +81,9 @@ public class AdminEmployeeController {
     void deleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Employee Data");
-        alert.setContentText("Do you want to delete Employee "+txtName.getText()+"?");
+        alert.setContentText("Do you want to delete Employee " + txtName.getText() + "?");
         Optional<ButtonType> result = alert.showAndWait();
-        String employeeId= String.valueOf(colEmployeeId.getCellData(tblEmployee.getSelectionModel().getSelectedIndex()));
+        String employeeId = String.valueOf(colEmployeeId.getCellData(tblEmployee.getSelectionModel().getSelectedIndex()));
         if (result.get() == ButtonType.OK) {
             boolean deleteEmployee = EmployeeModel.deleteEmployee(employeeId);
             if (deleteEmployee) {
@@ -108,11 +112,11 @@ public class AdminEmployeeController {
 
     @FXML
     void updateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String employeeId= String.valueOf(colEmployeeId.getCellData(tblEmployee.getSelectionModel().getSelectedIndex()));
+        String employeeId = String.valueOf(colEmployeeId.getCellData(tblEmployee.getSelectionModel().getSelectedIndex()));
         double salary = Double.parseDouble(txtSalary.getText());
 
 
-        boolean updateCustomer = EmployeeModel.updateSalary(employeeId,salary);
+        boolean updateCustomer = EmployeeModel.updateSalary(employeeId, salary);
         if (updateCustomer) {
             Notification.notifie("Employee Data", "Employee Data Updated", NotificationType.INFORMATION);
             observableList.clear();

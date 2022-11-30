@@ -20,8 +20,11 @@ import lk.ijse.bookshop.util.WindowControll;
 import tray.notification.NotificationType;
 
 
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
@@ -98,5 +101,17 @@ public class LoginFormController {
 
             }
         }
+    }
+
+    public void gogleOnAction(ActionEvent actionEvent) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://www.google.com/"));
+    }
+
+    public void facebookOnAction(ActionEvent actionEvent) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://www.facebook.com/"));
+    }
+
+    public void instagramOnAction(ActionEvent actionEvent) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://www.instagram.com/"));
     }
 }

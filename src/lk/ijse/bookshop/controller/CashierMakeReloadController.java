@@ -29,6 +29,7 @@ import tray.notification.NotificationType;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -185,26 +186,30 @@ public class CashierMakeReloadController {
 
     @FXML
     void addCustomerOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        if (!txtName.getText().equals("") && !txtPhoneNumber.getText().equals("")) {
-            String name = txtName.getText();
-            int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-            String cusId = generateNextCustomeId(CustomerModel.getOrderId());
-            /*LocalDate date= LocalDate.now();*/
-            java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-            String employeeId = LoginFormController.employeeId;
+        try {
+            if (!txtName.getText().equals("") && !txtPhoneNumber.getText().equals("")) {
+                String name = txtName.getText();
+                int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+                String cusId = generateNextCustomeId(CustomerModel.getOrderId());
+                /*LocalDate date= LocalDate.now();*/
+                java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+                String employeeId = LoginFormController.employeeId;
 
-            Customer customer = new Customer(cusId, name, phoneNumber, date, employeeId);
-            boolean customerData = CustomerModel.insertCustomerData(customer);
-            if (customerData) {
-                Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
-            } else {
-                Notification.notifie("Customer Data", "Customer Data  Not Added", NotificationType.ERROR);
+                Customer customer = new Customer(cusId, name, phoneNumber, date, employeeId);
+                boolean customerData = CustomerModel.insertCustomerData(customer);
+                if (customerData) {
+                    Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
+                } else {
+                    Notification.notifie("Customer Data", "Customer Data  Not Added", NotificationType.ERROR);
+                }
+
+                CustomerTm customerTm = new CustomerTm(cusId, name, phoneNumber, date);
+
+                observableList.add(customerTm);
+                searchPart();
             }
-
-            CustomerTm customerTm = new CustomerTm(cusId, name, phoneNumber, date);
-
-            observableList.add(customerTm);
-            searchPart();
+        }catch (SQLIntegrityConstraintViolationException exception){
+            Notification.notifie("Alert","Data Already Exists",NotificationType.ERROR);
         }
     }
     private String generateNextCustomeId(String orderId) {

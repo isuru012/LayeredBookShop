@@ -16,12 +16,12 @@
 
 <AnchorPane fx:id="pane" focusTraversable="true" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.LoginFormController">
    <children>
-      <AnchorPane fx:id="pane2" focusTraversable="true" layoutX="743.0" layoutY="49.0" prefHeight="667.0" prefWidth="570.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;">
+      <AnchorPane fx:id="pane2" focusTraversable="true" layoutX="749.0" layoutY="51.0" prefHeight="667.0" prefWidth="570.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 40px;">
          <effect>
             <DropShadow />
          </effect>
          <children>
-            <Label layoutX="246.0" layoutY="453.0" onMouseReleased="#createAccountOnAction" text="Create account" textFill="#0052ff">
+            <Label layoutX="265.0" layoutY="453.0" onMouseReleased="#createAccountOnAction" text="Create account" textFill="#0052ff">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
@@ -29,12 +29,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label layoutX="50.0" layoutY="453.0" text="Don't have an account yet? ">
+            <Label layoutX="69.0" layoutY="453.0" text="Don't have an account yet? ">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="txtUsername" focusColor="#448dc2" layoutX="52.0" layoutY="199.0" prefHeight="38.0" prefWidth="430.0" promptText="Enter Username" style="-fx-background-color: #fcfcfc; -fx-padding: 15px;" stylesheets="@../assests/css/style.css">
+            <JFXTextField fx:id="txtUsername" focusColor="#448dc2" layoutX="71.0" layoutY="199.0" prefHeight="38.0" prefWidth="430.0" promptText="Enter Username" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
                <effect>
                   <DropShadow color="#0000002e" height="15.07" radius="8.5175" />
                </effect>
@@ -42,22 +42,22 @@
                   <Font name="Arial" size="13.0" />
                </font>
             </JFXTextField>
-            <Label layoutX="50.0" layoutY="172.0" text="Username">
+            <Label layoutX="69.0" layoutY="172.0" text="Username">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="177.0" layoutY="65.0" prefHeight="46.0" prefWidth="252.0" text="Login to see more" textFill="#044721">
+            <Label layoutX="196.0" layoutY="65.0" prefHeight="46.0" prefWidth="252.0" text="Login to see more" textFill="#044721">
                <font>
                   <Font name="Segoe UI Bold" size="29.0" />
                </font>
             </Label>
-            <ImageView fitHeight="70.0" fitWidth="86.0" layoutX="89.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="70.0" fitWidth="86.0" layoutX="108.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assests/logos/logo (2).png" />
                </image>
             </ImageView>
-            <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="50.0" layoutY="395.0" onAction="#signInOnAction" prefHeight="46.0" prefWidth="430.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Sign In" textFill="WHITE">
+            <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="69.0" layoutY="395.0" onAction="#signInOnAction" prefHeight="46.0" prefWidth="430.0" ripplerFill="WHITE" style="-fx-background-color: #039944; -fx-background-radius: 20px;" text="Sign In" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Black" size="18.0" />
                </font>
@@ -65,7 +65,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXPasswordField fx:id="txtPasswordField" focusColor="#448dc2" layoutX="52.0" layoutY="298.0" onKeyReleased="#signInOnEnterKey" prefHeight="36.0" prefWidth="430.0" promptText="     Enter Password" style="-fx-background-color: #fcfcfc;">
+            <JFXPasswordField fx:id="txtPasswordField" focusColor="#448dc2" layoutX="71.0" layoutY="295.0" onKeyReleased="#signInOnEnterKey" prefHeight="38.0" prefWidth="430.0" promptText="Enter Password" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;">
                <font>
                   <Font name="Arial" size="13.0" />
                </font>
@@ -73,18 +73,59 @@
                   <DropShadow color="#00000022" />
                </effect>
             </JFXPasswordField>
-            <Label layoutX="52.0" layoutY="265.0" text="Password">
+            <Label layoutX="71.0" layoutY="265.0" text="Password">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
             </Label>
-            <Label accessibleRole="HYPERLINK" layoutX="51.0" layoutY="355.0" onMouseReleased="#forgotPasswordOnAction" text="Forgot your password?" textFill="#0052ff">
+            <Label accessibleRole="HYPERLINK" layoutX="70.0" layoutY="355.0" onMouseReleased="#forgotPasswordOnAction" text="Forgot your password?" textFill="#0052ff">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+            </Label>
+            <JFXButton buttonType="RAISED" layoutX="196.0" layoutY="533.0" onAction="#gogleOnAction" prefHeight="70.0" prefWidth="79.0" style="-fx-background-radius: 80px;" styleClass="btnsocial" stylesheets="@../assests/css/style.css">
+               <graphic>
+                  <ImageView accessibleRole="HYPERLINK" fitHeight="60.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/gog.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="299.0" layoutY="533.0" onAction="#facebookOnAction" prefHeight="70.0" prefWidth="80.0" style="-fx-background-radius: 80px;" styleClass="btnsocial" stylesheets="@../assests/css/style.css">
+               <graphic>
+                  <ImageView fitHeight="60.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/fb.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="397.0" layoutY="533.0" onAction="#instagramOnAction" prefHeight="70.0" prefWidth="79.0" style="-fx-background-radius: 80px;" styleClass="btnsocial" stylesheets="@../assests/css/style.css">
+               <graphic>
+                  <ImageView fitHeight="60.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/insta.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <Label layoutX="71.0" layoutY="560.0" text="Connect with us">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
             </Label>
          </children>
       </AnchorPane>
