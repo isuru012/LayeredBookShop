@@ -2,19 +2,24 @@ package lk.ijse.bookshop.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.ExpenditureModel;
+import lk.ijse.bookshop.model.ItemModel;
 import lk.ijse.bookshop.model.PaymentModel;
 import lk.ijse.bookshop.to.Customer;
 import lk.ijse.bookshop.to.Expenditure;
@@ -33,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Optional;
 
 public class AdminExpenditureController {
 
@@ -75,7 +81,7 @@ public class AdminExpenditureController {
     static ObservableList observableList = FXCollections.observableArrayList();
 
     public void initialize() throws SQLException, ClassNotFoundException {
-
+        Platform.runLater(() -> txtDescription.requestFocus());
         observableList.clear();
 
         colExpenditureId.setCellValueFactory(new PropertyValueFactory<>("expenditure"));
@@ -123,6 +129,66 @@ public class AdminExpenditureController {
 
     @FXML
     void addOnAction(ActionEvent event) {
+        addToTblExpenditure();
+
+    }
+
+    @FXML
+    void updateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        String desCriptionText = txtDescription.getText();
+        double buyingPrice= Double.parseDouble(txtAmount.getText());
+        String expenditureId= String.valueOf(colExpenditureId.getCellData
+                (tblExpenditure.getSelectionModel().getSelectedIndex()));
+
+
+
+
+
+
+
+
+
+        boolean updateExpenditure = ExpenditureModel.updateExpenditure(expenditureId,desCriptionText,buyingPrice);
+        if (updateExpenditure) {
+            Notification.notifie("Expenditure Data", "Expenditure Data Updated", NotificationType.INFORMATION);
+            observableList.clear();
+            initialize();
+        } else {
+            Notification.notifie("Expenditure Data", "Expenditure Data  Not Updated", NotificationType.ERROR);
+        }
+        clearTableSelection();
+        btnAdd.setDisable(false);
+    }
+
+    @FXML
+    void deleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Expenditure Data");
+        alert.setContentText("Do you want to delete Expenditure "+txtDescription.getText()+"?");
+
+        String expenditureId= String.valueOf(colExpenditureId.getCellData(tblExpenditure.getSelectionModel().getSelectedIndex()));
+
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            boolean deleteExpenditure = ExpenditureModel.deleteExpenditure(expenditureId);
+            if (deleteExpenditure) {
+                txtDescription.setText("");
+                txtAmount.setText("");
+                txtSearch.setText("");
+                Notification.notifie("Expenditure Data", "Expenditure Data Deleted", NotificationType.INFORMATION);
+                observableList.clear();
+                initialize();
+            } else {
+                Notification.notifie("Expenditure Data", "Expenditure Data  Not Updated", NotificationType.ERROR);
+            }
+        }
+        clearTableSelection();
+        btnAdd.setDisable(false);
+
+    }
+
+    private void addToTblExpenditure() {
         try {
             String description = txtDescription.getText();
             double amount= Double.parseDouble(txtAmount.getText());
@@ -130,28 +196,22 @@ public class AdminExpenditureController {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
             Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
             String nextExpenditureId=generateNextExpenditureId(ExpenditureModel.getCurrentId());
-            String employeeId = LoginFormController.employeeId;
 
-             String userName="ss";
+
+             String userName=ExpenditureModel.getUsername();
 
             ExpenditureTm expenditureTm = new ExpenditureTm(nextExpenditureId,description,time,date,amount);
 
-            colExpenditureId.setCellValueFactory(new PropertyValueFactory<>("expenditure"));
-            colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-            colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
-            colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-            colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+            Expenditure expenditure = new Expenditure(nextExpenditureId,description,amount,date,time,userName);
 
-            Expenditure expenditure = new Expenditure();
+            boolean expenditureData = ExpenditureModel.insertExpenditureData(expenditure);
 
-            boolean customerData = CustomerModel.insertCustomerData(customer);
-
-            if (customerData) {
-                Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
-                observableList.add(customerTm);
+            if (expenditureData) {
+                Notification.notifie("Expenditure Data", "Expenditure Data Added", NotificationType.INFORMATION);
+                observableList.add(expenditureTm);
                 searchPart();
             } else {
-                Notification.notifie("Customer Data", "Customer Data  Not Added", NotificationType.ERROR);
+                Notification.notifie("Expenditure Data", "Expenditure Data  Not Added", NotificationType.ERROR);
             }
 
 
@@ -162,7 +222,6 @@ public class AdminExpenditureController {
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
-
     }
 
     private String generateNextExpenditureId(String currentId) {
@@ -188,27 +247,32 @@ public class AdminExpenditureController {
 
     @FXML
     void amountOnKeyReleased(KeyEvent event) {
-
-    }
-
-    @FXML
-    void deleteOnAction(ActionEvent event) {
-
+        if (event.getCode()== KeyCode.ENTER){
+            addToTblExpenditure();
+            txtDescription.requestFocus();
+        }
+        btnAdd.setDisable(false);
     }
 
     @FXML
     void descriptionOnKeyReleased(KeyEvent event) {
-
+        if (event.getCode()== KeyCode.ENTER){
+            txtAmount.requestFocus();
+        }
+        btnAdd.setDisable(false);
     }
 
     @FXML
     void tblExpenditureOnMouseClick(MouseEvent event) {
-
+        ExpenditureTm tm = tblExpenditure.getItems().get(tblExpenditure.getSelectionModel().getSelectedIndex());
+        txtAmount.setText(String.valueOf(tm.getAmount()));
+        txtDescription.setText(String.valueOf(tm.getDescription()));
+        btnAdd.setDisable(true);
     }
-
-    @FXML
-    void updateOnAction(ActionEvent event) {
-
+    private void clearTableSelection() {
+        if (!tblExpenditure.isFocused()) {
+            tblExpenditure.getSelectionModel().clearSelection();
+        }
     }
 
 }
