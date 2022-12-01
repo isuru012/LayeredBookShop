@@ -236,44 +236,63 @@ public class CashierPlaceOrderController {
 
 
     public void onMouseClicked(MouseEvent mouseEvent) {
-        CustomerTm tm = tblCustomer.getItems().get(tblCustomer.getSelectionModel().getSelectedIndex());
-        txtName.setText(tm.getName());
-        txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
-        CusId = tm.getCode();
-        lblCustomerName.setText(txtName.getText());
-        btnAdd.setDisable(true);
-        txtDescription.requestFocus();
+
+        try{
+
+            CustomerTm tm = tblCustomer.getItems().get(tblCustomer.getSelectionModel().getSelectedIndex());
+            txtName.setText(tm.getName());
+            txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
+            CusId = tm.getCode();
+            lblCustomerName.setText(txtName.getText());
+            btnAdd.setDisable(true);
+            txtDescription.requestFocus();
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
     }
 
     public void updateCartOnAction(ActionEvent actionEvent) {
-        int qty = Integer.parseInt(txtQty.getText());
-        double sellingUnitPrice = Double.parseDouble(String.valueOf(cmbUnitPrice.getSelectionModel().getSelectedItem()));
 
-        observableList1.get(tblOrder.getSelectionModel().getSelectedIndex()).setQty(qty);
-        observableList1.get(tblOrder.getSelectionModel().getSelectedIndex()).setTotal(qty * sellingUnitPrice);
-        tblOrder.refresh();
-        generateTotal();
+        try{
+
+            int qty = Integer.parseInt(txtQty.getText());
+            double sellingUnitPrice = Double.parseDouble(String.valueOf(cmbUnitPrice.getSelectionModel().getSelectedItem()));
+
+            observableList1.get(tblOrder.getSelectionModel().getSelectedIndex()).setQty(qty);
+            observableList1.get(tblOrder.getSelectionModel().getSelectedIndex()).setTotal(qty * sellingUnitPrice);
+            tblOrder.refresh();
+            generateTotal();
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
 
     }
 
     public void updateCustomerOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        if (tblCustomer.getSelectionModel().getSelectedIndex() != -1) {
-            String name = txtName.getText();
-            int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
 
-            boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CusId);
-            if (updateCustomer) {
-                Notification.notifie("Customer Data", "Customer Data Updated", NotificationType.INFORMATION);
-                observableList.clear();
-                initialize();
-            } else {
-                Notification.notifie("Customer Data", "Customer Data  Not Updated", NotificationType.ERROR);
+        try{
+
+            if (tblCustomer.getSelectionModel().getSelectedIndex() != -1) {
+                String name = txtName.getText();
+                int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+
+                boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CusId);
+                if (updateCustomer) {
+                    Notification.notifie("Customer Data", "Customer Data Updated", NotificationType.INFORMATION);
+                    observableList.clear();
+                    initialize();
+                } else {
+                    Notification.notifie("Customer Data", "Customer Data  Not Updated", NotificationType.ERROR);
+                }
             }
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 
     public void addCustomerOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        try {
+
+        try{
             if (!txtName.getText().equals("") && !txtPhoneNumber.getText().equals("")) {
                 String name = txtName.getText();
                 int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
@@ -295,9 +314,11 @@ public class CashierPlaceOrderController {
                 observableList.add(customerTm);
                 searchPart();
             }
-        }catch (SQLIntegrityConstraintViolationException exception){
-            Notification.notifie("Alert","Data Already Exists",NotificationType.ERROR);
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
+
     }
 
     ObservableList<OrderTm> observableList1 = FXCollections.observableArrayList();
@@ -316,7 +337,7 @@ public class CashierPlaceOrderController {
 
 
     public void placeOrderOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        /*try {*/
+        try {
             String orderId = lblOrderId.getText();
             Date date = Date.valueOf(lblOrderDate.getText());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
@@ -358,8 +379,8 @@ public class CashierPlaceOrderController {
                             fillReport(jasperReport, hm2, DBConnection.getDBConnection().getConnection());
 
                     JasperViewer.viewReport(jasperPrint);
-                } catch (JRException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    Notification.notifie("ERROR", ""+e, NotificationType.ERROR);
                 }
 
 
@@ -374,9 +395,9 @@ public class CashierPlaceOrderController {
             } else {
                 Notification.notifie("Place Order", "Order Failed", NotificationType.ERROR);
             }
-        /*}catch (Exception e){
+        }catch (Exception e){
             Notification.notifie("Place Order", "Order Failed" + e, NotificationType.ERROR);
-        }*/
+        }
 
     }
 
@@ -399,68 +420,92 @@ public class CashierPlaceOrderController {
     static String itemId=null;
 
     public void keyReleasedOnAction(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
-        String text = txtDescription.getText();
-        Item item = PlaceOrderModel.searchDescription(text);
-        if (item != null) {
-            lblItemCode.setText(item.getItemId());
+
+        try{
+
+            String text = txtDescription.getText();
+            Item item = PlaceOrderModel.searchDescription(text);
+            if (item != null) {
+                lblItemCode.setText(item.getItemId());
+                ArrayList allItemPrices = PlaceOrderModel.getAllItemPrices(lblItemCode.getText());
+                ObservableList observableList = FXCollections.observableArrayList();
+                for (Object unitPrice : allItemPrices) {
+                    observableList.add(unitPrice);
+                }
+
+
+
+                itemId=item.getItemId();
+                lblQtyOnHand.setText(String.valueOf(SupplierOrderModel.getQtyTotalOfOneItem(item.getItemId())));
+
+                if (keyEvent.getCode() == KeyCode.ENTER) {
+                    cmbUnitPrice.setItems(observableList);
+                    cmbUnitPrice.getSelectionModel().selectFirst();
+                    txtQty.requestFocus();
+                }
+            }
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
+    }
+
+    public void onMouseClickRefresh(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
+
+        try{
+
+            clearFields();
+
+            btnPlaceOrder.setDisable(false);
+            btnAdd.setDisable(false);
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
+
+    }
+
+    public void onMouseClickOrder(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
+
+        try{
+
+            OrderTm orderTm = tblOrder.getItems().get(tblOrder.getSelectionModel().getSelectedIndex());
+            lblItemCode.setText(orderTm.getCode());
+            txtDescription.setText(orderTm.getDescription());
+            txtQty.setText(String.valueOf(orderTm.getQty()));
+            lblQtyOnHand.setText(String.valueOf(PlaceOrderModel.getItemQuantity(lblItemCode.getText())));
             ArrayList allItemPrices = PlaceOrderModel.getAllItemPrices(lblItemCode.getText());
             ObservableList observableList = FXCollections.observableArrayList();
             for (Object unitPrice : allItemPrices) {
                 observableList.add(unitPrice);
             }
 
-
-
-            itemId=item.getItemId();
-            lblQtyOnHand.setText(String.valueOf(SupplierOrderModel.getQtyTotalOfOneItem(item.getItemId())));
-
-            if (keyEvent.getCode() == KeyCode.ENTER) {
-                cmbUnitPrice.setItems(observableList);
-                cmbUnitPrice.getSelectionModel().selectFirst();
-                txtQty.requestFocus();
-            }
+            cmbUnitPrice.getSelectionModel().selectFirst();
+            cmbUnitPrice.setItems(observableList);
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
-    }
-
-    public void onMouseClickRefresh(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
-        clearFields();
-
-        btnPlaceOrder.setDisable(false);
-        btnAdd.setDisable(false);
-
-    }
-
-    public void onMouseClickOrder(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
-        OrderTm orderTm = tblOrder.getItems().get(tblOrder.getSelectionModel().getSelectedIndex());
-        lblItemCode.setText(orderTm.getCode());
-        txtDescription.setText(orderTm.getDescription());
-        txtQty.setText(String.valueOf(orderTm.getQty()));
-        lblQtyOnHand.setText(String.valueOf(PlaceOrderModel.getItemQuantity(lblItemCode.getText())));
-        ArrayList allItemPrices = PlaceOrderModel.getAllItemPrices(lblItemCode.getText());
-        ObservableList observableList = FXCollections.observableArrayList();
-        for (Object unitPrice : allItemPrices) {
-            observableList.add(unitPrice);
-        }
-
-        cmbUnitPrice.getSelectionModel().selectFirst();
-        cmbUnitPrice.setItems(observableList);
 
 
     }
 
     public void addToCartOnEnterKey(KeyEvent keyEvent) {
-        Pattern pattern2 = Pattern.compile("^[0-9]*$");
-        Matcher matcher2 = pattern2.matcher(txtQty.getText());
 
-        if (matcher2.matches()) {
-            txtQty.setFocusColor(BLUE);
-            if (keyEvent.getCode() == KeyCode.ENTER) {
+        try{
 
-                addToTableOrder();
+            Pattern pattern2 = Pattern.compile("^[0-9]*$");
+            Matcher matcher2 = pattern2.matcher(txtQty.getText());
 
+            if (matcher2.matches()) {
+                txtQty.setFocusColor(BLUE);
+                if (keyEvent.getCode() == KeyCode.ENTER) {
+
+                    addToTableOrder();
+
+                }
+            }else {
+                txtQty.setFocusColor(RED);
             }
-        }else {
-            txtQty.setFocusColor(RED);
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
 
 
@@ -512,47 +557,65 @@ public class CashierPlaceOrderController {
     }
 
     public void cashOnReleased(KeyEvent keyEvent) {
-        if (!txtCash.getText().equals("")) {
-            double discount;
-            btnPlaceOrder.setDisable(true);
-            if (txtDiscount.getText().equals("")) {
-                discount = 0;
-            } else {
 
-                discount = Double.parseDouble(txtDiscount.getText()) / 100 * Double.parseDouble(lblTotal.getText());
-            }
+        try{
 
-            String balance = String.valueOf(Double.parseDouble(txtCash.getText()) -
-                    (Double.parseDouble(lblTotal.getText()) - discount));
-            lblBalance.setText(balance);
-            if (Double.parseDouble(lblBalance.getText()) >= 0) {
-                btnPlaceOrder.setDisable(false);
+            if (!txtCash.getText().equals("")) {
+                double discount;
+                btnPlaceOrder.setDisable(true);
+                if (txtDiscount.getText().equals("")) {
+                    discount = 0;
+                } else {
+
+                    discount = Double.parseDouble(txtDiscount.getText()) / 100 * Double.parseDouble(lblTotal.getText());
+                }
+
+                String balance = String.valueOf(Double.parseDouble(txtCash.getText()) -
+                        (Double.parseDouble(lblTotal.getText()) - discount));
+                lblBalance.setText(balance);
+                if (Double.parseDouble(lblBalance.getText()) >= 0) {
+                    btnPlaceOrder.setDisable(false);
+                }
             }
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 
     public void discountOnReleased(KeyEvent keyEvent) {
-        if (!txtCash.getText().equals("")) {
-            double discount;
-            btnPlaceOrder.setDisable(true);
-            if (txtDiscount.getText().equals("")) {
-                discount = 0;
-            } else {
 
-                discount = Double.parseDouble(txtDiscount.getText()) / 100 * Double.parseDouble(lblTotal.getText());
-            }
+        try{
 
-            String balance = String.valueOf(Double.parseDouble(txtCash.getText()) - (Double.parseDouble(lblTotal.getText())
-                    - discount));
-            lblBalance.setText(balance);
-            if (Double.parseDouble(lblBalance.getText()) >= 0) {
-                btnPlaceOrder.setDisable(false);
+            if (!txtCash.getText().equals("")) {
+                double discount;
+                btnPlaceOrder.setDisable(true);
+                if (txtDiscount.getText().equals("")) {
+                    discount = 0;
+                } else {
+
+                    discount = Double.parseDouble(txtDiscount.getText()) / 100 * Double.parseDouble(lblTotal.getText());
+                }
+
+                String balance = String.valueOf(Double.parseDouble(txtCash.getText()) - (Double.parseDouble(lblTotal.getText())
+                        - discount));
+                lblBalance.setText(balance);
+                if (Double.parseDouble(lblBalance.getText()) >= 0) {
+                    btnPlaceOrder.setDisable(false);
+                }
             }
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 
     public void onCmbUnitPrice(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        double unitPrice=Double.parseDouble(String.valueOf(cmbUnitPrice.getSelectionModel().getSelectedItem()));
-        lblQtyOnHand.setText(String.valueOf(PlaceOrderModel.getQtyTotalOfOneItem(itemId,unitPrice)));
+
+        try{
+
+            double unitPrice=Double.parseDouble(String.valueOf(cmbUnitPrice.getSelectionModel().getSelectedItem()));
+            lblQtyOnHand.setText(String.valueOf(PlaceOrderModel.getQtyTotalOfOneItem(itemId,unitPrice)));
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
     }
 }

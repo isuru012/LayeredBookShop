@@ -151,27 +151,33 @@ public class AdminSupplierDetailsController {
 
     @FXML
     void deleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Supplier Data");
-        alert.setContentText("Do you want to delete Supplier "+txtName.getText()+"?");
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        try{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Supplier Data");
+            alert.setContentText("Do you want to delete Supplier "+txtName.getText()+"?");
 
-            boolean deleteSupplier = SupplierModel.deleteSupplier(SupId);
-            if (deleteSupplier) {
-                txtName.setText("");
-                txtPhoneNumber.setText("");
-                txtAddess.setText("");
-                txtSearch.setText("");
-                Notification.notifie("Supplier Data", "Supplier Data Deleted", NotificationType.INFORMATION);
-                observableList.clear();
-                initialize();
-                clearTableSelection();
-                btnAdd.setDisable(false);
-            } else {
-                Notification.notifie("Supplier Data", "Supplier Data  Not Deleted", NotificationType.ERROR);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+
+                boolean deleteSupplier = SupplierModel.deleteSupplier(SupId);
+                if (deleteSupplier) {
+                    txtName.setText("");
+                    txtPhoneNumber.setText("");
+                    txtAddess.setText("");
+                    txtSearch.setText("");
+                    Notification.notifie("Supplier Data", "Supplier Data Deleted", NotificationType.INFORMATION);
+                    observableList.clear();
+                    initialize();
+                    clearTableSelection();
+                    btnAdd.setDisable(false);
+                } else {
+                    Notification.notifie("Supplier Data", "Supplier Data  Not Deleted", NotificationType.ERROR);
+                }
             }
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 
@@ -182,30 +188,42 @@ public class AdminSupplierDetailsController {
 
     @FXML
     void updateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String name = txtName.getText();
-        String address=txtAddess.getText();
-        int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+
+        try{
+
+            String name = txtName.getText();
+            String address=txtAddess.getText();
+            int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
 
 
-        boolean updateCustomer = SupplierModel.updateSupplier(name,address, phoneNumber, SupId);
-        if (updateCustomer) {
-            Notification.notifie("Supplier Data", "Supplier Data Updated", NotificationType.INFORMATION);
-            observableList.clear();
-            initialize();
-        } else {
-            Notification.notifie("Supplier Data", "Supplier Data  Not Updated", NotificationType.ERROR);
+            boolean updateCustomer = SupplierModel.updateSupplier(name,address, phoneNumber, SupId);
+            if (updateCustomer) {
+                Notification.notifie("Supplier Data", "Supplier Data Updated", NotificationType.INFORMATION);
+                observableList.clear();
+                initialize();
+            } else {
+                Notification.notifie("Supplier Data", "Supplier Data  Not Updated", NotificationType.ERROR);
+            }
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
 
     }
 
     public void onMouseClickedTblSupplier(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
-        SupplierDetailTm tm = tblSupDetails.getItems().get(tblSupDetails.getSelectionModel().getSelectedIndex());
-        txtName.setText(tm.getName());
-        txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
-        txtAddess.setText(tm.getAddress());
-        SupId= SupplierModel.getSupplierIdFromNumber(String.valueOf(colPhoneNumber.getCellData(tblSupDetails.getSelectionModel().getSelectedIndex())));
 
-        btnAdd.setDisable(true);
+        try{
+
+            SupplierDetailTm tm = tblSupDetails.getItems().get(tblSupDetails.getSelectionModel().getSelectedIndex());
+            txtName.setText(tm.getName());
+            txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
+            txtAddess.setText(tm.getAddress());
+            SupId= SupplierModel.getSupplierIdFromNumber(String.valueOf(colPhoneNumber.getCellData(tblSupDetails.getSelectionModel().getSelectedIndex())));
+
+            btnAdd.setDisable(true);
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
     }
 
     public void keyReleasedName(KeyEvent keyEvent) {
@@ -239,7 +257,9 @@ public class AdminSupplierDetailsController {
     }
 
     private void addSupplier() throws SQLException, ClassNotFoundException {
-        try {
+
+        try{
+
             String name = txtName.getText();
             int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
             String supId = generateNextSupplierId(SupplierModel.getSupplierId());
@@ -257,8 +277,10 @@ public class AdminSupplierDetailsController {
             } else {
                 Notification.notifie("Supplier Data", "Supplier Data  Not Added", NotificationType.ERROR);
             }
-        }catch (SQLIntegrityConstraintViolationException exception){
-            Notification.notifie("Alert","Data Already Exists",NotificationType.ERROR);
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
+
+
     }
 }

@@ -209,11 +209,17 @@ public class AdminSupplierController {
 
     @FXML
     void deleteOnAction(ActionEvent event) {
-        tblSupplierOrder.getItems().removeAll(tblSupplierOrder.getSelectionModel().getSelectedItems());
-        generateTotal();
-        checkPlaceOrder();
-        clearTableSelection();
-        btnAdd.setDisable(false);
+
+        try{
+            tblSupplierOrder.getItems().removeAll(tblSupplierOrder.getSelectionModel().getSelectedItems());
+            generateTotal();
+            checkPlaceOrder();
+            clearTableSelection();
+            btnAdd.setDisable(false);
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
 
     }
 
@@ -225,67 +231,85 @@ public class AdminSupplierController {
 
     @FXML
     void onMouseClickedSupplierOrder(MouseEvent event) throws SQLException, ClassNotFoundException {
-        SupplierTm supplierTm = tblSupplierOrder.getItems().get(tblSupplierOrder.getSelectionModel().getSelectedIndex());
-        lblItemCode.setText(supplierTm.getItemCode());
-        txtDescription.setText(supplierTm.getDescription());
-        txtQty.setText(String.valueOf(supplierTm.getQuantity()));
-        lblQtyOnHand.setText(String.valueOf(SupplierOrderModel.getItemQuantity(lblItemCode.getText())));
-        txtBuyingUnitPrice.setText(String.valueOf(SupplierOrderModel.getSellingUnitPrice(lblItemCode.getText())));
-        btnAdd.setDisable(true);
-        checkPlaceOrder();
+
+        try{
+
+            SupplierTm supplierTm = tblSupplierOrder.getItems().get(tblSupplierOrder.getSelectionModel().getSelectedIndex());
+            lblItemCode.setText(supplierTm.getItemCode());
+            txtDescription.setText(supplierTm.getDescription());
+            txtQty.setText(String.valueOf(supplierTm.getQuantity()));
+            lblQtyOnHand.setText(String.valueOf(SupplierOrderModel.getItemQuantity(lblItemCode.getText())));
+            txtBuyingUnitPrice.setText(String.valueOf(SupplierOrderModel.getSellingUnitPrice(lblItemCode.getText())));
+            btnAdd.setDisable(true);
+            checkPlaceOrder();
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
 
 
     }
 
     @FXML
     void placeOrderOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String SupOrderId = lblOrderId.getText();
-        Date date = Date.valueOf(lblOrderDate.getText());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
-        Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
-        String SupplierId = lblSupplierId.getText();
-        String getUsername=SupplierOrderModel.getUserName();
 
-        sellingUnitPrice= Double.parseDouble(txtSellingUnitPrice.getText());
+        try{
+            String SupOrderId = lblOrderId.getText();
+            Date date = Date.valueOf(lblOrderDate.getText());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
+            Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
+            String SupplierId = lblSupplierId.getText();
+            String getUsername=SupplierOrderModel.getUserName();
+
+            sellingUnitPrice= Double.parseDouble(txtSellingUnitPrice.getText());
 
 
-        ArrayList<SupplierOrderDetail> supplierOrderDetails = new ArrayList<>();
-        for (int i = 0; i < tblSupplierOrder.getItems().size(); i++) {
-            String itemCode = String.valueOf(colItemCode.getCellData(i));
-            double unitPrice = Double.parseDouble(String.valueOf(colUnitPrice.getCellData(i)));
-            int orderQuantity = Integer.parseInt(String.valueOf(colQuantity.getCellData(i)));
-            double total = unitPrice * orderQuantity;
+            ArrayList<SupplierOrderDetail> supplierOrderDetails = new ArrayList<>();
+            for (int i = 0; i < tblSupplierOrder.getItems().size(); i++) {
+                String itemCode = String.valueOf(colItemCode.getCellData(i));
+                double unitPrice = Double.parseDouble(String.valueOf(colUnitPrice.getCellData(i)));
+                int orderQuantity = Integer.parseInt(String.valueOf(colQuantity.getCellData(i)));
+                double total = unitPrice * orderQuantity;
 
-            SupplierOrderDetail supplierOrderDetail = new SupplierOrderDetail(SupOrderId,itemCode,unitPrice,orderQuantity
-                    ,total);
-            supplierOrderDetails.add(supplierOrderDetail);
+                SupplierOrderDetail supplierOrderDetail = new SupplierOrderDetail(SupOrderId,itemCode,unitPrice,orderQuantity
+                        ,total);
+                supplierOrderDetails.add(supplierOrderDetail);
 
-        }
-        SupplierOrder supplierOrder = new SupplierOrder(SupOrderId,date,time,SupplierId,getUsername,supplierOrderDetails);
+            }
+            SupplierOrder supplierOrder = new SupplierOrder(SupOrderId,date,time,SupplierId,getUsername,supplierOrderDetails);
 
-        boolean placeOrder = SupplierOrderModel.placeOrder(supplierOrder);
-        if (placeOrder) {
-            Notification.notifie("Place Order", "Order Added", NotificationType.INFORMATION);
-            clearFields();
-            initialize();
-        } else {
-            Notification.notifie("Place Order", "Order Failed", NotificationType.ERROR);
+            boolean placeOrder = SupplierOrderModel.placeOrder(supplierOrder);
+            if (placeOrder) {
+                Notification.notifie("Place Order", "Order Added", NotificationType.INFORMATION);
+                clearFields();
+                initialize();
+            } else {
+                Notification.notifie("Place Order", "Order Failed", NotificationType.ERROR);
+            }
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
 
     }
 
     @FXML
     void updateOnAction(ActionEvent event) {
-        int qty = Integer.parseInt(txtQty.getText());
-        double buyingUnitPrice = Double.parseDouble(txtBuyingUnitPrice.getText());
 
-        observableList1.get(tblSupplierOrder.getSelectionModel().getSelectedIndex()).setQuantity(qty);
-        observableList1.get(tblSupplierOrder.getSelectionModel().getSelectedIndex()).setTotal(qty * buyingUnitPrice);
-        tblSupplierOrder.refresh();
-        generateTotal();
-        checkPlaceOrder();
-        clearTableSelection();
-        btnAdd.setDisable(false);
+        try{
+
+            int qty = Integer.parseInt(txtQty.getText());
+            double buyingUnitPrice = Double.parseDouble(txtBuyingUnitPrice.getText());
+
+            observableList1.get(tblSupplierOrder.getSelectionModel().getSelectedIndex()).setQuantity(qty);
+            observableList1.get(tblSupplierOrder.getSelectionModel().getSelectedIndex()).setTotal(qty * buyingUnitPrice);
+            tblSupplierOrder.refresh();
+            generateTotal();
+            checkPlaceOrder();
+            clearTableSelection();
+            btnAdd.setDisable(false);
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
     }
 
     public void keyReleasedOnActionSupplierName(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
@@ -329,36 +353,42 @@ public class AdminSupplierController {
     }
 
     private void addToTable() {
-        if (!btnAdd.isDisabled()) {
-            String code = lblItemCode.getText();
-            String description = txtDescription.getText();
-            int qty = Integer.parseInt(txtQty.getText());
-            double buyingUnitPrice = Double.parseDouble(txtBuyingUnitPrice.getText());
-            double total = qty * buyingUnitPrice;
 
-            SupplierTm supplierTm = new SupplierTm(code, description, qty, buyingUnitPrice, total);
+        try{
+            if (!btnAdd.isDisabled()) {
+                String code = lblItemCode.getText();
+                String description = txtDescription.getText();
+                int qty = Integer.parseInt(txtQty.getText());
+                double buyingUnitPrice = Double.parseDouble(txtBuyingUnitPrice.getText());
+                double total = qty * buyingUnitPrice;
+
+                SupplierTm supplierTm = new SupplierTm(code, description, qty, buyingUnitPrice, total);
 
 
-            for (int i = 0; i < tblSupplierOrder.getItems().size(); i++) {
-                if (colItemCode.getCellData(i).equals(lblItemCode.getText())) {
+                for (int i = 0; i < tblSupplierOrder.getItems().size(); i++) {
+                    if (colItemCode.getCellData(i).equals(lblItemCode.getText())) {
 
-                    int tempQty = observableList1.get(i).getQuantity() + qty;
-                    double tempTotal = buyingUnitPrice * tempQty;
+                        int tempQty = observableList1.get(i).getQuantity() + qty;
+                        double tempTotal = buyingUnitPrice * tempQty;
 
-                    observableList1.get(i).setQuantity(tempQty);
-                    observableList1.get(i).setTotal(tempTotal);
+                        observableList1.get(i).setQuantity(tempQty);
+                        observableList1.get(i).setTotal(tempTotal);
 
-                    tblSupplierOrder.refresh();
-                    generateTotal();
-                    checkPlaceOrder();
-                    return;
+                        tblSupplierOrder.refresh();
+                        generateTotal();
+                        checkPlaceOrder();
+                        return;
 
+                    }
                 }
+                observableList1.add(supplierTm);
+                tblSupplierOrder.setItems(observableList1);
+                generateTotal();
+                checkPlaceOrder();
             }
-            observableList1.add(supplierTm);
-            tblSupplierOrder.setItems(observableList1);
-            generateTotal();
-            checkPlaceOrder();
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 

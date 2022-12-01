@@ -79,51 +79,80 @@ public class AdminEmployeeController {
 
     @FXML
     void deleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Employee Data");
-        alert.setContentText("Do you want to delete Employee " + txtName.getText() + "?");
-        Optional<ButtonType> result = alert.showAndWait();
-        String employeeId = String.valueOf(colEmployeeId.getCellData(tblEmployee.getSelectionModel().getSelectedIndex()));
-        if (result.get() == ButtonType.OK) {
-            boolean deleteEmployee = EmployeeModel.deleteEmployee(employeeId);
-            if (deleteEmployee) {
-                txtName.setText("");
-                txtPhoneNumber.setText("");
-                txtSalary.setText("");
-                txtAddess.setText("");
-                Notification.notifie("Employee Data", "Employee Data Deleted", NotificationType.INFORMATION);
-                observableList.clear();
-                initialize();
-            } else {
-                Notification.notifie("Employee Data", "Employee Data  Not Updated", NotificationType.ERROR);
+
+        try{
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Employee Data");
+            alert.setContentText("Do you want to delete Employee " + txtName.getText() + "?");
+            Optional<ButtonType> result = alert.showAndWait();
+            String employeeId = String.valueOf(colEmployeeId.getCellData(tblEmployee.getSelectionModel().getSelectedIndex()));
+            if (result.get() == ButtonType.OK) {
+                boolean deleteEmployee = EmployeeModel.deleteEmployee(employeeId);
+                if (deleteEmployee) {
+                    txtName.setText("");
+                    txtPhoneNumber.setText("");
+                    txtSalary.setText("");
+                    txtAddess.setText("");
+                    Notification.notifie("Employee Data", "Employee Data Deleted", NotificationType.INFORMATION);
+                    observableList.clear();
+                    initialize();
+                } else {
+                    Notification.notifie("Employee Data", "Employee Data  Not Deleted", NotificationType.ERROR);
+                }
             }
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 
     @FXML
     void onMouseClickOnEmployeeTable(MouseEvent event) {
-        EmployeeTm tm = tblEmployee.getItems().get(tblEmployee.getSelectionModel().getSelectedIndex());
-        txtName.setText(tm.getName());
-        txtAddess.setText(tm.getAddress());
-        txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
-        txtSalary.setText(String.valueOf(tm.getSalary()));
+
+        try{
+            EmployeeTm tm = tblEmployee.getItems().get(tblEmployee.getSelectionModel().getSelectedIndex());
+            txtName.setText(tm.getName());
+            txtAddess.setText(tm.getAddress());
+            txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
+            txtSalary.setText(String.valueOf(tm.getSalary()));
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
 
     }
 
     @FXML
     void updateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String employeeId = String.valueOf(colEmployeeId.getCellData(tblEmployee.getSelectionModel().getSelectedIndex()));
-        double salary = Double.parseDouble(txtSalary.getText());
+
+        try{
+            String employeeId = String.valueOf(colEmployeeId.getCellData(tblEmployee.getSelectionModel().getSelectedIndex()));
+            double salary = Double.parseDouble(txtSalary.getText());
 
 
-        boolean updateCustomer = EmployeeModel.updateSalary(employeeId, salary);
-        if (updateCustomer) {
-            Notification.notifie("Employee Data", "Employee Data Updated", NotificationType.INFORMATION);
-            observableList.clear();
-            initialize();
-        } else {
-            Notification.notifie("Employee Data", "Employee Data  Not Updated", NotificationType.ERROR);
+            boolean updateCustomer = EmployeeModel.updateSalary(employeeId, salary);
+            if (updateCustomer) {
+                Notification.notifie("Employee Data", "Employee Data Updated", NotificationType.INFORMATION);
+                observableList.clear();
+                initialize();
+            } else {
+                Notification.notifie("Employee Data", "Employee Data  Not Updated", NotificationType.ERROR);
+            }
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 
+    public void nameKeyReleased(KeyEvent keyEvent) {
+    }
+
+    public void addressKeyReleased(KeyEvent keyEvent) {
+    }
+
+    public void phoneKeyreleased(KeyEvent keyEvent) {
+    }
+
+    public void salaryKeyReleased(KeyEvent keyEvent) {
+    }
 }

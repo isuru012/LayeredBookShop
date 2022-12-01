@@ -105,7 +105,9 @@ public class CashierCustomersController {
 
     @FXML
     void addOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        try {
+
+        try{
+
             String name = txtName.getText();
             int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
             String cusId = generateNextCustomeId(CustomerModel.getOrderId());
@@ -130,15 +132,9 @@ public class CashierCustomersController {
             } else {
                 Notification.notifie("Customer Data", "Customer Data  Not Added", NotificationType.ERROR);
             }
-
-
-
-
-        }catch (SQLIntegrityConstraintViolationException exception){
-            Notification.notifie("Alert","Data Already Exists",NotificationType.ERROR);
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
-
-
     }
 
     private String generateNextCustomeId(String orderId) {
@@ -165,38 +161,51 @@ public class CashierCustomersController {
 
     @FXML
     void deleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Customer Data");
-        alert.setContentText("Do you want to delete customer "+txtName.getText()+"?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            boolean deleteCustomer = CustomerModel.deleteCustomer(CusId);
-            if (deleteCustomer) {
-                txtName.setText("");
-                txtPhoneNumber.setText("");
-                Notification.notifie("Customer Data", "Customer Data Deleted", NotificationType.INFORMATION);
-                observableList.clear();
-                initialize();
-            } else {
-                Notification.notifie("Customer Data", "Customer Data  Not Updated", NotificationType.ERROR);
+
+        try{
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Customer Data");
+            alert.setContentText("Do you want to delete customer "+txtName.getText()+"?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                boolean deleteCustomer = CustomerModel.deleteCustomer(CusId);
+                if (deleteCustomer) {
+                    txtName.setText("");
+                    txtPhoneNumber.setText("");
+                    Notification.notifie("Customer Data", "Customer Data Deleted", NotificationType.INFORMATION);
+                    observableList.clear();
+                    initialize();
+                } else {
+                    Notification.notifie("Customer Data", "Customer Data  Not Updated", NotificationType.ERROR);
+                }
             }
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 
 
     @FXML
     void updateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String name = txtName.getText();
-        int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
 
 
-        boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CusId);
-        if (updateCustomer) {
-            Notification.notifie("Customer Data", "Customer Data Updated", NotificationType.INFORMATION);
-            observableList.clear();
-            initialize();
-        } else {
-            Notification.notifie("Customer Data", "Customer Data  Not Updated", NotificationType.ERROR);
+        try{
+
+            String name = txtName.getText();
+            int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+
+
+            boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CusId);
+            if (updateCustomer) {
+                Notification.notifie("Customer Data", "Customer Data Updated", NotificationType.INFORMATION);
+                observableList.clear();
+                initialize();
+            } else {
+                Notification.notifie("Customer Data", "Customer Data  Not Updated", NotificationType.ERROR);
+            }
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
 
 
@@ -212,9 +221,15 @@ public class CashierCustomersController {
     }
 
     public void onMouseClicked(MouseEvent mouseEvent) {
-        CustomerTm tm = tblCustomer.getItems().get(tblCustomer.getSelectionModel().getSelectedIndex());
-        txtName.setText(tm.getName());
-        txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
-        CusId = tm.getCode();
+
+        try{
+
+            CustomerTm tm = tblCustomer.getItems().get(tblCustomer.getSelectionModel().getSelectedIndex());
+            txtName.setText(tm.getName());
+            txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
+            CusId = tm.getCode();
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
     }
 }

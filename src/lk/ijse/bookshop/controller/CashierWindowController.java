@@ -34,6 +34,7 @@ import java.util.Optional;
 
 public class CashierWindowController {
 
+    public JFXButton btnminimize;
     ArrayList<JFXButton> arrayListButton = new ArrayList<>();
     @FXML
     private AnchorPane pane;
@@ -84,7 +85,7 @@ public class CashierWindowController {
         lblNameSet.setText(UserCreationModel.getEmployeeName(LoginFormController.employeeId));
         CashierCustomersController.observableList.clear();
         btnCustomers.setTextFill(Paint.valueOf("#0aa119"));
-        btnCustomers.setStyle("-fx-background-color: #dcf6dd");
+        btnCustomers.setStyle("-fx-background-color: #dcf6dd;-fx-border-color: #0aa119;-fx-border-width: 0px 0px 0px 6px;");
         lblDate.setText(String.valueOf(LocalDate.now()));
         t1 = new Thread(() -> {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss a");
@@ -153,10 +154,16 @@ public class CashierWindowController {
 
     @FXML
     void onMouseClicked(MouseEvent event) {
-        CustomerTm tm = tblCustomer.getItems().get(tblCustomer.getSelectionModel().getSelectedIndex());
-        txtName.setText(tm.getName());
-        txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
-        CashierCustomersController.CusId = tm.getCode();
+
+        try{
+
+            CustomerTm tm = tblCustomer.getItems().get(tblCustomer.getSelectionModel().getSelectedIndex());
+            txtName.setText(tm.getName());
+            txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
+            CashierCustomersController.CusId = tm.getCode();
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
     }
 
     @FXML
@@ -186,8 +193,8 @@ public class CashierWindowController {
 
             CashierCustomersController.observableList.add(customerTm);
             searchPart();
-        }catch (SQLIntegrityConstraintViolationException exception){
-            Notification.notifie("Alert","Data Already Exists",NotificationType.ERROR);
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 
@@ -215,6 +222,7 @@ public class CashierWindowController {
 
     @FXML
     void deleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        try{
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Customer Data");
         alert.setContentText("Do you want to delete customer " + txtName.getText() + "?");
@@ -228,25 +236,34 @@ public class CashierWindowController {
                 CashierCustomersController.observableList.clear();
                 initialize();
             } else {
-                Notification.notifie("Customer Data", "Customer Data  Not Updated", NotificationType.ERROR);
+                Notification.notifie("Customer Data", "Customer Data  Not Deleted", NotificationType.ERROR);
             }
         }
+
+    }catch (Exception exception){
+        Notification.notifie("Error",""+exception,NotificationType.ERROR);
+    }
     }
 
 
     @FXML
     void updateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String name = txtName.getText();
-        int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+        try{
+            String name = txtName.getText();
+            int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
 
 
-        boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CashierCustomersController.CusId);
-        if (updateCustomer) {
-            Notification.notifie("Customer Data", "Customer Data Updated", NotificationType.INFORMATION);
-            CashierCustomersController.observableList.clear();
-            initialize();
-        } else {
-            Notification.notifie("Customer Data", "Customer Data  Not Updated", NotificationType.ERROR);
+            boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CashierCustomersController.CusId);
+            if (updateCustomer) {
+                Notification.notifie("Customer Data", "Customer Data Updated", NotificationType.INFORMATION);
+                CashierCustomersController.observableList.clear();
+                initialize();
+            } else {
+                Notification.notifie("Customer Data", "Customer Data  Not Updated", NotificationType.ERROR);
+            }
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 
@@ -255,23 +272,39 @@ public class CashierWindowController {
         for (int i = 0; i < arrayListButton.size(); i++) {
             if (arrayListButton.get(i) == button) {
                 button.setTextFill(Paint.valueOf("#0aa119"));
-            } else {
+
+            } else if(i==1){
+                arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
+                btnPlaceOrder.setStyle(null);
+            }else if(i==2){
+                arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
+                btnPlaceReload.setStyle(null);
+            }
+            else {
                 arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
                 btnCustomers.setStyle(null);
+
             }
         }
     }
 
     public void checkfocus() {
         if (btnCustomers.isFocused()) {
+
+            btnCustomers.getStyleClass().add("btnPlaceOrder");
             checkButton(btnCustomers);
 
         } else if (btnPlaceOrder.isFocused()) {
+
+            btnPlaceOrder.setStyle("-fx-background-color: #dcf6dd;-fx-border-color: #0aa119;-fx-border-width: 0px 0px 0px 6px;");
             checkButton(btnPlaceOrder);
+
         } else if (btnPlaceReload.isFocused()) {
+            btnPlaceReload.setStyle("-fx-background-color: #dcf6dd;-fx-border-color: #0aa119;-fx-border-width: 0px 0px 0px 6px;");
             checkButton(btnPlaceReload);
 
         } else if (btnItems.isFocused()) {
+            btnItems.getStyleClass().add("btnPlaceOrder");
             checkButton(btnItems);
         }
     }

@@ -148,7 +148,8 @@ public class AdminOffersController {
 
     @FXML
     void addOnAction(ActionEvent event) {
-        try {
+
+        try{
             String itemCode=lblItemId.getText();
 
             double offerAmount = Double.parseDouble(txtOffer.getText());
@@ -171,9 +172,9 @@ public class AdminOffersController {
                 if (OfferModel.updateItemData(itemCode, offerId, batchNumber)){
                     Notification.notifie("Offer Data", "Offer Data Added", NotificationType.INFORMATION);
 
-                observableList.clear();
-                initialize();
-            }
+                    observableList.clear();
+                    initialize();
+                }
 
             } else {
                 Notification.notifie("Offer Data", "Offer Data  Not Added", NotificationType.ERROR);
@@ -181,11 +182,11 @@ public class AdminOffersController {
             clearTableSelection();
             btnAdd.setDisable(false);
 
-        }catch (SQLIntegrityConstraintViolationException exception){
-            Notification.notifie("Alert","Data Already Exists",NotificationType.ERROR);
-        } catch (SQLException | ClassNotFoundException throwables) {
-            throwables.printStackTrace();
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
+
+
 
     }
 
@@ -223,39 +224,45 @@ public class AdminOffersController {
 
     @FXML
     void deleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Offer Data");
-        alert.setContentText("Do you want to delete Offer "+txtItemName.getText()+"?");
+
+        try{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Offer Data");
+            alert.setContentText("Do you want to delete Offer "+txtItemName.getText()+"?");
 
 
-        String itemId= String.valueOf(colItemCode.getCellData(tblOffer.getSelectionModel().getSelectedIndex()));
-        String offerId=OfferModel.getOfferId(itemId);
+            String itemId= String.valueOf(colItemCode.getCellData(tblOffer.getSelectionModel().getSelectedIndex()));
+            String offerId=OfferModel.getOfferId(itemId);
 
-        Optional<ButtonType> result = alert.showAndWait();
+            Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == ButtonType.OK) {
+            if (result.get() == ButtonType.OK) {
 
-            boolean deleteOffer = OfferModel.deleteOffer(itemId);
+                boolean deleteOffer = OfferModel.deleteOffer(itemId);
 
-            if (deleteOffer) {
-                boolean b=OfferModel.deleteOfferData(offerId);
-                if(b) {
-                    txtOffer.setText("");
-                    txtItemName.setText("");
+                if (deleteOffer) {
+                    boolean b=OfferModel.deleteOfferData(offerId);
+                    if(b) {
+                        txtOffer.setText("");
+                        txtItemName.setText("");
 
-                    txtSearch.setText("");
-                    cmbSellingPrice.getItems().clear();
+                        txtSearch.setText("");
+                        cmbSellingPrice.getItems().clear();
 
-                    Notification.notifie("Offer Data", "Offer Data Deleted", NotificationType.INFORMATION);
-                    observableList.clear();
-                    initialize();
+                        Notification.notifie("Offer Data", "Offer Data Deleted", NotificationType.INFORMATION);
+                        observableList.clear();
+                        initialize();
+                    }
+                } else {
+                    Notification.notifie("Offer Data", "Offer Data  Not Deleted", NotificationType.ERROR);
                 }
-            } else {
-                Notification.notifie("Offer Data", "Offer Data  Not Updated", NotificationType.ERROR);
             }
+            clearTableSelection();
+            btnAdd.setDisable(false);
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
-        clearTableSelection();
-        btnAdd.setDisable(false);
 
     }
 
@@ -282,42 +289,55 @@ public class AdminOffersController {
 
     @FXML
     void tblOfferOnMouseClick(MouseEvent event) throws SQLException, ClassNotFoundException {
-        txtSearch.setText("");
-        OfferTm tm = tblOffer.getItems().get(tblOffer.getSelectionModel().getSelectedIndex());
-        txtOffer.setText(String.valueOf(tm.getAmount()));
-        txtStartingDate.setText(String.valueOf(tm.getStartingDate()));
-        txtEndingDate.setText(String.valueOf(tm.getEndingDate()));
-        lblItemId.setText(tm.getItemCode());
 
-        txtItemName.setText(OfferModel.getItemName(lblItemId.getText()));
-        loadItemPrices();
+        try{
+            txtSearch.setText("");
+            OfferTm tm = tblOffer.getItems().get(tblOffer.getSelectionModel().getSelectedIndex());
+            txtOffer.setText(String.valueOf(tm.getAmount()));
+            txtStartingDate.setText(String.valueOf(tm.getStartingDate()));
+            txtEndingDate.setText(String.valueOf(tm.getEndingDate()));
+            lblItemId.setText(tm.getItemCode());
 
-        btnAdd.setDisable(true);
+            txtItemName.setText(OfferModel.getItemName(lblItemId.getText()));
+            loadItemPrices();
+
+            btnAdd.setDisable(true);
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
 
     }
 
     @FXML
     void updateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        double offerAmount = Double.parseDouble(txtOffer.getText());
-        Date startDate= Date.valueOf(txtStartingDate.getText());
-        Date endDate= Date.valueOf(txtEndingDate.getText());
 
-        String offerId=OfferModel.getOfferId(lblItemId.getText());
+        try{
+            double offerAmount = Double.parseDouble(txtOffer.getText());
+            Date startDate= Date.valueOf(txtStartingDate.getText());
+            Date endDate= Date.valueOf(txtEndingDate.getText());
 
-        boolean updateOffer = OfferModel.updateOffer(offerId,offerAmount,startDate,endDate);
-        if (updateOffer) {
-            Notification.notifie("Offer Data", "Offer Data Updated", NotificationType.INFORMATION);
-            observableList.clear();
-            initialize();
-        } else {
-            Notification.notifie("Offer Data", "Offer Data  Not Updated", NotificationType.ERROR);
+            String offerId=OfferModel.getOfferId(lblItemId.getText());
+
+            boolean updateOffer = OfferModel.updateOffer(offerId,offerAmount,startDate,endDate);
+            if (updateOffer) {
+                Notification.notifie("Offer Data", "Offer Data Updated", NotificationType.INFORMATION);
+                observableList.clear();
+                initialize();
+            } else {
+                Notification.notifie("Offer Data", "Offer Data  Not Updated", NotificationType.ERROR);
+            }
+            clearTableSelection();
+            btnAdd.setDisable(false);
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
-        clearTableSelection();
-        btnAdd.setDisable(false);
 
     }
 
     public void itemNameKeyReleasedOnAction(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
+
         loadItemPrices();
         lblItemId.setText(OfferModel.getItemId(txtItemName.getText()));
     }

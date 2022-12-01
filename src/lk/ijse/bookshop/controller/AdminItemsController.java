@@ -195,7 +195,7 @@ public class AdminItemsController {
                 lblBatchNumber.setText("1");
                 initialize();
             } else {
-                Notification.notifie("Item Data", "Item Data  Not Updated", NotificationType.ERROR);
+                Notification.notifie("Item Data", "Item Data  Not Deleted", NotificationType.ERROR);
             }
         }
         clearTableSelection();
@@ -223,7 +223,8 @@ public class AdminItemsController {
     }
 
     private void addToItemTable() throws SQLException, ClassNotFoundException {
-        try {
+
+        try{
             String itemCode=lblCode.getText();
             int batchNumber = Integer.parseInt(lblBatchNumber.getText());
             String description =txtDesCription.getText();
@@ -248,9 +249,10 @@ public class AdminItemsController {
             clearTableSelection();
             btnAdd.setDisable(false);
 
-        }catch (SQLIntegrityConstraintViolationException exception){
-            Notification.notifie("Alert","Data Already Exists",NotificationType.ERROR);
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
+
     }
 
     @FXML
@@ -264,37 +266,49 @@ public class AdminItemsController {
 
     @FXML
     void tblItemOnActionMouseClick(MouseEvent event) {
-        AdminItemTm tm = tblItem.getItems().get(tblItem.getSelectionModel().getSelectedIndex());
-        txtDesCription.setText(tm.getDescription());
-        txtBuyingPrice.setText(String.valueOf(tm.getBuyingUnitPrice()));
-        txtSellingPrice.setText(String.valueOf(tm.getSellingUnitPrice()));
-        txtQty.setText(String.valueOf(tm.getQuantityOnHand()));
-        lblCode.setText(String.valueOf(colItemCode.getCellData(tblItem.getSelectionModel().getSelectedIndex())));
-        lblBatchNumber.setText(String.valueOf(colBatchNumber.getCellData(tblItem.getSelectionModel().getSelectedIndex())));
-        btnAdd.setDisable(true);
+
+        try{
+            AdminItemTm tm = tblItem.getItems().get(tblItem.getSelectionModel().getSelectedIndex());
+            txtDesCription.setText(tm.getDescription());
+            txtBuyingPrice.setText(String.valueOf(tm.getBuyingUnitPrice()));
+            txtSellingPrice.setText(String.valueOf(tm.getSellingUnitPrice()));
+            txtQty.setText(String.valueOf(tm.getQuantityOnHand()));
+            lblCode.setText(String.valueOf(colItemCode.getCellData(tblItem.getSelectionModel().getSelectedIndex())));
+            lblBatchNumber.setText(String.valueOf(colBatchNumber.getCellData(tblItem.getSelectionModel().getSelectedIndex())));
+            btnAdd.setDisable(true);
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
     }
 
     @FXML
     void updateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String desCriptionText = txtDesCription.getText();
-        double buyingPrice= Double.parseDouble(txtBuyingPrice.getText());
-        double sellingPrice= Double.parseDouble(txtSellingPrice.getText());
-        int quantity= Integer.parseInt(txtQty.getText());
-        int batchNumber=Integer.parseInt(String.valueOf(colBatchNumber.getCellData(tblItem.getSelectionModel().getSelectedIndex())));
-        String itemCode=String.valueOf(colItemCode.getCellData(tblItem.getSelectionModel().getSelectedIndex()));
+
+        try{
+            String desCriptionText = txtDesCription.getText();
+            double buyingPrice= Double.parseDouble(txtBuyingPrice.getText());
+            double sellingPrice= Double.parseDouble(txtSellingPrice.getText());
+            int quantity= Integer.parseInt(txtQty.getText());
+            int batchNumber=Integer.parseInt(String.valueOf(colBatchNumber.getCellData(tblItem.getSelectionModel().getSelectedIndex())));
+            String itemCode=String.valueOf(colItemCode.getCellData(tblItem.getSelectionModel().getSelectedIndex()));
 
 
 
-        boolean updateItem = ItemModel.updateItem(itemCode,batchNumber,desCriptionText,buyingPrice,sellingPrice,quantity);
-        if (updateItem) {
-            Notification.notifie("Item Data", "Item Data Updated", NotificationType.INFORMATION);
-            observableList.clear();
-            initialize();
-        } else {
-            Notification.notifie("Item Data", "Item Data  Not Updated", NotificationType.ERROR);
+            boolean updateItem = ItemModel.updateItem(itemCode,batchNumber,desCriptionText,buyingPrice,sellingPrice,quantity);
+            if (updateItem) {
+                Notification.notifie("Item Data", "Item Data Updated", NotificationType.INFORMATION);
+                observableList.clear();
+                initialize();
+            } else {
+                Notification.notifie("Item Data", "Item Data  Not Updated", NotificationType.ERROR);
+            }
+            clearTableSelection();
+            btnAdd.setDisable(false);
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
-        clearTableSelection();
-        btnAdd.setDisable(false);
     }
 
     private void clearTableSelection() {
@@ -304,12 +318,18 @@ public class AdminItemsController {
     }
 
     public void onMouseClickRefresh(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
-        clearFields();
-        clearTableSelection();
-        lblCode.setText(getNextItemId(ItemModel.getCurrentItemId()));
-        lblBatchNumber.setText("1");
 
-        btnAdd.setDisable(false);
+        try{
+
+            clearFields();
+            clearTableSelection();
+            lblCode.setText(getNextItemId(ItemModel.getCurrentItemId()));
+            lblBatchNumber.setText("1");
+
+            btnAdd.setDisable(false);
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
     }
 
     private void clearFields() {

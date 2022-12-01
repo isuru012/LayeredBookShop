@@ -135,61 +135,66 @@ public class AdminExpenditureController {
 
     @FXML
     void updateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String desCriptionText = txtDescription.getText();
-        double buyingPrice= Double.parseDouble(txtAmount.getText());
-        String expenditureId= String.valueOf(colExpenditureId.getCellData
-                (tblExpenditure.getSelectionModel().getSelectedIndex()));
 
+        try{
+            String desCriptionText = txtDescription.getText();
+            double buyingPrice= Double.parseDouble(txtAmount.getText());
+            String expenditureId= String.valueOf(colExpenditureId.getCellData
+                    (tblExpenditure.getSelectionModel().getSelectedIndex()));
 
-
-
-
-
-
-
-
-        boolean updateExpenditure = ExpenditureModel.updateExpenditure(expenditureId,desCriptionText,buyingPrice);
-        if (updateExpenditure) {
-            Notification.notifie("Expenditure Data", "Expenditure Data Updated", NotificationType.INFORMATION);
-            observableList.clear();
-            initialize();
-        } else {
-            Notification.notifie("Expenditure Data", "Expenditure Data  Not Updated", NotificationType.ERROR);
-        }
-        clearTableSelection();
-        btnAdd.setDisable(false);
-    }
-
-    @FXML
-    void deleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Expenditure Data");
-        alert.setContentText("Do you want to delete Expenditure "+txtDescription.getText()+"?");
-
-        String expenditureId= String.valueOf(colExpenditureId.getCellData(tblExpenditure.getSelectionModel().getSelectedIndex()));
-
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            boolean deleteExpenditure = ExpenditureModel.deleteExpenditure(expenditureId);
-            if (deleteExpenditure) {
-                txtDescription.setText("");
-                txtAmount.setText("");
-                txtSearch.setText("");
-                Notification.notifie("Expenditure Data", "Expenditure Data Deleted", NotificationType.INFORMATION);
+            boolean updateExpenditure = ExpenditureModel.updateExpenditure(expenditureId,desCriptionText,buyingPrice);
+            if (updateExpenditure) {
+                Notification.notifie("Expenditure Data", "Expenditure Data Updated", NotificationType.INFORMATION);
                 observableList.clear();
                 initialize();
             } else {
                 Notification.notifie("Expenditure Data", "Expenditure Data  Not Updated", NotificationType.ERROR);
             }
+            clearTableSelection();
+            btnAdd.setDisable(false);
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
-        clearTableSelection();
-        btnAdd.setDisable(false);
+    }
+
+    @FXML
+    void deleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+
+        try{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Expenditure Data");
+            alert.setContentText("Do you want to delete Expenditure "+txtDescription.getText()+"?");
+
+            String expenditureId= String.valueOf(colExpenditureId.getCellData(tblExpenditure.getSelectionModel().getSelectedIndex()));
+
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                boolean deleteExpenditure = ExpenditureModel.deleteExpenditure(expenditureId);
+                if (deleteExpenditure) {
+                    txtDescription.setText("");
+                    txtAmount.setText("");
+                    txtSearch.setText("");
+                    Notification.notifie("Expenditure Data", "Expenditure Data Deleted", NotificationType.INFORMATION);
+                    observableList.clear();
+                    initialize();
+                } else {
+                    Notification.notifie("Expenditure Data", "Expenditure Data  Not Deleted", NotificationType.ERROR);
+                }
+            }
+            clearTableSelection();
+            btnAdd.setDisable(false);
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
 
     }
 
     private void addToTblExpenditure() {
-        try {
+
+        try{
             String description = txtDescription.getText();
             double amount= Double.parseDouble(txtAmount.getText());
             Date date = Date.valueOf(LocalDate.now());
@@ -198,7 +203,7 @@ public class AdminExpenditureController {
             String nextExpenditureId=generateNextExpenditureId(ExpenditureModel.getCurrentId());
 
 
-             String userName=ExpenditureModel.getUsername();
+            String userName=ExpenditureModel.getUsername();
 
             ExpenditureTm expenditureTm = new ExpenditureTm(nextExpenditureId,description,time,date,amount);
 
@@ -214,14 +219,11 @@ public class AdminExpenditureController {
                 Notification.notifie("Expenditure Data", "Expenditure Data  Not Added", NotificationType.ERROR);
             }
 
-
-
-
-        }catch (SQLIntegrityConstraintViolationException exception){
-            Notification.notifie("Alert","Data Already Exists",NotificationType.ERROR);
-        } catch (SQLException | ClassNotFoundException throwables) {
-            throwables.printStackTrace();
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
+
+
     }
 
     private String generateNextExpenditureId(String currentId) {
@@ -264,10 +266,16 @@ public class AdminExpenditureController {
 
     @FXML
     void tblExpenditureOnMouseClick(MouseEvent event) {
-        ExpenditureTm tm = tblExpenditure.getItems().get(tblExpenditure.getSelectionModel().getSelectedIndex());
-        txtAmount.setText(String.valueOf(tm.getAmount()));
-        txtDescription.setText(String.valueOf(tm.getDescription()));
-        btnAdd.setDisable(true);
+
+        try{
+            ExpenditureTm tm = tblExpenditure.getItems().get(tblExpenditure.getSelectionModel().getSelectedIndex());
+            txtAmount.setText(String.valueOf(tm.getAmount()));
+            txtDescription.setText(String.valueOf(tm.getDescription()));
+            btnAdd.setDisable(true);
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
     }
     private void clearTableSelection() {
         if (!tblExpenditure.isFocused()) {

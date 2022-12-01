@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="pane2" prefHeight="768.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.bookshop.controller.AdminSupplierController">
    <children>
-      <TableView fx:id="tblSupplierOrder" layoutX="28.0" layoutY="384.0" onMouseClicked="#onMouseClickedSupplierOrder" prefHeight="255.0" prefWidth="1021.0">
+      <TableView id="my-table" fx:id="tblSupplierOrder" layoutX="28.0" layoutY="384.0" onMouseClicked="#onMouseClickedSupplierOrder" prefHeight="297.0" prefWidth="1021.0" stylesheets="@../assests/css/style.css">
         <columns>
           <TableColumn fx:id="colItemCode" prefWidth="139.0" text="Item Code" />
           <TableColumn fx:id="colDescription" prefWidth="247.0" text="Description" />

@@ -68,21 +68,6 @@
                   <String fx:value="sidebarItem" />
                </styleClass>
             </JFXButton>
-            <JFXButton id="btnPlaceOrder" fx:id="btnPlaceOrder" buttonType="RAISED" layoutY="319.0" onAction="#placeOrderOnAction" prefHeight="81.0" prefWidth="287.0" styleClass="sidebarItem" stylesheets="@../assests/css/style.css" text="  PlaceOrder     ">
-               <font>
-                  <Font name="Segoe UI Bold" size="22.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assests/logos/placeOrder.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXButton>
             <JFXButton fx:id="btnPlaceReload" buttonType="RAISED" layoutY="410.0" onAction="#placeReloadOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../assests/css/style.css" text=" PlaceReload   ">
                <font>
                   <Font name="Segoe UI Bold" size="22.0" />
@@ -136,11 +121,30 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
+            <JFXButton fx:id="btnPlaceOrder" buttonType="RAISED" layoutY="320.0" onAction="#placeOrderOnAction" prefHeight="81.0" prefWidth="287.0" stylesheets="@../assests/css/style.css" text="  PlaceOrder     ">
+               <font>
+                  <Font name="Segoe UI Bold" size="22.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/logos/placeOrder.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="sidebarItem" />
+               </styleClass>
+            </JFXButton>
          </children>
       </Pane>
       <AnchorPane fx:id="pane2" layoutX="287.0" prefHeight="768.0" prefWidth="1079.0">
          <children>
-            <TableView fx:id="tblCustomer" layoutX="35.0" layoutY="411.0" onMouseClicked="#onMouseClicked" prefHeight="337.0" prefWidth="1018.0">
+            <TableView id="my-table" fx:id="tblCustomer" layoutX="35.0" layoutY="411.0" onMouseClicked="#onMouseClicked" prefHeight="337.0" prefWidth="1018.0" stylesheets="@../assests/css/style.css">
                <columns>
                   <TableColumn fx:id="colCode" prefWidth="213.0" text="Code" />
                   <TableColumn fx:id="colName" prefWidth="266.0" text="Name" />

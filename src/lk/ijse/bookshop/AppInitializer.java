@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.scene.image.Image;
 
 import java.awt.*;
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class AppInitializer extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.centerOnScreen();
         primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/lk/ijse/bookshop/assests/logos/Logo.png")));
         primaryStage.show();
 
 

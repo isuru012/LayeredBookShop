@@ -80,7 +80,7 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <TableView fx:id="tblOrder" layoutX="24.0" layoutY="454.0" onMouseClicked="#onMouseClickOrder" prefHeight="163.0" prefWidth="1019.0">
+      <TableView id="my-table" fx:id="tblOrder" layoutX="24.0" layoutY="454.0" onMouseClicked="#onMouseClickOrder" prefHeight="163.0" prefWidth="1019.0" stylesheets="@../assests/css/style.css">
         <columns>
           <TableColumn fx:id="colItemCode" prefWidth="153.00003051757812" text="Code" />
           <TableColumn fx:id="colDescription" prefWidth="282.33331298828125" text="Description" />
@@ -89,7 +89,7 @@
             <TableColumn fx:id="colTotal" prefWidth="236.0" text="Total" />
         </columns>
       </TableView>
-      <TableView fx:id="tblCustomer" layoutX="30.0" layoutY="176.0" onMouseClicked="#onMouseClicked" prefHeight="89.0" prefWidth="1019.0">
+      <TableView id="my-table" fx:id="tblCustomer" layoutX="30.0" layoutY="176.0" onMouseClicked="#onMouseClicked" prefHeight="83.0" prefWidth="1019.0" stylesheets="@../assests/css/style.css">
         <columns>
           <TableColumn fx:id="colCode" prefWidth="190.0" text="Code" />
           <TableColumn fx:id="colName" prefWidth="238.0" text="Name" />

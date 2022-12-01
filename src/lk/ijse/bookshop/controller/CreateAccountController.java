@@ -159,11 +159,11 @@ public class CreateAccountController {
         boolPassword = matcher2.matches();
         if (boolPassword) {
             txtPassword.setFocusColor(BLUE);
+            if (keyEvent.getCode()== KeyCode.ENTER){
+                txtName.requestFocus();
+            }
         }else{
             txtPassword.setFocusColor(RED);
-        }
-        if (keyEvent.getCode()== KeyCode.ENTER){
-            txtName.requestFocus();
         }
 
 
@@ -176,11 +176,11 @@ public class CreateAccountController {
         boolUsername = matcher.matches();
         if (boolUsername) {
             txtUsername.setFocusColor(BLUE);
+            if (keyEvent.getCode()== KeyCode.ENTER){
+                txtPassword.requestFocus();
+            }
         }else{
             txtUsername.setFocusColor(RED);
-        }
-        if (keyEvent.getCode()== KeyCode.ENTER){
-            txtPassword.requestFocus();
         }
     }
 
@@ -191,11 +191,11 @@ public class CreateAccountController {
         boolName = matcher3.matches();
         if (boolName) {
             txtName.setFocusColor(BLUE);
+            if (keyEvent.getCode()== KeyCode.ENTER){
+                txtAddess.requestFocus();
+            }
         }else{
             txtName.setFocusColor(RED);
-        }
-        if (keyEvent.getCode()== KeyCode.ENTER){
-            txtAddess.requestFocus();
         }
     }
 
@@ -218,11 +218,11 @@ public class CreateAccountController {
         boolPhonenumber = matcher5.matches();
         if (boolPhonenumber) {
             txtPhoneNumber.setFocusColor(BLUE);
+            if (keyEvent.getCode()== KeyCode.ENTER){
+                txtPhoneNumber.requestFocus();
+            }
         }else{
             txtPhoneNumber.setFocusColor(RED);
-        }
-        if (keyEvent.getCode()== KeyCode.ENTER){
-            txtPhoneNumber.requestFocus();
         }
 
     }

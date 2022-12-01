@@ -2,11 +2,14 @@ package lk.ijse.bookshop.controller;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
@@ -41,6 +44,7 @@ public class AdminWindowController {
     public Label lblProduct;
     public Label lblCustomer;
     public Label lblOrder;
+    public ListView listView;
     @FXML
     Thread t1;
     @FXML
@@ -59,6 +63,9 @@ public class AdminWindowController {
 
 
     public void initialize() throws SQLException, ClassNotFoundException {
+        ArrayList arrayList=DashboardModel.getTrendingItems();
+        ObservableList observableList= FXCollections.observableArrayList(arrayList);
+        listView.getItems().addAll(observableList);
         returnLineChart();
         btnDashboard.setTextFill(Paint.valueOf("#0aa119"));
         btnDashboard.setStyle("-fx-background-color: #dcf6dd");
@@ -91,24 +98,35 @@ public class AdminWindowController {
 
         arrayListButton.add(btnDashboard);
         arrayListButton.add(btnEmployee);
-        arrayListButton.add(btnExpenditures);
-        arrayListButton.add(btnOffers);
-        arrayListButton.add(btnPayments);
         arrayListButton.add(btnSupplier);
         arrayListButton.add(btnItems);
+        arrayListButton.add(btnOffers);
+        arrayListButton.add(btnPayments);
+        arrayListButton.add(btnExpenditures);
+
+
+
+
 
     }
-    public void returnLineChart(){
+    public void returnLineChart() throws SQLException, ClassNotFoundException {
         XYChart.Series series = new XYChart.Series();
+        double monday=DashboardModel.getMonday();
+        double tuesday=DashboardModel.getTuesday();
+        double wednesday=DashboardModel.getWednesday();
+        double thursday=DashboardModel.getThursday();
+        double friday=DashboardModel.getFriday();
+        double saturday=DashboardModel.getSaturday();
+        double sunday=DashboardModel.getSunday();
 
 
-        series.getData().add(new XYChart.Data("Mon", 5000));
-        series.getData().add(new XYChart.Data("Tue", 8000));
-        series.getData().add(new XYChart.Data("Wed", 12000));
-        series.getData().add(new XYChart.Data("Thu", 25000));
-        series.getData().add(new XYChart.Data("Fri", 15000));
-        series.getData().add(new XYChart.Data("Sat", 11000));
-        series.getData().add(new XYChart.Data("Sun", 22000));
+        series.getData().add(new XYChart.Data("Mon", monday));
+        series.getData().add(new XYChart.Data("Tue", tuesday));
+        series.getData().add(new XYChart.Data("Wed", wednesday));
+        series.getData().add(new XYChart.Data("Thu", thursday));
+        series.getData().add(new XYChart.Data("Fri", friday));
+        series.getData().add(new XYChart.Data("Sat", saturday));
+        series.getData().add(new XYChart.Data("Sun", sunday));
 
         lineChart.getData().addAll(series);
         lineChart.lookup(".chart-plot-background").setStyle("-fx-background-color: WHITE;");
@@ -122,7 +140,24 @@ public class AdminWindowController {
         for (int i = 0; i < arrayListButton.size(); i++) {
             if (arrayListButton.get(i) == button) {
                 button.setTextFill(Paint.valueOf("#0aa119"));
-            } else {
+            } else if(i==1){
+                arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
+                btnEmployee.setStyle(null);
+            }else if(i==2){
+                arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
+                btnSupplier.setStyle(null);
+            }else if(i==3){
+                arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
+                btnItems.setStyle(null);
+            }else if(i==4){
+                arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
+                btnOffers.setStyle(null);
+            }else if(i==6){
+                arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
+                btnExpenditures.setStyle(null);
+            }
+
+            else {
                 arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
                 btnDashboard.setStyle(null);
             }
@@ -135,17 +170,22 @@ public class AdminWindowController {
             checkButton(btnDashboard);
 
         } else if (btnEmployee.isFocused()) {
+            btnEmployee.setStyle("-fx-background-color: #dcf6dd;-fx-border-color: #0aa119;-fx-border-width: 0px 0px 0px 6px;");
             checkButton(btnEmployee);
         } else if (btnSupplier.isFocused()) {
+            btnSupplier.setStyle("-fx-background-color: #dcf6dd;-fx-border-color: #0aa119;-fx-border-width: 0px 0px 0px 6px;");
             checkButton(btnSupplier);
         } else if (btnItems.isFocused()) {
+            btnItems.setStyle("-fx-background-color: #dcf6dd;-fx-border-color: #0aa119;-fx-border-width: 0px 0px 0px 6px;");
             checkButton(btnItems);
         } else if (btnPayments.isFocused()) {
             checkButton(btnPayments);
         } else if (btnOffers.isFocused()) {
+            btnOffers.setStyle("-fx-background-color: #dcf6dd;-fx-border-color: #0aa119;-fx-border-width: 0px 0px 0px 6px;");
             checkButton(btnOffers);
 
         } else if (btnExpenditures.isFocused()) {
+            btnExpenditures.setStyle("-fx-background-color: #dcf6dd;-fx-border-color: #0aa119;-fx-border-width: 0px 0px 0px 6px;");
             checkButton(btnExpenditures);
         }
     }

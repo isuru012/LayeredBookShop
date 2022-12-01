@@ -186,7 +186,8 @@ public class CashierMakeReloadController {
 
     @FXML
     void addCustomerOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        try {
+
+        try{
             if (!txtName.getText().equals("") && !txtPhoneNumber.getText().equals("")) {
                 String name = txtName.getText();
                 int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
@@ -208,9 +209,11 @@ public class CashierMakeReloadController {
                 observableList.add(customerTm);
                 searchPart();
             }
-        }catch (SQLIntegrityConstraintViolationException exception){
-            Notification.notifie("Alert","Data Already Exists",NotificationType.ERROR);
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
+
     }
     private String generateNextCustomeId(String orderId) {
         if (orderId != null) {
@@ -241,30 +244,36 @@ public class CashierMakeReloadController {
     }
 
     private void addToTableOrder() {
-        String code = lblIReloadCode.getText();
-        String description = txtDescription.getText();
-        double amount = Integer.parseInt(txtAmount.getText());
 
-        ReloadTm reloadTm=new ReloadTm(code,description,amount);
-        for (int i = 0; i < tblOrder.getItems().size(); i++) {
-            if (colReloadCode.getCellData(i).equals(lblIReloadCode.getText())) {
+        try{
+            String code = lblIReloadCode.getText();
+            String description = txtDescription.getText();
+            double amount = Integer.parseInt(txtAmount.getText());
 
-                double tempTotal = observableList1.get(i).getTotalAmount() + amount;
+            ReloadTm reloadTm=new ReloadTm(code,description,amount);
+            for (int i = 0; i < tblOrder.getItems().size(); i++) {
+                if (colReloadCode.getCellData(i).equals(lblIReloadCode.getText())) {
+
+                    double tempTotal = observableList1.get(i).getTotalAmount() + amount;
 
 
-                observableList1.get(i).setTotalAmount(tempTotal);
+                    observableList1.get(i).setTotalAmount(tempTotal);
 
-                tblOrder.refresh();
-                generateTotal();
-                return;
+                    tblOrder.refresh();
+                    generateTotal();
+                    return;
+                }
+
             }
 
+
+            observableList1.add(reloadTm);
+            tblOrder.setItems(observableList1);
+            generateTotal();
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
-
-
-        observableList1.add(reloadTm);
-        tblOrder.setItems(observableList1);
-        generateTotal();
     }
 
     private void generateTotal() {
@@ -278,80 +287,116 @@ public class CashierMakeReloadController {
 
     @FXML
     void addToCartOnEnterKey(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            addToTableOrder();
 
+        try{
+
+            if (event.getCode() == KeyCode.ENTER) {
+                addToTableOrder();
+
+            }
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 
     @FXML
     void cashOnReleased(KeyEvent event) {
-        if (!txtCash.getText().equals("")) {
-            double discount;
-            btnPlaceOrder.setDisable(true);
-            if (txtDiscount.getText().equals("")) {
-                discount = 0;
-            } else {
 
-                discount = Double.parseDouble(txtDiscount.getText()) / 100 * Double.parseDouble(lblTotal.getText());
+        try{
+            if (!txtCash.getText().equals("")) {
+                double discount;
+                btnPlaceOrder.setDisable(true);
+                if (txtDiscount.getText().equals("")) {
+                    discount = 0;
+                } else {
+
+                    discount = Double.parseDouble(txtDiscount.getText()) / 100 * Double.parseDouble(lblTotal.getText());
+                }
+
+                String balance = String.valueOf(Double.parseDouble(txtCash.getText()) -
+                        (Double.parseDouble(lblTotal.getText()) - discount));
+                lblBalance.setText(balance);
+                if (Double.parseDouble(lblBalance.getText()) >= 0) {
+                    btnPlaceOrder.setDisable(false);
+                }
             }
 
-            String balance = String.valueOf(Double.parseDouble(txtCash.getText()) -
-                    (Double.parseDouble(lblTotal.getText()) - discount));
-            lblBalance.setText(balance);
-            if (Double.parseDouble(lblBalance.getText()) >= 0) {
-                btnPlaceOrder.setDisable(false);
-            }
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 
     @FXML
     void deleteOnAction(ActionEvent event) {
-        tblOrder.getItems().removeAll(tblOrder.getSelectionModel().getSelectedItems());
-        generateTotal();
+
+        try{
+            tblOrder.getItems().removeAll(tblOrder.getSelectionModel().getSelectedItems());
+            generateTotal();
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
     }
 
     @FXML
     void discountOnReleased(KeyEvent event) {
-        if (!txtCash.getText().equals("")) {
-            double discount;
-            btnPlaceOrder.setDisable(true);
-            if (txtDiscount.getText().equals("")) {
-                discount = 0;
-            } else {
 
-                discount = Double.parseDouble(txtDiscount.getText()) / 100 * Double.parseDouble(lblTotal.getText());
-            }
+        try{
 
-            String balance = String.valueOf(Double.parseDouble(txtCash.getText()) -
-                    (Double.parseDouble(lblTotal.getText()) - discount));
-            lblBalance.setText(balance);
-            if (Double.parseDouble(lblBalance.getText()) >= 0) {
-                btnPlaceOrder.setDisable(false);
+            if (!txtCash.getText().equals("")) {
+                double discount;
+                btnPlaceOrder.setDisable(true);
+                if (txtDiscount.getText().equals("")) {
+                    discount = 0;
+                } else {
+
+                    discount = Double.parseDouble(txtDiscount.getText()) / 100 * Double.parseDouble(lblTotal.getText());
+                }
+
+                String balance = String.valueOf(Double.parseDouble(txtCash.getText()) -
+                        (Double.parseDouble(lblTotal.getText()) - discount));
+                lblBalance.setText(balance);
+                if (Double.parseDouble(lblBalance.getText()) >= 0) {
+                    btnPlaceOrder.setDisable(false);
+                }
             }
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 
     @FXML
     void keyReleasedOnAction(KeyEvent event) throws SQLException, ClassNotFoundException {
-        String text = txtDescription.getText();
-        Reload reload = PlaceReloadModel.searchDescription(text);
-        if (reload != null) {
-            lblIReloadCode.setText(reload.getReloadId());
+
+        try{
+
+            String text = txtDescription.getText();
+            Reload reload = PlaceReloadModel.searchDescription(text);
+            if (reload != null) {
+                lblIReloadCode.setText(reload.getReloadId());
 
             }
 
             if (event.getCode() == KeyCode.ENTER) {
                 txtAmount.requestFocus();
             }
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
         }
 
 
     @FXML
     void onMouseClickRefresh(MouseEvent event) {
-        clearFields();
-        btnPlaceOrder.setDisable(false);
-        btnAdd.setDisable(false);
+
+        try{
+            clearFields();
+            btnPlaceOrder.setDisable(false);
+            btnAdd.setDisable(false);
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
     }
 
     private void clearFields() {
@@ -371,79 +416,109 @@ public class CashierMakeReloadController {
 
     @FXML
     void updateCartOnAction(ActionEvent event) {
-        double amount = Integer.parseInt(txtAmount.getText());
 
-        observableList1.get(tblOrder.getSelectionModel().getSelectedIndex()).setTotalAmount(amount);
-        tblOrder.refresh();
-        generateTotal();
+        try{
+            double amount = Integer.parseInt(txtAmount.getText());
+
+            observableList1.get(tblOrder.getSelectionModel().getSelectedIndex()).setTotalAmount(amount);
+            tblOrder.refresh();
+            generateTotal();
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
     }
 
     @FXML
     void updateCustomerOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        if (tblCustomer.getSelectionModel().getSelectedIndex() != -1) {
-            String name = txtName.getText();
-            int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
+
+        try{
+
+            if (tblCustomer.getSelectionModel().getSelectedIndex() != -1) {
+                String name = txtName.getText();
+                int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
 
 
-            boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CusId);
-            if (updateCustomer) {
-                Notification.notifie("Customer Data", "Customer Data Updated",
-                        NotificationType.INFORMATION);
-                observableList.clear();
-                initialize();
-            } else {
-                Notification.notifie("Customer Data", "Customer Data  Not Updated", NotificationType.ERROR);
+                boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CusId);
+                if (updateCustomer) {
+                    Notification.notifie("Customer Data", "Customer Data Updated",
+                            NotificationType.INFORMATION);
+                    observableList.clear();
+                    initialize();
+                } else {
+                    Notification.notifie("Customer Data", "Customer Data  Not Updated", NotificationType.ERROR);
+                }
             }
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
     }
 
     public void placeOrderOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        String reloadId = lblOrderId.getText();
-        Date date = Date.valueOf(lblOrderDate.getText());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
-        Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
-        String cusId = tblCustomer.getSelectionModel().getSelectedItem().getCode();
-        String employeeId=LoginFormController.employeeId;
 
-        ArrayList<CustomerReloadDetail> customerReloadDetailArrayList=new ArrayList<>();
-        for (int i = 0; i < tblOrder.getItems().size(); i++) {
-            String reloadCode= String.valueOf(colReloadCode.getCellData(i));
-            double total= Double.parseDouble(String.valueOf(colTotal.getCellData(i)));
+        try{
+            String reloadId = lblOrderId.getText();
+            Date date = Date.valueOf(lblOrderDate.getText());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
+            Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
+            String cusId = tblCustomer.getSelectionModel().getSelectedItem().getCode();
+            String employeeId=LoginFormController.employeeId;
+
+            ArrayList<CustomerReloadDetail> customerReloadDetailArrayList=new ArrayList<>();
+            for (int i = 0; i < tblOrder.getItems().size(); i++) {
+                String reloadCode= String.valueOf(colReloadCode.getCellData(i));
+                double total= Double.parseDouble(String.valueOf(colTotal.getCellData(i)));
 
 
-            CustomerReloadDetail customerReloadDetail=new CustomerReloadDetail(reloadId,reloadCode,total);
-            customerReloadDetailArrayList.add(customerReloadDetail);
+                CustomerReloadDetail customerReloadDetail=new CustomerReloadDetail(reloadId,reloadCode,total);
+                customerReloadDetailArrayList.add(customerReloadDetail);
 
-        }
-        CustomerReload customerReload=new CustomerReload(reloadId,date,time,cusId,employeeId
-                ,customerReloadDetailArrayList);
+            }
+            CustomerReload customerReload=new CustomerReload(reloadId,date,time,cusId,employeeId
+                    ,customerReloadDetailArrayList);
 
-        boolean placeReload= PlaceReloadModel.placeReload(customerReload);
-        if (placeReload){
-            Notification.notifie("Place Reload","Reload Added",NotificationType.INFORMATION);
-            clearFields();
-            initialize();
-        }else{
-            Notification.notifie("Place Reload","Reload Failed",NotificationType.ERROR);
+            boolean placeReload= PlaceReloadModel.placeReload(customerReload);
+            if (placeReload){
+                Notification.notifie("Place Reload","Reload Added",NotificationType.INFORMATION);
+                clearFields();
+                initialize();
+            }else{
+                Notification.notifie("Place Reload","Reload Failed",NotificationType.ERROR);
+            }
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
 
     }
     public void onMouseClicked(MouseEvent mouseEvent) {
-        CustomerTm tm = tblCustomer.getItems().get(tblCustomer.getSelectionModel().getSelectedIndex());
-        txtName.setText(tm.getName());
-        txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
-        CusId = tm.getCode();
-        lblCustomerName.setText(txtName.getText());
-        btnAdd.setDisable(true);
-        txtDescription.requestFocus();
+
+        try{
+
+            CustomerTm tm = tblCustomer.getItems().get(tblCustomer.getSelectionModel().getSelectedIndex());
+            txtName.setText(tm.getName());
+            txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
+            CusId = tm.getCode();
+            lblCustomerName.setText(txtName.getText());
+            btnAdd.setDisable(true);
+            txtDescription.requestFocus();
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
     }
 
 
     public void onMouseClickTblOrder(MouseEvent mouseEvent) {
-        ReloadTm reloadTm = tblOrder.getItems().get(tblOrder.getSelectionModel().getSelectedIndex());
-        lblIReloadCode.setText(reloadTm.getReloadCode());
-        txtDescription.setText(reloadTm.getServiceProvider());
-        txtAmount.setText(String.valueOf(reloadTm.getTotalAmount()));
+
+        try{
+            ReloadTm reloadTm = tblOrder.getItems().get(tblOrder.getSelectionModel().getSelectedIndex());
+            lblIReloadCode.setText(reloadTm.getReloadCode());
+            txtDescription.setText(reloadTm.getServiceProvider());
+            txtAmount.setText(String.valueOf(reloadTm.getTotalAmount()));
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
+        }
 
     }
 }

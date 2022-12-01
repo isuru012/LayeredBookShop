@@ -76,6 +76,7 @@ public class Navigation {
     }
 
     private static void initUI(String location) throws IOException {
+        Navigation.pane.getStylesheets().add(Navigation.class.getResource("../assests/css/style.css").toExternalForm());
         Navigation.pane.getChildren().add(FXMLLoader.load(Navigation.class
                 .getResource("/lk/ijse/bookshop/view/" + location)));
     }

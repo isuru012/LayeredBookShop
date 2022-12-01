@@ -35,27 +35,33 @@ public class TrueResetPasswordController {
     }
 
     public void resetPasswordOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
-        if(txtUsername.getText().equals("") && txtPassword.getText().equals("") && txtPassword2.getText().equals("") ){
-            Notification.notifie("Password Reset","Fill All Fields First", NotificationType.ERROR);
 
-        }else {
-            if (!txtPassword.getText().equals("") && !txtPassword2.getText().equals("")) {
-                if (txtPassword.getText().equals(txtPassword2.getText())) {
-                    boolean passwordReset = UserCreationModel.passwordReset(txtUsername.getText(), txtPassword.getText());
-                    if (passwordReset) {
-                        Notification.notifie("Password Reset", "Password Reseted Successfully", NotificationType.NOTICE);
-                        Stage stage = (Stage) pane.getScene().getWindow();
-                        Parent root = FXMLLoader.load(getClass().getResource("../view/LoginForm.fxml"));
-                        stage.setScene(new Scene(root));
-                    } else {
-                        Notification.notifie("Password Reset", "Password Reset Failed", NotificationType.ERROR);
-                    }
-                } else {
-                    Notification.notifie("Password Reset", "Password Fields Not Matching", NotificationType.ERROR);
-                }
-            }else{
+        try{
+            if(txtUsername.getText().equals("") && txtPassword.getText().equals("") && txtPassword2.getText().equals("") ){
                 Notification.notifie("Password Reset","Fill All Fields First", NotificationType.ERROR);
+
+            }else {
+                if (!txtPassword.getText().equals("") && !txtPassword2.getText().equals("")) {
+                    if (txtPassword.getText().equals(txtPassword2.getText())) {
+                        boolean passwordReset = UserCreationModel.passwordReset(txtUsername.getText(), txtPassword.getText());
+                        if (passwordReset) {
+                            Notification.notifie("Password Reset", "Password Reseted Successfully", NotificationType.NOTICE);
+                            Stage stage = (Stage) pane.getScene().getWindow();
+                            Parent root = FXMLLoader.load(getClass().getResource("../view/LoginForm.fxml"));
+                            stage.setScene(new Scene(root));
+                        } else {
+                            Notification.notifie("Password Reset", "Password Reset Failed", NotificationType.ERROR);
+                        }
+                    } else {
+                        Notification.notifie("Password Reset", "Password Fields Not Matching", NotificationType.ERROR);
+                    }
+                }else{
+                    Notification.notifie("Password Reset","Fill All Fields First", NotificationType.ERROR);
+                }
             }
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
 
     }

@@ -37,15 +37,21 @@ public class PasswordResetFormController {
 
     public void continueOnAction(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
 
-        if (UserCreationModel.checkUsername(txtUsername.getText())) {
-            if (UserCreationModel.role.equals("Admin")) {
-                Notification.notifie("Password Reset", "Admin can't reset password", NotificationType.ERROR);
-            } else {
-                Navigation.navigate(Routes.TRUERESET, pane);
+        try{
+            if (UserCreationModel.checkUsername(txtUsername.getText())) {
+                if (UserCreationModel.role.equals("Admin")) {
+                    Notification.notifie("Password Reset", "Admin can't reset password", NotificationType.ERROR);
+                } else {
+                    Navigation.navigate(Routes.TRUERESET, pane);
+                }
+            }else{
+                Notification.notifie("Password Reset", "Incorrect Username", NotificationType.ERROR);
             }
-        }else{
-            Notification.notifie("Password Reset", "Incorrect Username", NotificationType.ERROR);
+
+        }catch (Exception exception){
+            Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }
+
 
     }
 
