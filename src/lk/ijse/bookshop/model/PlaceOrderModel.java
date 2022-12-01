@@ -22,7 +22,7 @@ public class PlaceOrderModel {
     }
 
     public static ArrayList loadAllDescriptionIds() throws SQLException, ClassNotFoundException {
-        String sql="SELECT Description FROM item";
+        String sql="SELECT Description FROM item GROUP BY Description";
         ResultSet resultSet=CrudUtil.execute(sql);
         ArrayList <String> arrayList=new ArrayList();
         while (resultSet.next()){
@@ -88,5 +88,14 @@ public class PlaceOrderModel {
         }finally {
             DBConnection.getDBConnection().getConnection().setAutoCommit(true);
         }
+    }
+
+    public static int getQtyTotalOfOneItem(String itemId, double unitPrice) throws SQLException, ClassNotFoundException {
+        String sql="SELECT SUM(QuantityOnHand) FROM item WHERE ItemId=? AND SellingUnitPrice=?";
+        ResultSet resultSet=CrudUtil.execute(sql,itemId,unitPrice);
+        if (resultSet.next()){
+            return resultSet.getInt(1);
+        }
+        return -1;
     }
 }

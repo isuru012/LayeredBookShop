@@ -13,5 +13,6 @@
     <orderEntry type="library" name="swingx-all-1.6.4" level="project" />
     <orderEntry type="library" name="controlsfx-8.40.11" level="project" />
     <orderEntry type="library" name="mysql-connector-java-8.0.11" level="project" />
+    <orderEntry type="library" name="batik-anim" level="project" />
   </component>
 </module>

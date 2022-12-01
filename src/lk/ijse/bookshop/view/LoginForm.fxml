@@ -34,7 +34,7 @@
                   <Font name="Arial" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="txtUsername" focusColor="#448dc2" layoutX="71.0" layoutY="199.0" prefHeight="38.0" prefWidth="430.0" promptText="Enter Username" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
+            <JFXTextField fx:id="txtUsername" focusColor="#448dc2" layoutX="71.0" layoutY="199.0" onKeyReleased="#usernameKeyReleased" prefHeight="38.0" prefWidth="430.0" promptText="Enter Username" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
                <effect>
                   <DropShadow color="#0000002e" height="15.07" radius="8.5175" />
                </effect>

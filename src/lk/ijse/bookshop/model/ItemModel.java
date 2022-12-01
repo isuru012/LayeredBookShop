@@ -24,9 +24,11 @@ public class ItemModel {
     }
 
     private static boolean updateItem(CustomerOrderDetail detail) throws SQLException, ClassNotFoundException {
-        PreparedStatement stm = DBConnection.getDBConnection().getConnection().prepareStatement("UPDATE item SET QuantityOnHand=QuantityOnHand-? WHERE ItemId=?");
+        PreparedStatement stm = DBConnection.getDBConnection().getConnection().prepareStatement("UPDATE item SET QuantityOnHand=QuantityOnHand-? WHERE ItemId=? AND SellingUnitPrice=?");
         stm.setObject(1, detail.getQuantity());
         stm.setObject(2, detail.getItemId());
+        stm.setObject(3, detail.getUnitPrice());
+
 
         return stm.executeUpdate() > 0;
     }

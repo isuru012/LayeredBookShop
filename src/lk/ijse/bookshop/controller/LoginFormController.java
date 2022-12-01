@@ -30,6 +30,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
+import static javafx.scene.paint.Color.BLUE;
+import static javafx.scene.paint.Color.RED;
 
 public class LoginFormController {
     public JFXTextField txtUsername;
@@ -39,6 +41,9 @@ public class LoginFormController {
     public JFXPasswordField txtPasswordField;
     public AnchorPane pane2;
     public static String employeeId;
+    static boolean boolUsername=false;
+    static boolean boolPassword=false;
+
     public void initialize(){
         Platform.runLater(()->txtUsername.requestFocus());
 
@@ -53,26 +58,7 @@ public class LoginFormController {
     }
 
     public void signInOnAction(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
-
-
-        if (!txtUsername.getText().equals("") & !txtPasswordField.getText().equals("")) {
-            User user = UserCreationModel.getLoginData(txtUsername.getText(), txtPasswordField.getText());
-
-            if (user != null) {
-                if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Admin")) {
-                    Navigation.navigate(Routes.ADMINWINDOW, pane);
-                } else if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Employee")) {
-                    employeeId= UserCreationModel.getEmployeeId(user.getUserName());
-                    Navigation.navigate(Routes.CASHIERWINDOW, pane);
-
-                }
-            } else {
-                Notification.notifie("Login In", "Incorrect Username Or Password", NotificationType.ERROR);
-            }
-        }else{
-            Notification.notifie("Login In", "Enter All Fields First", NotificationType.ERROR);
-
-        }
+        signInOnACtion();
 //        Navigation.navigate(Routes.CASHIERWINDOW,pane);
     }
 
@@ -85,25 +71,44 @@ public class LoginFormController {
     }
 
     public void signInOnEnterKey(KeyEvent keyEvent) throws SQLException, ClassNotFoundException, IOException {
+        Pattern pattern2 = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,10}$");
+        Matcher matcher2 = pattern2.matcher(txtPasswordField.getText());
+
+        boolPassword = matcher2.matches();
+        if (boolPassword) {
+            txtPasswordField.setFocusColor(BLUE);
+        }else{
+            txtPasswordField.setFocusColor(RED);
+        }
+
         if (keyEvent.getCode()== KeyCode.ENTER){
-            if (!txtUsername.getText().equals("") & !txtPasswordField.getText().equals("")) {
-                User user = UserCreationModel.getLoginData(txtUsername.getText(), txtPasswordField.getText());
+            signInOnACtion();
+        }
+    }
 
-                if (user != null) {
-                    if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Admin")) {
-                        Navigation.navigate(Routes.ADMINWINDOW, pane);
-                    } else if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Employee")) {
-                        employeeId= UserCreationModel.getEmployeeId(user.getUserName());
-                        Navigation.navigate(Routes.CASHIERWINDOW, pane);
+    private void signInOnACtion() throws SQLException, ClassNotFoundException, IOException {
 
+        if (!txtUsername.getText().equals("") & !txtPasswordField.getText().equals("")) {
+            if (boolUsername) {
+                if (boolPassword) {
+                    User user = UserCreationModel.getLoginData(txtUsername.getText(), txtPasswordField.getText());
+
+                    if (user != null) {
+                        if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Admin")) {
+                            Navigation.navigate(Routes.ADMINWINDOW, pane);
+                        } else if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Employee")) {
+                            employeeId = UserCreationModel.getEmployeeId(user.getUserName());
+                            Navigation.navigate(Routes.CASHIERWINDOW, pane);
+
+                        }
+                    } else {
+                        Notification.notifie("Login In", "Incorrect Username Or Password", NotificationType.ERROR);
                     }
-                } else {
-                    Notification.notifie("Login In", "Incorrect Username Or Password", NotificationType.ERROR);
                 }
-            }else{
-                Notification.notifie("Login In", "Enter All Fields First", NotificationType.ERROR);
-
             }
+        }else{
+            Notification.notifie("Login In", "Enter All Fields First", NotificationType.ERROR);
+
         }
     }
 
@@ -117,5 +122,22 @@ public class LoginFormController {
 
     public void instagramOnAction(ActionEvent actionEvent) throws URISyntaxException, IOException {
         Desktop.getDesktop().browse(new URI("https://www.instagram.com/"));
+    }
+
+
+    public void usernameKeyReleased(KeyEvent keyEvent) {
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$");
+        Matcher matcher = pattern.matcher(txtUsername.getText());
+
+
+        boolUsername = matcher.matches();
+        if (boolUsername) {
+            txtUsername.setFocusColor(BLUE);
+        }else{
+            txtUsername.setFocusColor(RED);
+        }
+        if (keyEvent.getCode()== KeyCode.ENTER){
+            txtPasswordField.requestFocus();
+        }
     }
 }

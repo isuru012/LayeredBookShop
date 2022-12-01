@@ -18,8 +18,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.PlaceOrderModel;
+import lk.ijse.bookshop.model.SupplierOrderModel;
 import lk.ijse.bookshop.to.Customer;
 import lk.ijse.bookshop.to.CustomerOrder;
 import lk.ijse.bookshop.to.CustomerOrderDetail;
@@ -27,9 +29,13 @@ import lk.ijse.bookshop.to.Item;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.view.tm.CustomerTm;
 import lk.ijse.bookshop.view.tm.OrderTm;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.controlsfx.control.textfield.TextFields;
 import tray.notification.NotificationType;
 
+import java.io.InputStream;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -38,6 +44,12 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static javafx.scene.paint.Color.BLUE;
+import static javafx.scene.paint.Color.RED;
 
 public class CashierPlaceOrderController {
 
@@ -111,6 +123,7 @@ public class CashierPlaceOrderController {
 
     static ObservableList observableList = CashierCustomersController.observableList;
     static String CusId = CashierCustomersController.CusId;
+    static  boolean boolPassword=false;
 
     public void initialize() throws SQLException, ClassNotFoundException {
         Platform.runLater(() -> txtSearch.requestFocus());
@@ -290,41 +303,80 @@ public class CashierPlaceOrderController {
     ObservableList<OrderTm> observableList1 = FXCollections.observableArrayList();
 
     public void addToCartOnAction(ActionEvent actionEvent) {
+        Pattern pattern2 = Pattern.compile("^[0-9]*$");
+        Matcher matcher2 = pattern2.matcher(txtQty.getText());
 
-        addToTableOrder();
+        boolPassword = matcher2.matches();
+        if (boolPassword) {
+            addToTableOrder();
+        }
 
 
     }
 
 
     public void placeOrderOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        String orderId = lblOrderId.getText();
-        Date date = Date.valueOf(lblOrderDate.getText());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
-        Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
-        String cusId = tblCustomer.getSelectionModel().getSelectedItem().getCode();
-        String employeeId = LoginFormController.employeeId;
-        ArrayList<CustomerOrderDetail> customerOrderDetailArrayList = new ArrayList<>();
-        for (int i = 0; i < tblOrder.getItems().size(); i++) {
-            String itemCode = String.valueOf(colItemCode.getCellData(i));
-            double unitPrice = Double.parseDouble(String.valueOf(colUnitPrice.getCellData(i)));
-            int orderQuantity = Integer.parseInt(String.valueOf(colQty.getCellData(i)));
-            double total = unitPrice * orderQuantity;
+        /*try {*/
+            String orderId = lblOrderId.getText();
+            Date date = Date.valueOf(lblOrderDate.getText());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
+            Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
+            String cusId = tblCustomer.getSelectionModel().getSelectedItem().getCode();
 
-            CustomerOrderDetail customerOrderDetail = new CustomerOrderDetail(orderId, itemCode, unitPrice, orderQuantity, total);
-            customerOrderDetailArrayList.add(customerOrderDetail);
+            String employeeId = LoginFormController.employeeId;
 
-        }
-        CustomerOrder customerOrder = new CustomerOrder(orderId, date, time, cusId, employeeId, customerOrderDetailArrayList);
-        boolean placeOrder = PlaceOrderModel.placeOrder(customerOrder);
-        if (placeOrder) {
-            Notification.notifie("Place Order", "Order Added", NotificationType.INFORMATION);
-            clearFields();
-            initialize();
-        } else {
-            Notification.notifie("Place Order", "Order Failed", NotificationType.ERROR);
-        }
+            ArrayList<CustomerOrderDetail> customerOrderDetailArrayList = new ArrayList<>();
 
+            for (int i = 0; i < tblOrder.getItems().size(); i++) {
+                String itemCode = String.valueOf(colItemCode.getCellData(i));
+                double unitPrice = Double.parseDouble(String.valueOf(colUnitPrice.getCellData(i)));
+                int orderQuantity = Integer.parseInt(String.valueOf(colQty.getCellData(i)));
+                double total = unitPrice * orderQuantity;
+
+                CustomerOrderDetail customerOrderDetail = new CustomerOrderDetail(orderId, itemCode, unitPrice, orderQuantity, total);
+                customerOrderDetailArrayList.add(customerOrderDetail);
+
+            }
+            CustomerOrder customerOrder = new CustomerOrder(orderId, date, time, cusId, employeeId, customerOrderDetailArrayList);
+
+            boolean placeOrder = PlaceOrderModel.placeOrder(customerOrder);
+            if (placeOrder) {
+                InputStream resource = this.getClass().getResourceAsStream("../report/bk3.jrxml");
+
+
+                HashMap<String, Object> hm2 = new HashMap<>();
+
+                hm2.put("total", Double.parseDouble(lblTotal.getText()));
+                hm2.put("cash", Double.parseDouble(txtCash.getText()));
+                hm2.put("balance", Double.parseDouble(lblBalance.getText()));
+                hm2.put("orderId", lblOrderId.getText());
+
+                try {
+                    JasperReport jasperReport = JasperCompileManager.compileReport(resource);
+
+                    JasperPrint jasperPrint = JasperFillManager.
+                            fillReport(jasperReport, hm2, DBConnection.getDBConnection().getConnection());
+
+                    JasperViewer.viewReport(jasperPrint);
+                } catch (JRException e) {
+                    e.printStackTrace();
+                }
+
+
+//            JasperPrintManager.printReport(jasperPrint, true);
+
+
+
+
+                Notification.notifie("Place Order", "Order Added", NotificationType.INFORMATION);
+                clearFields();
+                initialize();
+            } else {
+                Notification.notifie("Place Order", "Order Failed", NotificationType.ERROR);
+            }
+        /*}catch (Exception e){
+            Notification.notifie("Place Order", "Order Failed" + e, NotificationType.ERROR);
+        }*/
 
     }
 
@@ -342,9 +394,9 @@ public class CashierPlaceOrderController {
         lblQtyOnHand.setText("");
         lblItemCode.setText("");
         lblCustomerName.setText("");
-        cmbUnitPrice.getItems().clear();
         tblOrder.getItems().clear();
     }
+    static String itemId=null;
 
     public void keyReleasedOnAction(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
         String text = txtDescription.getText();
@@ -357,11 +409,14 @@ public class CashierPlaceOrderController {
                 observableList.add(unitPrice);
             }
 
-            cmbUnitPrice.getSelectionModel().selectFirst();
-            cmbUnitPrice.setItems(observableList);
-            lblQtyOnHand.setText(String.valueOf(item.getQuantityOnHand()));
+
+
+            itemId=item.getItemId();
+            lblQtyOnHand.setText(String.valueOf(SupplierOrderModel.getQtyTotalOfOneItem(item.getItemId())));
 
             if (keyEvent.getCode() == KeyCode.ENTER) {
+                cmbUnitPrice.setItems(observableList);
+                cmbUnitPrice.getSelectionModel().selectFirst();
                 txtQty.requestFocus();
             }
         }
@@ -394,41 +449,56 @@ public class CashierPlaceOrderController {
     }
 
     public void addToCartOnEnterKey(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.ENTER) {
-            addToTableOrder();
+        Pattern pattern2 = Pattern.compile("^[0-9]*$");
+        Matcher matcher2 = pattern2.matcher(txtQty.getText());
 
+        if (matcher2.matches()) {
+            txtQty.setFocusColor(BLUE);
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+
+                addToTableOrder();
+
+            }
+        }else {
+            txtQty.setFocusColor(RED);
         }
 
 
     }
 
     private void addToTableOrder() {
-        String code = lblItemCode.getText();
-        String description = txtDescription.getText();
-        int qty = Integer.parseInt(txtQty.getText());
-        double sellingUnitPrice = Double.parseDouble(String.valueOf(cmbUnitPrice.getSelectionModel().getSelectedItem()));
-        double total = qty * sellingUnitPrice;
+        try {
 
-        OrderTm orderTm = new OrderTm(code, description, qty, sellingUnitPrice, total);
+            String code = lblItemCode.getText();
+            String description = txtDescription.getText();
+            int qty = Integer.parseInt(txtQty.getText());
+            double sellingUnitPrice = Double.parseDouble(String.valueOf(cmbUnitPrice.getSelectionModel().getSelectedItem()));
+            double total = qty * sellingUnitPrice;
+
+            OrderTm orderTm = new OrderTm(code, description, qty, sellingUnitPrice, total);
 
 
-        for (int i = 0; i < tblOrder.getItems().size(); i++) {
-            if (colItemCode.getCellData(i).equals(lblItemCode.getText())) {
+            for (int i = 0; i < tblOrder.getItems().size(); i++) {
+                if (colItemCode.getCellData(i).equals(lblItemCode.getText()) && colUnitPrice.getCellData(i)
+                        .equals(cmbUnitPrice.getSelectionModel().getSelectedItem())) {
 
-                int tempQty = observableList1.get(i).getQty() + qty;
-                double tempTotal = sellingUnitPrice * tempQty;
+                    int tempQty = observableList1.get(i).getQty() + qty;
+                    double tempTotal = sellingUnitPrice * tempQty;
 
-                observableList1.get(i).setQty(tempQty);
-                observableList1.get(i).setTotal(tempTotal);
+                    observableList1.get(i).setQty(tempQty);
+                    observableList1.get(i).setTotal(tempTotal);
 
-                tblOrder.refresh();
-                generateTotal();
-                return;
+                    tblOrder.refresh();
+                    generateTotal();
+                    return;
+                }
             }
+            observableList1.add(orderTm);
+            tblOrder.setItems(observableList1);
+            generateTotal();
+        }catch (Exception e){
+            Notification.notifie("Error", ""+e, NotificationType.ERROR);
         }
-        observableList1.add(orderTm);
-        tblOrder.setItems(observableList1);
-        generateTotal();
     }
 
     public void generateTotal() {
@@ -479,5 +549,10 @@ public class CashierPlaceOrderController {
                 btnPlaceOrder.setDisable(false);
             }
         }
+    }
+
+    public void onCmbUnitPrice(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        double unitPrice=Double.parseDouble(String.valueOf(cmbUnitPrice.getSelectionModel().getSelectedItem()));
+        lblQtyOnHand.setText(String.valueOf(PlaceOrderModel.getQtyTotalOfOneItem(itemId,unitPrice)));
     }
 }

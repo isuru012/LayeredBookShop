@@ -235,7 +235,7 @@
             <Font name="Segoe UI Black" size="23.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="cmbUnitPrice" layoutX="303.0" layoutY="361.0" prefHeight="37.0" prefWidth="146.0" />
+      <JFXComboBox fx:id="cmbUnitPrice" layoutX="303.0" layoutY="361.0" onAction="#onCmbUnitPrice" prefHeight="37.0" prefWidth="146.0" />
       <JFXTextField fx:id="txtDescription" focusColor="#448dc2" focusTraversable="false" layoutX="33.0" layoutY="361.0" onKeyReleased="#keyReleasedOnAction" prefHeight="37.0" prefWidth="244.0" style="-fx-background-color: #fcfcfc; -fx-padding: 10px;" stylesheets="@../assests/css/style.css">
          <effect>
             <DropShadow color="#0000002e" height="15.07" radius="8.5175" />
