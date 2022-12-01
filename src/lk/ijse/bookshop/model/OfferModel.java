@@ -107,10 +107,6 @@ public class OfferModel {
     }
 
     public static boolean updateItemData(String itemCode, String code, int batchNumber) throws SQLException, ClassNotFoundException {
-        System.out.println(code);
-        System.out.println(itemCode);
-        System.out.println(batchNumber);
-
         String sql="UPDATE item SET OfferId=? WHERE ItemId=? AND BatchNumber=?";
         return CrudUtil.execute(sql,code,itemCode,batchNumber);
 

@@ -252,7 +252,7 @@ public class AdminSupplierController {
     @FXML
     void placeOrderOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
 
-        try{
+        /*try{*/
             String SupOrderId = lblOrderId.getText();
             Date date = Date.valueOf(lblOrderDate.getText());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
@@ -274,21 +274,26 @@ public class AdminSupplierController {
                         ,total);
                 supplierOrderDetails.add(supplierOrderDetail);
 
+
             }
+
             SupplierOrder supplierOrder = new SupplierOrder(SupOrderId,date,time,SupplierId,getUsername,supplierOrderDetails);
 
             boolean placeOrder = SupplierOrderModel.placeOrder(supplierOrder);
             if (placeOrder) {
+
                 Notification.notifie("Place Order", "Order Added", NotificationType.INFORMATION);
                 clearFields();
                 initialize();
             } else {
+
+
                 Notification.notifie("Place Order", "Order Failed", NotificationType.ERROR);
             }
 
-        }catch (Exception exception){
+        /*}catch (Exception exception){
             Notification.notifie("Error",""+exception,NotificationType.ERROR);
-        }
+        }*/
 
     }
 
@@ -330,11 +335,9 @@ public class AdminSupplierController {
         String text = txtDescription.getText();
         Item item = SupplierOrderModel.searchDescription(text);
         if (item != null) {
-            lblItemCode.setText(item.getItemId());
-
-            lblQtyOnHand.setText(String.valueOf(SupplierOrderModel.getQtyTotalOfOneItem(item.getItemId())));
-
             if (keyEvent.getCode() == KeyCode.ENTER) {
+                lblItemCode.setText(item.getItemId());
+                lblQtyOnHand.setText(String.valueOf(SupplierOrderModel.getQtyTotalOfOneItem(item.getItemId())));
                 txtBuyingUnitPrice.requestFocus();
             }
         }

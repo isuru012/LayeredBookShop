@@ -152,7 +152,7 @@ public class SupplierOrderModel {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
         Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
 
-        String username="ss";
+        String username=SupplierModel.getAdminUsername();
 
         Payment payment=new Payment(paymentId,amount,date,time,username,supOrderId,null);
 

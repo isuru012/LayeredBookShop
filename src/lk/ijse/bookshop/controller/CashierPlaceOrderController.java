@@ -614,6 +614,7 @@ public class CashierPlaceOrderController {
 
             double unitPrice=Double.parseDouble(String.valueOf(cmbUnitPrice.getSelectionModel().getSelectedItem()));
             lblQtyOnHand.setText(String.valueOf(PlaceOrderModel.getQtyTotalOfOneItem(itemId,unitPrice)));
+
         }catch (Exception exception){
             Notification.notifie("Error",""+exception,NotificationType.ERROR);
         }

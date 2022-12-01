@@ -144,15 +144,4 @@ public class AdminEmployeeController {
         }
     }
 
-    public void nameKeyReleased(KeyEvent keyEvent) {
-    }
-
-    public void addressKeyReleased(KeyEvent keyEvent) {
-    }
-
-    public void phoneKeyreleased(KeyEvent keyEvent) {
-    }
-
-    public void salaryKeyReleased(KeyEvent keyEvent) {
-    }
 }

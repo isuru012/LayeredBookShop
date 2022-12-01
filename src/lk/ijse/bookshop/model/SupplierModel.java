@@ -65,4 +65,13 @@ public class SupplierModel {
         }
         return null;
     }
+
+    public static String getAdminUsername() throws SQLException, ClassNotFoundException {
+        String sql="SELECT Username FROM user WHERE Role='Admin' ";
+        ResultSet resultSet=CrudUtil.execute(sql);
+        if (resultSet.next()){
+            return resultSet.getString(1);
+        }
+        return null;
+    }
 }

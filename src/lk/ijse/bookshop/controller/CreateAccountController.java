@@ -206,6 +206,9 @@ public class CreateAccountController {
         boolAddress = matcher4.matches();
         if (boolAddress) {
             txtAddess.setFocusColor(BLUE);
+            if (keyEvent.getCode()== KeyCode.ENTER){
+                txtPhoneNumber.requestFocus();
+            }
         }else{
             txtAddess.setFocusColor(RED);
         }
@@ -219,7 +222,7 @@ public class CreateAccountController {
         if (boolPhonenumber) {
             txtPhoneNumber.setFocusColor(BLUE);
             if (keyEvent.getCode()== KeyCode.ENTER){
-                txtPhoneNumber.requestFocus();
+
             }
         }else{
             txtPhoneNumber.setFocusColor(RED);
