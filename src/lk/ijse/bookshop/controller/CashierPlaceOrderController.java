@@ -378,15 +378,10 @@ public class CashierPlaceOrderController {
                     JasperPrint jasperPrint = JasperFillManager.
                             fillReport(jasperReport, hm2, DBConnection.getDBConnection().getConnection());
 
-                    JasperViewer.viewReport(jasperPrint);
+                    JasperViewer.viewReport(jasperPrint,false);
                 } catch (Exception e) {
                     Notification.notifie("ERROR", ""+e, NotificationType.ERROR);
                 }
-
-
-//            JasperPrintManager.printReport(jasperPrint, true);
-
-
 
 
                 Notification.notifie("Place Order", "Order Added", NotificationType.INFORMATION);
