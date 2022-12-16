@@ -32,7 +32,7 @@ public class PlaceOrderModel {
     }
 
     public static Item searchDescription(String text) throws SQLException, ClassNotFoundException {
-        String searchText="%"+text+"%";
+        String searchText="%"+text;
         String sql="SELECT * FROM item WHERE Description LIKE ?";
         ResultSet resultSet= CrudUtil.execute(sql,searchText);
         if (resultSet.next()){
