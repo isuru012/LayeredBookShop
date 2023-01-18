@@ -15,9 +15,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.bookshop.model.PlaceOrderModel;
 import lk.ijse.bookshop.model.SupplierOrderModel;
-import lk.ijse.bookshop.to.*;
+import lk.ijse.bookshop.dto.*;
 import lk.ijse.bookshop.util.Navigation;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.util.Routes;
@@ -263,23 +262,23 @@ public class AdminSupplierController {
             sellingUnitPrice= Double.parseDouble(txtSellingUnitPrice.getText());
 
 
-            ArrayList<SupplierOrderDetail> supplierOrderDetails = new ArrayList<>();
+            ArrayList<SupplierOrderDetailsDTO> supplierOrderDetailsDTOS = new ArrayList<>();
             for (int i = 0; i < tblSupplierOrder.getItems().size(); i++) {
                 String itemCode = String.valueOf(colItemCode.getCellData(i));
                 double unitPrice = Double.parseDouble(String.valueOf(colUnitPrice.getCellData(i)));
                 int orderQuantity = Integer.parseInt(String.valueOf(colQuantity.getCellData(i)));
                 double total = unitPrice * orderQuantity;
 
-                SupplierOrderDetail supplierOrderDetail = new SupplierOrderDetail(SupOrderId,itemCode,unitPrice,orderQuantity
+                SupplierOrderDetailsDTO supplierOrderDetailsDTO = new SupplierOrderDetailsDTO(SupOrderId,itemCode,unitPrice,orderQuantity
                         ,total);
-                supplierOrderDetails.add(supplierOrderDetail);
+                supplierOrderDetailsDTOS.add(supplierOrderDetailsDTO);
 
 
             }
 
-            SupplierOrder supplierOrder = new SupplierOrder(SupOrderId,date,time,SupplierId,getUsername,supplierOrderDetails);
+            SupplierOrderDTO supplierOrderDTO = new SupplierOrderDTO(SupOrderId,date,time,SupplierId,getUsername, supplierOrderDetailsDTOS);
 
-            boolean placeOrder = SupplierOrderModel.placeOrder(supplierOrder);
+            boolean placeOrder = SupplierOrderModel.placeOrder(supplierOrderDTO);
             if (placeOrder) {
 
                 Notification.notifie("Place Order", "Order Added", NotificationType.INFORMATION);
@@ -319,9 +318,9 @@ public class AdminSupplierController {
 
     public void keyReleasedOnActionSupplierName(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
         String text = txtSupplierName.getText();
-        Supplier supplier = SupplierOrderModel.searchName(text);
-        if (supplier != null) {
-            lblSupplierId.setText(supplier.getSupplierId());
+        SupplierDTO supplierDTO = SupplierOrderModel.searchName(text);
+        if (supplierDTO != null) {
+            lblSupplierId.setText(supplierDTO.getSupplierId());
 
             if (keyEvent.getCode() == KeyCode.ENTER) {
                 txtDescription.requestFocus();
@@ -333,7 +332,7 @@ public class AdminSupplierController {
 
     public void keyReleasedOnActionDescription(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
         String text = txtDescription.getText();
-        Item item = SupplierOrderModel.searchDescription(text);
+        ItemDTO item = SupplierOrderModel.searchDescription(text);
         if (item != null) {
             if (keyEvent.getCode() == KeyCode.ENTER) {
                 lblItemCode.setText(item.getItemId());

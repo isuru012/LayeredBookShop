@@ -17,19 +17,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.bookshop.model.CustomerModel;
-import lk.ijse.bookshop.model.PlaceOrderModel;
 import lk.ijse.bookshop.model.PlaceReloadModel;
-import lk.ijse.bookshop.to.*;
+import lk.ijse.bookshop.dto.*;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.view.tm.CustomerTm;
-import lk.ijse.bookshop.view.tm.OrderTm;
 import lk.ijse.bookshop.view.tm.ReloadTm;
 import org.controlsfx.control.textfield.TextFields;
 import tray.notification.NotificationType;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -196,8 +193,8 @@ public class CashierMakeReloadController {
                 java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
                 String employeeId = LoginFormController.employeeId;
 
-                Customer customer = new Customer(cusId, name, phoneNumber, date, employeeId);
-                boolean customerData = CustomerModel.insertCustomerData(customer);
+                CustomerDTO customerDTO = new CustomerDTO(cusId, name, phoneNumber, date, employeeId);
+                boolean customerData = CustomerModel.insertCustomerData(customerDTO);
                 if (customerData) {
                     Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
                 } else {
@@ -371,7 +368,7 @@ public class CashierMakeReloadController {
         try{
 
             String text = txtDescription.getText();
-            Reload reload = PlaceReloadModel.searchDescription(text);
+            ReloadDTO reload = PlaceReloadModel.searchDescription(text);
             if (reload != null) {
                 lblIReloadCode.setText(reload.getReloadId());
 
@@ -464,20 +461,20 @@ public class CashierMakeReloadController {
             String cusId = tblCustomer.getSelectionModel().getSelectedItem().getCode();
             String employeeId=LoginFormController.employeeId;
 
-            ArrayList<CustomerReloadDetail> customerReloadDetailArrayList=new ArrayList<>();
+            ArrayList<CusReloadDetailsDTO> cusReloadDetailsDTOArrayList =new ArrayList<>();
             for (int i = 0; i < tblOrder.getItems().size(); i++) {
                 String reloadCode= String.valueOf(colReloadCode.getCellData(i));
                 double total= Double.parseDouble(String.valueOf(colTotal.getCellData(i)));
 
 
-                CustomerReloadDetail customerReloadDetail=new CustomerReloadDetail(reloadId,reloadCode,total);
-                customerReloadDetailArrayList.add(customerReloadDetail);
+                CusReloadDetailsDTO cusReloadDetailsDTO =new CusReloadDetailsDTO(reloadId,reloadCode,total);
+                cusReloadDetailsDTOArrayList.add(cusReloadDetailsDTO);
 
             }
-            CustomerReload customerReload=new CustomerReload(reloadId,date,time,cusId,employeeId
-                    ,customerReloadDetailArrayList);
+            CusReloadDTO cusReloadDTO =new CusReloadDTO(reloadId,date,time,cusId,employeeId
+                    , cusReloadDetailsDTOArrayList);
 
-            boolean placeReload= PlaceReloadModel.placeReload(customerReload);
+            boolean placeReload= PlaceReloadModel.placeReload(cusReloadDTO);
             if (placeReload){
                 Notification.notifie("Place Reload","Reload Added",NotificationType.INFORMATION);
                 clearFields();

@@ -1,7 +1,6 @@
 package lk.ijse.bookshop.model;
 
-import lk.ijse.bookshop.util.CrudUtil;
-import lk.ijse.bookshop.view.tm.CustomerTm;
+import lk.ijse.bookshop.dao.SQLUtil;
 import lk.ijse.bookshop.view.tm.PaymentTm;
 
 import java.sql.ResultSet;
@@ -12,7 +11,7 @@ public class PaymentModel {
 
     public static String generateCurrentPaymentId() throws SQLException, ClassNotFoundException {
         String sql="SELECT PaymentId FROM payment ORDER BY PaymentId DESC LIMIT 1";
-        ResultSet resultSet= CrudUtil.execute(sql);
+        ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
             return resultSet.getString(1);
         }
@@ -26,7 +25,7 @@ public class PaymentModel {
                 "WHERE SupplierId=(select SupplierId from suporder where SupOrderId=\n" +
                 "        (select SupOrderId from payment where SupOrderId=?))";*/
         String sql="select * from payment";
-        ResultSet resultSet=CrudUtil.execute(sql);
+        ResultSet resultSet= SQLUtil.execute(sql);
         ArrayList arrayList=new ArrayList();
         while (resultSet.next()){
             arrayList.add(new PaymentTm(resultSet.getString(1),resultSet.getDouble(2),

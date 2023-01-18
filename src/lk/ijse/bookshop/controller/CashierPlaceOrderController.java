@@ -22,23 +22,21 @@ import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.PlaceOrderModel;
 import lk.ijse.bookshop.model.SupplierOrderModel;
-import lk.ijse.bookshop.to.Customer;
-import lk.ijse.bookshop.to.CustomerOrder;
-import lk.ijse.bookshop.to.CustomerOrderDetail;
-import lk.ijse.bookshop.to.Item;
+import lk.ijse.bookshop.dto.CustomerDTO;
+import lk.ijse.bookshop.dto.CusOrderDTO;
+import lk.ijse.bookshop.dto.OrderDetailDTO;
+import lk.ijse.bookshop.dto.ItemDTO;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.view.tm.CustomerTm;
 import lk.ijse.bookshop.view.tm.OrderTm;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.controlsfx.control.textfield.TextFields;
 import tray.notification.NotificationType;
 
 import java.io.InputStream;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -295,8 +293,8 @@ public class CashierPlaceOrderController {
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             String employeeId = LoginFormController.employeeId;
 
-            Customer customer = new Customer(cusId, name, phoneNumber, date, employeeId);
-            boolean customerData = CustomerModel.insertCustomerData(customer);
+            CustomerDTO customerDTO = new CustomerDTO(cusId, name, phoneNumber, date, employeeId);
+            boolean customerData = CustomerModel.insertCustomerData(customerDTO);
             if (customerData) {
                 Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
             } else {
@@ -337,7 +335,7 @@ public class CashierPlaceOrderController {
 
         String employeeId = LoginFormController.employeeId;
 
-        ArrayList<CustomerOrderDetail> customerOrderDetailArrayList = new ArrayList<>();
+        ArrayList<OrderDetailDTO> orderDetailDTOArrayList = new ArrayList<>();
 
         for (int i = 0; i < tblOrder.getItems().size(); i++) {
             String itemCode = String.valueOf(colItemCode.getCellData(i));
@@ -345,13 +343,13 @@ public class CashierPlaceOrderController {
             int orderQuantity = Integer.parseInt(String.valueOf(colQty.getCellData(i)));
             double total = unitPrice * orderQuantity;
 
-            CustomerOrderDetail customerOrderDetail = new CustomerOrderDetail(orderId, itemCode, unitPrice, orderQuantity, total);
-            customerOrderDetailArrayList.add(customerOrderDetail);
+            OrderDetailDTO orderDetailDTO = new OrderDetailDTO(orderId, itemCode, unitPrice, orderQuantity, total);
+            orderDetailDTOArrayList.add(orderDetailDTO);
 
         }
-        CustomerOrder customerOrder = new CustomerOrder(orderId, date, time, cusId, employeeId, customerOrderDetailArrayList);
+        CusOrderDTO cusOrderDTO = new CusOrderDTO(orderId, date, time, cusId, employeeId, orderDetailDTOArrayList);
 
-        boolean placeOrder = PlaceOrderModel.placeOrder(customerOrder);
+        boolean placeOrder = PlaceOrderModel.placeOrder(cusOrderDTO);
         if (placeOrder) {
             InputStream resource = this.getClass().getResourceAsStream("../report/bk3.jrxml");
 
@@ -409,7 +407,7 @@ public class CashierPlaceOrderController {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             observableListKey.clear();
             String text = txtDescription.getText();
-            Item item = PlaceOrderModel.searchDescription(text);
+            ItemDTO item = PlaceOrderModel.searchDescription(text);
             if (item != null) {
                 lblItemCode.setText(item.getItemId());
                 ArrayList allItemPrices = PlaceOrderModel.getAllItemPrices(lblItemCode.getText());

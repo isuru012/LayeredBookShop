@@ -1,23 +1,22 @@
 package lk.ijse.bookshop.model;
 
 import lk.ijse.bookshop.db.DBConnection;
-import lk.ijse.bookshop.to.CustomerOrderDetail;
-import lk.ijse.bookshop.to.SupplierOrderDetail;
+import lk.ijse.bookshop.dto.SupplierOrderDetailsDTO;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SupplierOrderDetailModel {
-    public static boolean saveOrderDetails(ArrayList<SupplierOrderDetail> supplierOrderDetails) throws SQLException, ClassNotFoundException {
-        for (SupplierOrderDetail ord : supplierOrderDetails) {
+    public static boolean saveOrderDetails(ArrayList<SupplierOrderDetailsDTO> supplierOrderDetailsDTOS) throws SQLException, ClassNotFoundException {
+        for (SupplierOrderDetailsDTO ord : supplierOrderDetailsDTOS) {
             if (!addOrderDetail(ord)) {
                 return false;
             }
         }
         return true;
     }
-    private static boolean addOrderDetail(SupplierOrderDetail ord) throws SQLException, ClassNotFoundException {
+    private static boolean addOrderDetail(SupplierOrderDetailsDTO ord) throws SQLException, ClassNotFoundException {
         PreparedStatement statement = DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO suporderdetails values(?,?,?,?,?)");
 
         statement.setObject(1, ord.getSupOrderId());

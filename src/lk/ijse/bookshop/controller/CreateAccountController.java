@@ -15,8 +15,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.bookshop.model.EmployeeModel;
 import lk.ijse.bookshop.model.UserCreationModel;
-import lk.ijse.bookshop.to.Employee;
-import lk.ijse.bookshop.to.User;
+import lk.ijse.bookshop.dto.EmployeeDTO;
+import lk.ijse.bookshop.dto.UserDTO;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.util.WindowControll;
 import tray.notification.NotificationType;
@@ -83,20 +83,20 @@ public class CreateAccountController {
                     if (boolName) {
                         if (boolAddress) {
                             if (boolPhonenumber) {
-                                User user = new User();
-                                user.setUserName(txtUsername.getText());
-                                user.setPassword(txtPassword.getText());
-                                user.setRole("Employee");
-                                Employee employee = new Employee();
-                                employee.setEmployeeId(generateNextEmployeeId(EmployeeModel.currentEmployeeId()));
-                                employee.setAddress(txtAddess.getText());
-                                employee.setName(txtName.getText());
-                                employee.setSalary(0);
-                                employee.setPhoneNumber(Integer.parseInt(txtPhoneNumber.getText()));
-                                employee.setUserName(txtUsername.getText());
+                                UserDTO userDTO = new UserDTO();
+                                userDTO.setUserName(txtUsername.getText());
+                                userDTO.setPassword(txtPassword.getText());
+                                userDTO.setRole("Employee");
+                                EmployeeDTO employeeDTO = new EmployeeDTO();
+                                employeeDTO.setEmployeeId(generateNextEmployeeId(EmployeeModel.currentEmployeeId()));
+                                employeeDTO.setAddress(txtAddess.getText());
+                                employeeDTO.setName(txtName.getText());
+                                employeeDTO.setSalary(0);
+                                employeeDTO.setPhoneNumber(Integer.parseInt(txtPhoneNumber.getText()));
+                                employeeDTO.setUserName(txtUsername.getText());
 
                                 try {
-                                    boolean isAdded = UserCreationModel.userAllDetailSave(user, employee);
+                                    boolean isAdded = UserCreationModel.userAllDetailSave(userDTO, employeeDTO);
                                     if (isAdded) {
                                         txtPhoneNumber.setText("");
                                         txtAddess.setText("");

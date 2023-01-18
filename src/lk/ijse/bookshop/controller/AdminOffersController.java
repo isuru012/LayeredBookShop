@@ -15,21 +15,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import lk.ijse.bookshop.model.CustomerModel;
-import lk.ijse.bookshop.model.ItemModel;
 import lk.ijse.bookshop.model.OfferModel;
-import lk.ijse.bookshop.model.SupplierOrderModel;
-import lk.ijse.bookshop.to.Item;
-import lk.ijse.bookshop.to.Offer;
+import lk.ijse.bookshop.dto.OfferDTO;
 import lk.ijse.bookshop.util.Notification;
-import lk.ijse.bookshop.view.tm.AdminItemTm;
 import lk.ijse.bookshop.view.tm.OfferTm;
 import org.controlsfx.control.textfield.TextFields;
 import tray.notification.NotificationType;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -164,9 +158,9 @@ public class AdminOffersController {
 
             /*OfferTm offerTm=new OfferTm(itemCode,batchNumber,offerAmount,dateStart,dateEnd);*/
 
-            Offer offer=new Offer(offerId,offerAmount,dateStart,dateEnd);
+            OfferDTO offerDTO =new OfferDTO(offerId,offerAmount,dateStart,dateEnd);
 
-            boolean insertOfferData = OfferModel.insertOfferData(offer);
+            boolean insertOfferData = OfferModel.insertOfferData(offerDTO);
 
             if (insertOfferData) {
                 if (OfferModel.updateItemData(itemCode, offerId, batchNumber)){

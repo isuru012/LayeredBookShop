@@ -1,6 +1,5 @@
 package lk.ijse.bookshop.controller;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,17 +15,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.bookshop.model.CustomerModel;
-import lk.ijse.bookshop.to.Customer;
+import lk.ijse.bookshop.dto.CustomerDTO;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.view.tm.CustomerTm;
 import tray.notification.NotificationType;
 
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Optional;
 
 public class CashierCustomersController {
@@ -121,9 +117,9 @@ public class CashierCustomersController {
             colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
             colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
 
-            Customer customer = new Customer(cusId, name, phoneNumber, date, employeeId);
+            CustomerDTO customerDTO = new CustomerDTO(cusId, name, phoneNumber, date, employeeId);
 
-            boolean customerData = CustomerModel.insertCustomerData(customer);
+            boolean customerData = CustomerModel.insertCustomerData(customerDTO);
 
             if (customerData) {
                 Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);

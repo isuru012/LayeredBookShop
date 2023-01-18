@@ -1,16 +1,15 @@
 package lk.ijse.bookshop.model;
 
 import lk.ijse.bookshop.db.DBConnection;
-import lk.ijse.bookshop.to.CustomerOrderDetail;
-import lk.ijse.bookshop.to.CustomerReloadDetail;
+import lk.ijse.bookshop.dto.CusReloadDetailsDTO;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ReloadDetailModel {
-    public static boolean saveReloadDetails(ArrayList<CustomerReloadDetail> customerReloadDetails) throws SQLException, ClassNotFoundException {
-        for (CustomerReloadDetail ord : customerReloadDetails) {
+    public static boolean saveReloadDetails(ArrayList<CusReloadDetailsDTO> cusReloadDetailsDTOS) throws SQLException, ClassNotFoundException {
+        for (CusReloadDetailsDTO ord : cusReloadDetailsDTOS) {
             if (!addReloadDetail(ord)) {
                 return false;
             }
@@ -18,7 +17,7 @@ public class ReloadDetailModel {
         return true;
     }
 
-    private static boolean addReloadDetail(CustomerReloadDetail ord) throws SQLException, ClassNotFoundException {
+    private static boolean addReloadDetail(CusReloadDetailsDTO ord) throws SQLException, ClassNotFoundException {
         PreparedStatement statement = DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO cusreloaddetails values(?,?,?)");
 
         statement.setObject(1, ord.getCusReloadId());

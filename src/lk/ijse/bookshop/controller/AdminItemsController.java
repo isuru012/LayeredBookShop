@@ -15,17 +15,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.ItemModel;
-import lk.ijse.bookshop.to.Item;
+import lk.ijse.bookshop.dto.ItemDTO;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.view.tm.AdminItemTm;
-import lk.ijse.bookshop.view.tm.CashierItemTm;
-import lk.ijse.bookshop.view.tm.CustomerTm;
 import tray.notification.NotificationType;
 
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -234,7 +230,7 @@ public class AdminItemsController {
 
             AdminItemTm itemTm=new AdminItemTm(itemCode,batchNumber,description,buyingPrice,sellinPrice,quantity,0);
 
-            Item item=new Item(itemCode,batchNumber,description,buyingPrice,sellinPrice,quantity,null);
+            ItemDTO item=new ItemDTO(itemCode,batchNumber,description,buyingPrice,sellinPrice,quantity,null);
 
             boolean insertItemData = ItemModel.insertItemData(item);
 

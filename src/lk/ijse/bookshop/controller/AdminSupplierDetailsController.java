@@ -18,21 +18,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.SupplierModel;
 import lk.ijse.bookshop.model.SupplierOrderModel;
-import lk.ijse.bookshop.to.Customer;
-import lk.ijse.bookshop.to.Supplier;
+import lk.ijse.bookshop.dto.SupplierDTO;
 import lk.ijse.bookshop.util.Notification;
-import lk.ijse.bookshop.view.tm.CustomerTm;
 import lk.ijse.bookshop.view.tm.SupplierDetailTm;
-import lk.ijse.bookshop.view.tm.SupplierTm;
 import tray.notification.NotificationType;
 
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Optional;
 
 public class AdminSupplierDetailsController {
@@ -267,8 +261,8 @@ public class AdminSupplierDetailsController {
             String getUsername = SupplierOrderModel.getUserName();
 
 
-            Supplier supplier = new Supplier(supId, name, address, phoneNumber, getUsername);
-            boolean supplierData = SupplierModel.insertSupplierData(supplier);
+            SupplierDTO supplierDTO = new SupplierDTO(supId, name, address, phoneNumber, getUsername);
+            boolean supplierData = SupplierModel.insertSupplierData(supplierDTO);
             if (supplierData) {
                 Notification.notifie("Supplier Data", "Supplier Data Added", NotificationType.INFORMATION);
                 observableList.clear();

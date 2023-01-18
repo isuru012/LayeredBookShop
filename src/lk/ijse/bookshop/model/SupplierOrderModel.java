@@ -2,8 +2,8 @@ package lk.ijse.bookshop.model;
 
 import lk.ijse.bookshop.controller.AdminSupplierController;
 import lk.ijse.bookshop.db.DBConnection;
-import lk.ijse.bookshop.to.*;
-import lk.ijse.bookshop.util.CrudUtil;
+import lk.ijse.bookshop.dto.*;
+import lk.ijse.bookshop.dao.SQLUtil;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -14,7 +14,7 @@ public class SupplierOrderModel {
 
     public static String getOrderId() throws SQLException, ClassNotFoundException {
         String sql="SELECT SupOrderId FROM suporder ORDER BY SupOrderId DESC LIMIT 1";
-        ResultSet resultSet= CrudUtil.execute(sql);
+        ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
             return resultSet.getString(1);
         }
@@ -23,7 +23,7 @@ public class SupplierOrderModel {
 
     public static ArrayList loadAllSupplierNames() throws SQLException, ClassNotFoundException {
         String sql="SELECT Name FROM supplier";
-        ResultSet resultSet=CrudUtil.execute(sql);
+        ResultSet resultSet= SQLUtil.execute(sql);
         ArrayList <String> arrayList=new ArrayList();
         while (resultSet.next()){
             arrayList.add(resultSet.getString(1));
@@ -33,7 +33,7 @@ public class SupplierOrderModel {
 
     public static ArrayList loadAllDescriptionIds() throws SQLException, ClassNotFoundException {
         String sql="SELECT Description FROM item GROUP BY Description";
-        ResultSet resultSet=CrudUtil.execute(sql);
+        ResultSet resultSet= SQLUtil.execute(sql);
         ArrayList <String> arrayList=new ArrayList();
         while (resultSet.next()){
             arrayList.add(resultSet.getString(1));
@@ -41,12 +41,12 @@ public class SupplierOrderModel {
         return arrayList;
     }
 
-    public static Item searchDescription(String text) throws SQLException, ClassNotFoundException {
+    public static ItemDTO searchDescription(String text) throws SQLException, ClassNotFoundException {
         String searchText="%"+text+"%";
         String sql="SELECT * FROM item WHERE Description LIKE ?";
-        ResultSet resultSet= CrudUtil.execute(sql,searchText);
+        ResultSet resultSet= SQLUtil.execute(sql,searchText);
         if (resultSet.next()){
-            return new Item(resultSet.getString(1),resultSet.getInt(2),resultSet.getString(3),
+            return new ItemDTO(resultSet.getString(1),resultSet.getInt(2),resultSet.getString(3),
                     resultSet.getDouble(4),resultSet.getDouble(5),resultSet.getInt(6),resultSet.getString(7));
         }
         return null;
@@ -54,7 +54,7 @@ public class SupplierOrderModel {
 
     public static ArrayList getAllItemPrices(String text) throws SQLException, ClassNotFoundException {
         String sql="SELECT * FROM item WHERE ItemId=?";
-        ResultSet resultSet=CrudUtil.execute(sql,text);
+        ResultSet resultSet= SQLUtil.execute(sql,text);
         ArrayList arrayList=new ArrayList();
         while (resultSet.next()){
             arrayList.add(resultSet.getString(5));
@@ -62,12 +62,12 @@ public class SupplierOrderModel {
         return arrayList;
     }
 
-    public static Supplier searchName(String text) throws SQLException, ClassNotFoundException {
+    public static SupplierDTO searchName(String text) throws SQLException, ClassNotFoundException {
         String searchText="%"+text+"%";
         String sql="SELECT * FROM supplier WHERE Name LIKE ?";
-        ResultSet resultSet= CrudUtil.execute(sql,searchText);
+        ResultSet resultSet= SQLUtil.execute(sql,searchText);
         if (resultSet.next()){
-            return new Supplier(resultSet.getString(1), resultSet.getString(2),
+            return new SupplierDTO(resultSet.getString(1), resultSet.getString(2),
                     resultSet.getString(3),resultSet.getInt(4),resultSet.getString(5) );
         }
         return null;
@@ -75,7 +75,7 @@ public class SupplierOrderModel {
 
     public static int getItemQuantity(String text) throws SQLException, ClassNotFoundException {
         String sql="SELECT QuantityOnHand FROM item WHERE ItemId=?";
-        ResultSet resultSet=CrudUtil.execute(sql,text);
+        ResultSet resultSet= SQLUtil.execute(sql,text);
         if (resultSet.next()){
             return resultSet.getInt(1);
 
@@ -85,7 +85,7 @@ public class SupplierOrderModel {
 
     public static double getSellingUnitPrice(String text) throws SQLException, ClassNotFoundException {
         String sql="SELECT SellingUnitPrice FROM item WHERE ItemId=?";
-        ResultSet resultSet=CrudUtil.execute(sql,text);
+        ResultSet resultSet= SQLUtil.execute(sql,text);
         if (resultSet.next()){
             return resultSet.getInt(1);
 
@@ -95,7 +95,7 @@ public class SupplierOrderModel {
 
     public static String getUserName() throws SQLException, ClassNotFoundException {
         String sql="SELECT Username FROM user WHERE Role='Admin'";
-        ResultSet resultSet=CrudUtil.execute(sql);
+        ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
             return resultSet.getString(1);
 
@@ -103,24 +103,24 @@ public class SupplierOrderModel {
         return null;
     }
 
-    public static boolean placeOrder(SupplierOrder supplierOrder) throws SQLException, ClassNotFoundException {
+    public static boolean placeOrder(SupplierOrderDTO supplierOrderDTO) throws SQLException, ClassNotFoundException {
         try {
             DBConnection.getDBConnection().getConnection().setAutoCommit(false);
             PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO suporder VALUES(?,?,?,?,?) ");
-            statement.setObject(1,supplierOrder.getSupOrderId());
-            statement.setObject(2,supplierOrder.getDate());
-            statement.setObject(3,supplierOrder.getTime());
-            statement.setObject(4,supplierOrder.getSupplierId());
-            statement.setObject(5,supplierOrder.getUserName());
+            statement.setObject(1, supplierOrderDTO.getSupOrderId());
+            statement.setObject(2, supplierOrderDTO.getDate());
+            statement.setObject(3, supplierOrderDTO.getTime());
+            statement.setObject(4, supplierOrderDTO.getSupplierId());
+            statement.setObject(5, supplierOrderDTO.getUserName());
 
             boolean isAddedOrder=statement.executeUpdate()>0;
             if (isAddedOrder){
-                boolean saveOrderDetails=SupplierOrderDetailModel.saveOrderDetails(supplierOrder.getSupplierOrderDetails());
+                boolean saveOrderDetails=SupplierOrderDetailModel.saveOrderDetails(supplierOrderDTO.getSupplierOrderDetails());
                 if (saveOrderDetails){
 
-                    boolean updateStock=checkItem(supplierOrder.getSupplierOrderDetails());
+                    boolean updateStock=checkItem(supplierOrderDTO.getSupplierOrderDetails());
                     if (updateStock){
-                        boolean updatePayment=updatePayment(supplierOrder.getSupplierId(),supplierOrder.getSupOrderId());
+                        boolean updatePayment=updatePayment(supplierOrderDTO.getSupplierId(), supplierOrderDTO.getSupOrderId());
                         if(updatePayment) {
                             DBConnection.getDBConnection().getConnection().commit();
                             return true;
@@ -142,7 +142,7 @@ public class SupplierOrderModel {
         double amount=0;
 
         String sql="SELECT SUM(suporderdetails.TotalPrice) FROM suporderdetails WHERE SupOrderId=?";
-        ResultSet resultSet=CrudUtil.execute(sql,supOrderId);
+        ResultSet resultSet= SQLUtil.execute(sql,supOrderId);
 
         if (resultSet.next()){
             amount=resultSet.getDouble(1);
@@ -154,15 +154,15 @@ public class SupplierOrderModel {
 
         String username=SupplierModel.getAdminUsername();
 
-        Payment payment=new Payment(paymentId,amount,date,time,username,supOrderId,null);
+        PaymentDTO paymentDTO =new PaymentDTO(paymentId,amount,date,time,username,supOrderId,null);
 
         PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO payment VALUES(?,?,?,?,?,?,?) ");
-        statement.setObject(1,payment.getPaymentId());
-        statement.setObject(2,payment.getAmount());
-        statement.setObject(3,payment.getDate());
-        statement.setObject(4,payment.getTime());
-        statement.setObject(5,payment.getUsername());
-        statement.setObject(6,payment.getSupplierOrderId());
+        statement.setObject(1, paymentDTO.getPaymentId());
+        statement.setObject(2, paymentDTO.getAmount());
+        statement.setObject(3, paymentDTO.getDate());
+        statement.setObject(4, paymentDTO.getTime());
+        statement.setObject(5, paymentDTO.getUsername());
+        statement.setObject(6, paymentDTO.getSupplierOrderId());
         statement.setObject(7,null);
 
         return statement.executeUpdate()>0;
@@ -195,8 +195,8 @@ public class SupplierOrderModel {
         return "P00001";
     }
 
-    public static boolean checkItem(ArrayList<SupplierOrderDetail> supplierOrderDetails) throws SQLException, ClassNotFoundException {
-        for (SupplierOrderDetail detail : supplierOrderDetails) {
+    public static boolean checkItem(ArrayList<SupplierOrderDetailsDTO> supplierOrderDetailsDTOS) throws SQLException, ClassNotFoundException {
+        for (SupplierOrderDetailsDTO detail : supplierOrderDetailsDTOS) {
             if (!checkOneDetail(detail)) {
                 return false;
             }
@@ -204,9 +204,9 @@ public class SupplierOrderModel {
         return true;
     }
 
-    private static boolean checkOneDetail(SupplierOrderDetail detail) throws SQLException, ClassNotFoundException {
+    private static boolean checkOneDetail(SupplierOrderDetailsDTO detail) throws SQLException, ClassNotFoundException {
         String sql="SELECT * FROM item WHERE ItemId=? AND BuyingUnitPrice=?";
-        ResultSet resultSet=CrudUtil.execute(sql,detail.getItemId(),detail.getUnitPrice());
+        ResultSet resultSet= SQLUtil.execute(sql,detail.getItemId(),detail.getUnitPrice());
         PreparedStatement stm;
         if (resultSet.next()){
              stm = DBConnection.getDBConnection().getConnection().prepareStatement("UPDATE item SET QuantityOnHand=QuantityOnHand+? WHERE ItemId=? AND BuyingUnitPrice=?");
@@ -230,7 +230,7 @@ public class SupplierOrderModel {
 
     private static String getDescription(String itemId) throws SQLException, ClassNotFoundException {
         String sql="SELECT Description FROM item WHERE ItemId=?";
-        ResultSet resultSet=CrudUtil.execute(sql,itemId);
+        ResultSet resultSet= SQLUtil.execute(sql,itemId);
         if (resultSet.next()){
             return resultSet.getString(1);
         }
@@ -244,9 +244,9 @@ public class SupplierOrderModel {
         return -1;
     }
 
-    private static int currentBatchNumber(SupplierOrderDetail detail) throws SQLException, ClassNotFoundException {
+    private static int currentBatchNumber(SupplierOrderDetailsDTO detail) throws SQLException, ClassNotFoundException {
         String sql="SELECT BatchNumber FROM item WHERE ItemId=? ORDER BY BatchNumber  DESC LIMIT 1;";
-        ResultSet resultSet=CrudUtil.execute(sql,detail.getItemId());
+        ResultSet resultSet= SQLUtil.execute(sql,detail.getItemId());
         if (resultSet.next()){
             return resultSet.getInt(1);
         }
@@ -255,7 +255,7 @@ public class SupplierOrderModel {
 
     public static int getQtyTotalOfOneItem(String itemId) throws SQLException, ClassNotFoundException {
         String sql="SELECT SUM(QuantityOnHand) FROM item WHERE ItemId=?";
-        ResultSet resultSet=CrudUtil.execute(sql,itemId);
+        ResultSet resultSet= SQLUtil.execute(sql,itemId);
         if (resultSet.next()){
             return resultSet.getInt(1);
         }

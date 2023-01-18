@@ -10,9 +10,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.WindowEvent;
 import lk.ijse.bookshop.model.UserCreationModel;
-import lk.ijse.bookshop.to.User;
+import lk.ijse.bookshop.dto.UserDTO;
 import lk.ijse.bookshop.util.Navigation;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.util.Routes;
@@ -21,7 +20,6 @@ import tray.notification.NotificationType;
 
 
 import java.awt.*;
-import java.awt.event.WindowAdapter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -29,7 +27,6 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.RED;
 
@@ -91,13 +88,13 @@ public class LoginFormController {
         if (!txtUsername.getText().equals("") & !txtPasswordField.getText().equals("")) {
             if (boolUsername) {
                 if (boolPassword) {
-                    User user = UserCreationModel.getLoginData(txtUsername.getText(), txtPasswordField.getText());
+                    UserDTO userDTO = UserCreationModel.getLoginData(txtUsername.getText(), txtPasswordField.getText());
 
-                    if (user != null) {
-                        if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Admin")) {
+                    if (userDTO != null) {
+                        if (userDTO.getUserName().equals(txtUsername.getText()) && userDTO.getPassword().equals(txtPasswordField.getText()) && userDTO.getRole().equals("Admin")) {
                             Navigation.navigate(Routes.ADMINWINDOW, pane);
-                        } else if (user.getUserName().equals(txtUsername.getText()) && user.getPassword().equals(txtPasswordField.getText()) && user.getRole().equals("Employee")) {
-                            employeeId = UserCreationModel.getEmployeeId(user.getUserName());
+                        } else if (userDTO.getUserName().equals(txtUsername.getText()) && userDTO.getPassword().equals(txtPasswordField.getText()) && userDTO.getRole().equals("Employee")) {
+                            employeeId = UserCreationModel.getEmployeeId(userDTO.getUserName());
                             Navigation.navigate(Routes.CASHIERWINDOW, pane);
 
                         }
@@ -128,7 +125,6 @@ public class LoginFormController {
     public void usernameKeyReleased(KeyEvent keyEvent) {
         Pattern pattern = Pattern.compile("^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$");
         Matcher matcher = pattern.matcher(txtUsername.getText());
-
 
         boolUsername = matcher.matches();
         if (boolUsername) {

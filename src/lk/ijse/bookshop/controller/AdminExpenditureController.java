@@ -17,27 +17,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.ExpenditureModel;
-import lk.ijse.bookshop.model.ItemModel;
-import lk.ijse.bookshop.model.PaymentModel;
-import lk.ijse.bookshop.to.Customer;
-import lk.ijse.bookshop.to.Expenditure;
+import lk.ijse.bookshop.dto.ExpenditureDTO;
 import lk.ijse.bookshop.util.Notification;
-import lk.ijse.bookshop.view.tm.CustomerTm;
-import lk.ijse.bookshop.view.tm.EmployeeTm;
 import lk.ijse.bookshop.view.tm.ExpenditureTm;
-import lk.ijse.bookshop.view.tm.PaymentTm;
 import tray.notification.NotificationType;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Optional;
 
 public class AdminExpenditureController {
@@ -207,9 +198,9 @@ public class AdminExpenditureController {
 
             ExpenditureTm expenditureTm = new ExpenditureTm(nextExpenditureId,description,time,date,amount);
 
-            Expenditure expenditure = new Expenditure(nextExpenditureId,description,amount,date,time,userName);
+            ExpenditureDTO expenditureDTO = new ExpenditureDTO(nextExpenditureId,description,amount,date,time,userName);
 
-            boolean expenditureData = ExpenditureModel.insertExpenditureData(expenditure);
+            boolean expenditureData = ExpenditureModel.insertExpenditureData(expenditureDTO);
 
             if (expenditureData) {
                 Notification.notifie("Expenditure Data", "Expenditure Data Added", NotificationType.INFORMATION);

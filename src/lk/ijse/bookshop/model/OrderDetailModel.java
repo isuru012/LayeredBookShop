@@ -1,15 +1,15 @@
 package lk.ijse.bookshop.model;
 
 import lk.ijse.bookshop.db.DBConnection;
-import lk.ijse.bookshop.to.CustomerOrderDetail;
+import lk.ijse.bookshop.dto.OrderDetailDTO;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OrderDetailModel {
-    public static boolean saveOrderDetails(ArrayList<CustomerOrderDetail> customerOrderDetails) throws SQLException, ClassNotFoundException {
-        for (CustomerOrderDetail ord : customerOrderDetails) {
+    public static boolean saveOrderDetails(ArrayList<OrderDetailDTO> orderDetailDTOS) throws SQLException, ClassNotFoundException {
+        for (OrderDetailDTO ord : orderDetailDTOS) {
             if (!addOrderDetail(ord)) {
                 return false;
             }
@@ -17,7 +17,7 @@ public class OrderDetailModel {
         return true;
     }
 
-    private static boolean addOrderDetail(CustomerOrderDetail ord) throws SQLException, ClassNotFoundException {
+    private static boolean addOrderDetail(OrderDetailDTO ord) throws SQLException, ClassNotFoundException {
         PreparedStatement statement = DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO cusorderdetails values(?,?,?,?,?)");
 
         statement.setObject(1, ord.getCusOrderId());

@@ -14,7 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.UserCreationModel;
-import lk.ijse.bookshop.to.Customer;
+import lk.ijse.bookshop.dto.CustomerDTO;
 import lk.ijse.bookshop.util.Navigation;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.util.Routes;
@@ -24,7 +24,6 @@ import tray.notification.NotificationType;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -177,8 +176,8 @@ public class CashierWindowController {
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             String employeeId = LoginFormController.employeeId;
 
-            Customer customer = new Customer(cusId, name, phoneNumber, date, employeeId);
-            boolean customerData = CustomerModel.insertCustomerData(customer);
+            CustomerDTO customerDTO = new CustomerDTO(cusId, name, phoneNumber, date, employeeId);
+            boolean customerData = CustomerModel.insertCustomerData(customerDTO);
             if (customerData) {
                 Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
             } else {
