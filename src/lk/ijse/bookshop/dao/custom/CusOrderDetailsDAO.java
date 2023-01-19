@@ -1,4 +1,7 @@
 package lk.ijse.bookshop.dao.custom;
 
-public interface CusOrderDetailsDAO {
+import lk.ijse.bookshop.dao.CrudDAO;
+import lk.ijse.bookshop.entity.CusOrderDetails;
+
+public interface CusOrderDetailsDAO extends CrudDAO<CusOrderDetails>,SuperDAO{
 }

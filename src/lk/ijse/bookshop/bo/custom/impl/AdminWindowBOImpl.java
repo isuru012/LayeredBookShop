@@ -9,5 +9,7 @@ package lk.ijse.bookshop.bo.custom.impl;
 */
 
 
-public class AdminWindowBOImpl {
+import lk.ijse.bookshop.bo.custom.AdminWindowBO;
+
+public class AdminWindowBOImpl implements AdminWindowBO {
 }

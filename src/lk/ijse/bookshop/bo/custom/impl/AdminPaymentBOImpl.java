@@ -9,5 +9,7 @@ package lk.ijse.bookshop.bo.custom.impl;
 */
 
 
-public class AdminPaymentBOImpl {
+import lk.ijse.bookshop.bo.custom.AdminPaymentBO;
+
+public class AdminPaymentBOImpl implements AdminPaymentBO {
 }

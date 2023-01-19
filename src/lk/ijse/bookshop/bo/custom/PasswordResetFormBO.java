@@ -9,5 +9,5 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
-public interface PasswordResetFormBO {
+public interface PasswordResetFormBO extends SuperBO {
 }

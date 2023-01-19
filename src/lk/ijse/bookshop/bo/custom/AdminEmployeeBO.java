@@ -9,5 +9,16 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
-public interface AdminEmployeeBO {
+import lk.ijse.bookshop.dto.EmployeeDTO;
+import lk.ijse.bookshop.entity.Employee;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public interface AdminEmployeeBO extends SuperBO{
+    ArrayList<EmployeeDTO> getAllDetails() throws SQLException, ClassNotFoundException;
+    boolean deleteEmployee(String employeeId) throws SQLException, ClassNotFoundException;
+
+    boolean updateSalary(Employee employee) throws SQLException, ClassNotFoundException;
+
 }

@@ -25,7 +25,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return null;
     }
-    public static int getCustomersAmount() throws SQLException, ClassNotFoundException {
+    public  int getCustomersAmount() throws SQLException, ClassNotFoundException {
         String sql="SELECT COUNT(CusId) FROM customer";
         ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){

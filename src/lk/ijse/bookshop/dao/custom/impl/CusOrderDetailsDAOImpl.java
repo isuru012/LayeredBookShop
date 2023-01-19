@@ -1,5 +1,6 @@
 package lk.ijse.bookshop.dao.custom.impl;
 
+import lk.ijse.bookshop.dao.custom.CusOrderDetailsDAO;
 import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
 
@@ -7,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CusOrderDetailsDAOImpl {
+public class CusOrderDetailsDAOImpl implements CusOrderDetailsDAO {
     public boolean saveOrderDetails(ArrayList<OrderDetailDTO> orderDetailDTOS) throws SQLException, ClassNotFoundException {
         for (OrderDetailDTO ord : orderDetailDTOS) {
             if (!addOrderDetail(ord)) {

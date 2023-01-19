@@ -9,5 +9,7 @@ package lk.ijse.bookshop.bo.custom.impl;
 */
 
 
-public class CashierItemBOImpl {
+import lk.ijse.bookshop.bo.custom.CashierItemBO;
+
+public class CashierItemBOImpl implements CashierItemBO {
 }

@@ -1,13 +1,14 @@
 package lk.ijse.bookshop.dao.custom.impl;
 
 import lk.ijse.bookshop.dao.SQLUtil;
+import lk.ijse.bookshop.dao.custom.PaymentDAO;
 import lk.ijse.bookshop.view.tm.PaymentTm;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PaymentDAOImpl {
+public class PaymentDAOImpl implements PaymentDAO {
     public String generateCurrentPaymentId() throws SQLException, ClassNotFoundException {
         String sql = "SELECT PaymentId FROM payment ORDER BY PaymentId DESC LIMIT 1";
         ResultSet resultSet = SQLUtil.execute(sql);

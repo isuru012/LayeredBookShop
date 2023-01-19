@@ -9,5 +9,5 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
-public interface CashierItemBO {
+public interface CashierItemBO extends SuperBO {
 }

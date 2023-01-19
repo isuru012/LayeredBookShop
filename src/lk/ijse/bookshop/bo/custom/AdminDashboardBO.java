@@ -9,5 +9,22 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
-public interface AdminDashboardBO {
+import lk.ijse.bookshop.dto.ItemDTO;
+import lk.ijse.bookshop.model.DashboardModel;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public interface AdminDashboardBO extends SuperBO {
+    ArrayList<ItemDTO> getTrendingItems() throws SQLException, ClassNotFoundException;
+    int getOrdersAmount() throws SQLException, ClassNotFoundException;
+    int getProductsAmount() throws SQLException, ClassNotFoundException;
+    int getCustomersAmount() throws SQLException, ClassNotFoundException;
+    double getMonday() throws SQLException, ClassNotFoundException;
+    double getTuesday() throws SQLException, ClassNotFoundException;
+    double getWednesday() throws SQLException, ClassNotFoundException;
+    double getThursday() throws SQLException, ClassNotFoundException;
+    double getFriday() throws SQLException, ClassNotFoundException;
+    double getSaturday() throws SQLException, ClassNotFoundException;
+    double getSunday() throws SQLException, ClassNotFoundException;
 }

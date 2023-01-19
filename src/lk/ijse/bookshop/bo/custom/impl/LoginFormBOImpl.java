@@ -9,5 +9,7 @@ package lk.ijse.bookshop.bo.custom.impl;
 */
 
 
-public class LoginFormBOImpl {
+import lk.ijse.bookshop.bo.custom.LoginFormBO;
+
+public class LoginFormBOImpl implements LoginFormBO {
 }

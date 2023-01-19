@@ -9,5 +9,5 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
-public interface AdminWindowBO {
+public interface AdminWindowBO extends SuperBO {
 }

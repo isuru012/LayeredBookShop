@@ -1,6 +1,7 @@
 package lk.ijse.bookshop.dao.custom.impl;
 
 import lk.ijse.bookshop.dao.SQLUtil;
+import lk.ijse.bookshop.dao.custom.ReloadDAO;
 import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.CusReloadDetailsDTO;
 import lk.ijse.bookshop.dto.ReloadDTO;
@@ -10,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ReloadDAOImpl {
+public class ReloadDAOImpl implements ReloadDAO {
 
     public  ReloadDTO searchDescription(String text) throws SQLException, ClassNotFoundException {
         String searchText="%"+text+"%";

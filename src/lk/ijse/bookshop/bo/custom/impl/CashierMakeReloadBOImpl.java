@@ -9,5 +9,7 @@ package lk.ijse.bookshop.bo.custom.impl;
 */
 
 
-public class CashierMakeReloadBOImpl {
+import lk.ijse.bookshop.bo.custom.CashierMakeReloadBO;
+
+public class CashierMakeReloadBOImpl implements CashierMakeReloadBO {
 }

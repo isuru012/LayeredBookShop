@@ -1,6 +1,7 @@
 package lk.ijse.bookshop.dao.custom.impl;
 
 import lk.ijse.bookshop.dao.SQLUtil;
+import lk.ijse.bookshop.dao.custom.SupOrderDetailsDAO;
 import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.PaymentDTO;
 import lk.ijse.bookshop.dto.SupplierOrderDetailsDTO;
@@ -12,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class SupOrderDetailsDAOImpl {
+public class SupOrderDetailsDAOImpl implements SupOrderDetailsDAO {
     public boolean updatePayment(String supplierId, String supOrderId) throws SQLException, ClassNotFoundException {
         String paymentId=generateNextPaymentId(PaymentModel.generateCurrentPaymentId());
 

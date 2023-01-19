@@ -1,4 +1,6 @@
 package lk.ijse.bookshop.bo.custom.impl;
 
-public class CashierCustomerBOImpl {
+import lk.ijse.bookshop.bo.custom.CashierCustomerBO;
+
+public class CashierCustomerBOImpl implements CashierCustomerBO {
 }

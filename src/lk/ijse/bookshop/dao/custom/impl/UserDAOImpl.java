@@ -1,13 +1,14 @@
 package lk.ijse.bookshop.dao.custom.impl;
 
 import lk.ijse.bookshop.dao.SQLUtil;
+import lk.ijse.bookshop.dao.custom.UserDAO;
 import lk.ijse.bookshop.dto.UserDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class UserDAOImpl {
+public class UserDAOImpl implements UserDAO {
     public static String role;
 
     public String getUserName() throws SQLException, ClassNotFoundException {

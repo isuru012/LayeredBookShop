@@ -9,5 +9,7 @@ package lk.ijse.bookshop.bo.custom.impl;
 */
 
 
-public class TrueResetPasswordBOImpl {
+import lk.ijse.bookshop.bo.custom.TrueResetPasswordBO;
+
+public class TrueResetPasswordBOImpl  implements TrueResetPasswordBO {
 }

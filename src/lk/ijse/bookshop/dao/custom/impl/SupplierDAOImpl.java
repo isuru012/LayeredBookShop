@@ -1,6 +1,7 @@
 package lk.ijse.bookshop.dao.custom.impl;
 
 import lk.ijse.bookshop.dao.SQLUtil;
+import lk.ijse.bookshop.dao.custom.SupplierDAO;
 import lk.ijse.bookshop.dto.SupplierDTO;
 import lk.ijse.bookshop.view.tm.SupplierDetailTm;
 
@@ -8,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class SupplierDAOImpl {
+public class SupplierDAOImpl implements SupplierDAO {
 
 
     public ArrayList loadAllSupplierNames() throws SQLException, ClassNotFoundException {

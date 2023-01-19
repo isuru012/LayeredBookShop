@@ -9,5 +9,7 @@ package lk.ijse.bookshop.bo.custom.impl;
 */
 
 
-public class LoadingScreenBOImpl {
+import lk.ijse.bookshop.bo.custom.LoadingScreenBO;
+
+public class LoadingScreenBOImpl implements LoadingScreenBO {
 }

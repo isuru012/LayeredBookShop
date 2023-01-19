@@ -12,7 +12,10 @@ public class ItemDTO {
     public ItemDTO() {
     }
 
-    public ItemDTO(String itemId, int batchNumber, String description, double buyingUnitPrice, double sellingUnitPrice, int quantityOnHand, String offerId) {
+    public ItemDTO(String itemId, int batchNumber,
+                   String description, double buyingUnitPrice,
+                   double sellingUnitPrice, int quantityOnHand,
+                   String offerId) {
         ItemId = itemId;
         BatchNumber = batchNumber;
         Description = description;

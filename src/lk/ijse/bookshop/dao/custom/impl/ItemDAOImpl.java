@@ -34,16 +34,16 @@ public class ItemDAOImpl implements ItemDAO {
         }
         return null;
     }
-    public static boolean deleteOffer(String offerId) throws SQLException, ClassNotFoundException {
+    public  boolean deleteOffer(String offerId) throws SQLException, ClassNotFoundException {
         String sql="UPDATE item SET OfferId=?  WHERE ItemId=?";
         return SQLUtil.execute(sql,null,offerId);
     }
-    public static boolean updateItemData(String itemCode, String code, int batchNumber) throws SQLException, ClassNotFoundException {
+    public  boolean updateItemData(String itemCode, String code, int batchNumber) throws SQLException, ClassNotFoundException {
         String sql="UPDATE item SET OfferId=? WHERE ItemId=? AND BatchNumber=?";
         return SQLUtil.execute(sql,code,itemCode,batchNumber);
 
     }
-    public static int getProductsAmount() throws SQLException, ClassNotFoundException {
+    public  int getProductsAmount() throws SQLException, ClassNotFoundException {
         String sql="SELECT COUNT(ItemId) FROM item";
         ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
@@ -51,7 +51,7 @@ public class ItemDAOImpl implements ItemDAO {
         }
         return -1;
     }
-    public static String getOfferId(String text) throws SQLException, ClassNotFoundException {
+    public  String getOfferId(String text) throws SQLException, ClassNotFoundException {
         String sql="SELECT OfferId FROM item WHERE ItemId=?";
         ResultSet resultSet= SQLUtil.execute(sql,text);
         if (resultSet.next()){
@@ -124,7 +124,7 @@ public class ItemDAOImpl implements ItemDAO {
         }
         return arrayList;
     }
-    public static int getBatchNumber(double text, String itemCode) throws SQLException, ClassNotFoundException {
+    public  int getBatchNumber(double text, String itemCode) throws SQLException, ClassNotFoundException {
         String sql="SELECT BatchNumber FROM item WHERE ItemId=? AND SellingUnitPrice=?";
         ResultSet resultSet= SQLUtil.execute(sql,itemCode,text);
         if (resultSet.next()){

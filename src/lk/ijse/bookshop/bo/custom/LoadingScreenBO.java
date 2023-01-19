@@ -9,5 +9,5 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
-public interface LoadingScreenBO {
+public interface LoadingScreenBO  extends SuperBO{
 }

@@ -9,5 +9,5 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
-public interface CashierMakeReloadBO {
+public interface CashierMakeReloadBO extends SuperBO {
 }

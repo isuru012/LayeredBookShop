@@ -9,5 +9,7 @@ package lk.ijse.bookshop.bo.custom.impl;
 */
 
 
-public class PasswordResetFormBOImpl {
+import lk.ijse.bookshop.bo.custom.PasswordResetFormBO;
+
+public class PasswordResetFormBOImpl implements PasswordResetFormBO {
 }

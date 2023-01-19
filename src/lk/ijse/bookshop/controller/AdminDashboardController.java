@@ -8,6 +8,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.AdminDashboardBO;
 import lk.ijse.bookshop.model.DashboardModel;
 import lk.ijse.bookshop.util.WindowControll;
 
@@ -25,30 +27,32 @@ public class AdminDashboardController {
     public Label lblCustomer;
     public ListView listView;
 
+    AdminDashboardBO adminDashboardBO= (AdminDashboardBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.DASHBOARD);
+
     public void initialize() throws SQLException, ClassNotFoundException {
 
-        ArrayList arrayList=DashboardModel.getTrendingItems();
+        ArrayList arrayList=adminDashboardBO.getTrendingItems();
         ObservableList observableList= FXCollections.observableArrayList(arrayList);
         listView.getItems().addAll(observableList);
         returnLineChart();
-        int ordersAmount = DashboardModel.getOrdersAmount();
+        int ordersAmount = adminDashboardBO.getOrdersAmount();
         lblOrder.setText(String.valueOf(ordersAmount));
-        int products = DashboardModel.getProductsAmount();
+        int products = adminDashboardBO.getProductsAmount();
         lblProduct.setText(String.valueOf(products));
-        int customers=DashboardModel.getCustomersAmount();
+        int customers=adminDashboardBO.getCustomersAmount();
         lblCustomer.setText(String.valueOf(customers));
 
     }
 
     public void returnLineChart() throws SQLException, ClassNotFoundException {
         XYChart.Series series = new XYChart.Series();
-        double monday=DashboardModel.getMonday();
-        double tuesday=DashboardModel.getTuesday();
-        double wednesday=DashboardModel.getWednesday();
-        double thursday=DashboardModel.getThursday();
-        double friday=DashboardModel.getFriday();
-        double saturday=DashboardModel.getSaturday();
-        double sunday=DashboardModel.getSunday();
+        double monday= adminDashboardBO.getMonday();
+        double tuesday= adminDashboardBO.getTuesday();
+        double wednesday= adminDashboardBO.getWednesday();
+        double thursday= adminDashboardBO.getThursday();
+        double friday= adminDashboardBO.getFriday();
+        double saturday= adminDashboardBO.getSaturday();
+        double sunday= adminDashboardBO.getSunday();
 
         series.getData().add(new XYChart.Data("Mon", monday));
         series.getData().add(new XYChart.Data("Tue", tuesday));

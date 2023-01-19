@@ -1,6 +1,7 @@
 package lk.ijse.bookshop.dao.custom.impl;
 
 import lk.ijse.bookshop.dao.SQLUtil;
+import lk.ijse.bookshop.dao.custom.OfferDAO;
 import lk.ijse.bookshop.dto.OfferDTO;
 import lk.ijse.bookshop.view.tm.OfferTm;
 
@@ -9,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class OfferDAOImpl {
+public class OfferDAOImpl implements OfferDAO {
     public static String getNowOfferId() throws SQLException, ClassNotFoundException {
         String sql="SELECT OfferId FROM offer ORDER BY OfferId DESC LIMIT 1";
         ResultSet resultSet= SQLUtil.execute(sql);

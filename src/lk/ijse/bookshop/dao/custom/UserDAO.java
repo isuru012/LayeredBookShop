@@ -1,4 +1,7 @@
 package lk.ijse.bookshop.dao.custom;
 
-public interface UserDAO {
+import lk.ijse.bookshop.dao.CrudDAO;
+import lk.ijse.bookshop.entity.User;
+
+public interface UserDAO extends CrudDAO<User>,SuperDAO {
 }

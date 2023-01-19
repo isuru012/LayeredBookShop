@@ -15,6 +15,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.AdminEmployeeBO;
 import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.EmployeeModel;
 import lk.ijse.bookshop.util.Notification;
@@ -59,6 +61,8 @@ public class AdminEmployeeController {
     @FXML
     private JFXTextField txtSalary;
     ObservableList observableList = FXCollections.observableArrayList();
+
+    AdminEmployeeBO adminEmployeeBO= BOFactory.getBOFactory().getBOTypes()
 
     public void initialize() throws SQLException, ClassNotFoundException {
         Platform.runLater(() -> txtName.requestFocus());

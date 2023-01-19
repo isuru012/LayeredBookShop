@@ -1,13 +1,14 @@
 package lk.ijse.bookshop.dao.custom.impl;
 
 import lk.ijse.bookshop.dao.SQLUtil;
+import lk.ijse.bookshop.dao.custom.QueryDAO;
 import lk.ijse.bookshop.view.tm.OfferTm;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class QueryDAOImpl {
+public class QueryDAOImpl implements QueryDAO {
     public ArrayList getAllDetailsFromOffers() throws SQLException, ClassNotFoundException {
         String sql="SELECT item.ItemId,item.BatchNumber,offer.Amount,offer.StartedDate," +
                 "offer.EndedDate FROM item LEFT JOIN offer ON item.OfferId = offer.OfferId ORDER BY ItemId";

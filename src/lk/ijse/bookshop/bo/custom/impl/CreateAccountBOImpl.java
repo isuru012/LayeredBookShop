@@ -9,5 +9,7 @@ package lk.ijse.bookshop.bo.custom.impl;
 */
 
 
-public class CreateAccountBOImpl {
+import lk.ijse.bookshop.bo.custom.CreateAccountBO;
+
+public class CreateAccountBOImpl implements CreateAccountBO {
 }

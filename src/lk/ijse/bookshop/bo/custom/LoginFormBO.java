@@ -9,5 +9,5 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
-public interface LoginFormBO {
+public interface LoginFormBO  extends SuperBO{
 }
