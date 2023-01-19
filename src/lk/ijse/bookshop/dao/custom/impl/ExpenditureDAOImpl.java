@@ -44,15 +44,6 @@ public class ExpenditureDAOImpl implements ExpenditureDAO {
         return false;
     }
 
-    public String getUsername() throws SQLException, ClassNotFoundException {
-        String sql = "SELECT Username FROM  user WHERE Role='Admin' ";
-        ResultSet resultSet = SQLUtil.execute(sql);
-        if (resultSet.next()) {
-            return resultSet.getString(1);
-        }
-        return null;
-    }
-
     public boolean insert(Expenditure expenditure) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO expenditure VALUES (?,?,?,?,?,?)";
         return SQLUtil.execute(sql, expenditure.getExpenditureId(), expenditure.getDescription(),

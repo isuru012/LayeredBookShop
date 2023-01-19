@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class CustomerDAOImpl implements CustomerDAO {
+
     public Customer search(String text) throws SQLException, ClassNotFoundException {
         String searchText="%"+text+"%";
         String sql="SELECT * FROM customer WHERE Name LIKE ? OR PhoneNumber LIKE ?";
@@ -23,6 +24,14 @@ public class CustomerDAOImpl implements CustomerDAO {
                     (java.sql.Date) resultSet.getObject(4),resultSet.getString(5));
         }
         return null;
+    }
+    public static int getCustomersAmount() throws SQLException, ClassNotFoundException {
+        String sql="SELECT COUNT(CusId) FROM customer";
+        ResultSet resultSet= SQLUtil.execute(sql);
+        if (resultSet.next()){
+            return resultSet.getInt(1);
+        }
+        return -1;
     }
 
     public  ArrayList getAll() throws SQLException, ClassNotFoundException {

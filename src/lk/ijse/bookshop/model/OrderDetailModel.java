@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OrderDetailModel {
-    public static boolean saveOrderDetails(ArrayList<OrderDetailDTO> orderDetailDTOS) throws SQLException, ClassNotFoundException {
+   /* public static boolean saveOrderDetails(ArrayList<OrderDetailDTO> orderDetailDTOS) throws SQLException, ClassNotFoundException {
         for (OrderDetailDTO ord : orderDetailDTOS) {
             if (!addOrderDetail(ord)) {
                 return false;
@@ -27,5 +27,5 @@ public class OrderDetailModel {
         statement.setObject(5, ord.getTotalPrice());
 
         return statement.executeUpdate() > 0;
-    }
+    }*/
 }

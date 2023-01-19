@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class PaymentModel {
 
-    public static String generateCurrentPaymentId() throws SQLException, ClassNotFoundException {
+   /* public static String generateCurrentPaymentId() throws SQLException, ClassNotFoundException {
         String sql="SELECT PaymentId FROM payment ORDER BY PaymentId DESC LIMIT 1";
         ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
@@ -19,11 +19,11 @@ public class PaymentModel {
     }
 
     public static ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
-        /*String sql="select bookshop.payment.PaymentId,bookshop.payment.Amount,bookshop.payment.Date,\n" +
+        *//*String sql="select bookshop.payment.PaymentId,bookshop.payment.Amount,bookshop.payment.Date,\n" +
                 "       bookshop.payment.Time,bookshop.supplier.Name,\n" +
                 "       bookshop.payment.ExpenditureId from supplier INNER JOIN payment\n" +
                 "WHERE SupplierId=(select SupplierId from suporder where SupOrderId=\n" +
-                "        (select SupOrderId from payment where SupOrderId=?))";*/
+                "        (select SupOrderId from payment where SupOrderId=?))";*//*
         String sql="select * from payment";
         ResultSet resultSet= SQLUtil.execute(sql);
         ArrayList arrayList=new ArrayList();
@@ -33,5 +33,5 @@ public class PaymentModel {
                     resultSet.getString(6),resultSet.getString(7)));
         }
         return arrayList;
-    }
+    }*/
 }

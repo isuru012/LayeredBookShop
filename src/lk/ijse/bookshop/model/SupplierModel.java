@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class SupplierModel {
 
-    public static ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
+    /*public static ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
         String sql="SELECT * FROM supplier";
         ResultSet resultSet= SQLUtil.execute(sql);
         ArrayList arrayList=new ArrayList();
@@ -27,9 +27,9 @@ public class SupplierModel {
 
             }
         return arrayList;
-    }
+    }*/
 
-    public static String getSupplierId() throws SQLException, ClassNotFoundException {
+   /* public static String getSupplierId() throws SQLException, ClassNotFoundException {
         String sql="SELECT SupplierId FROM supplier ORDER BY SupplierId DESC LIMIT 1";
         ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
@@ -37,9 +37,9 @@ public class SupplierModel {
         }
         return null;
 
-    }
+    }*/
 
-    public static boolean insertSupplierData(SupplierDTO supplierDTO) throws SQLException, ClassNotFoundException {
+   /* public static boolean insertSupplierData(SupplierDTO supplierDTO) throws SQLException, ClassNotFoundException {
         String sql="INSERT INTO supplier VALUES (?,?,?,?,?)";
         return SQLUtil.execute(sql, supplierDTO.getSupplierId(), supplierDTO.getName(), supplierDTO.getLocation(),
                 supplierDTO.getPhoneNumber(), supplierDTO.getUserName());
@@ -50,27 +50,19 @@ public class SupplierModel {
         String sql="DELETE FROM supplier WHERE SupplierId=? ";
         return SQLUtil.execute(sql,supId);
     }
-
-    public static boolean updateSupplier(String name, String address, int phoneNumber, String supId) throws SQLException, ClassNotFoundException {
+*/
+   /* public static boolean updateSupplier(String name, String address, int phoneNumber, String supId) throws SQLException, ClassNotFoundException {
         String sql="UPDATE supplier SET Name=?,PhoneNumber=?,Location=? WHERE SupplierId=? ";
         return SQLUtil.execute(sql,name,phoneNumber,address,supId);
-    }
+    }*/
 
-    public static String getSupplierIdFromNumber(String valueOf) throws SQLException, ClassNotFoundException {
+    /*public static String getSupplierIdFromNumber(String valueOf) throws SQLException, ClassNotFoundException {
         String sql="SELECT SupplierId FROM supplier WHERE PhoneNumber=?";
         ResultSet resultSet= SQLUtil.execute(sql,valueOf);
         if (resultSet.next()){
             return resultSet.getString(1);
         }
         return null;
-    }
+    }*/
 
-    public static String getAdminUsername() throws SQLException, ClassNotFoundException {
-        String sql="SELECT Username FROM user WHERE Role='Admin' ";
-        ResultSet resultSet= SQLUtil.execute(sql);
-        if (resultSet.next()){
-            return resultSet.getString(1);
-        }
-        return null;
-    }
 }
