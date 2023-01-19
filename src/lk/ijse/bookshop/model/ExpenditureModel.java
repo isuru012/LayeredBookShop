@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ExpenditureModel {
 
-    public static ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
+    /*public static ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
         String sql = "select * from expenditure";
         ResultSet resultSet = SQLUtil.execute(sql);
         ArrayList arrayList = new ArrayList();
@@ -31,14 +31,14 @@ public class ExpenditureModel {
         return null;
     }
 
-    public static String getUsername() throws SQLException, ClassNotFoundException {
+    *//*public static String getUsername() throws SQLException, ClassNotFoundException {
         String sql = "SELECT Username FROM  user WHERE Role='Admin' ";
         ResultSet resultSet = SQLUtil.execute(sql);
         if (resultSet.next()) {
             return resultSet.getString(1);
         }
         return null;
-    }
+    }*//*
 
     public static boolean insertExpenditureData(ExpenditureDTO expenditureDTO) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO expenditure VALUES (?,?,?,?,?,?)";
@@ -55,5 +55,5 @@ public class ExpenditureModel {
     public static boolean deleteExpenditure(String expenditureId) throws SQLException, ClassNotFoundException {
         String sql="DELETE FROM expenditure WHERE ExpenditureId=?";
         return SQLUtil.execute(sql,expenditureId);
-    }
+    }*/
 }

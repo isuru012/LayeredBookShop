@@ -15,6 +15,24 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
+    public String getEmployeeId(String Username) throws SQLException, ClassNotFoundException {
+        String sql="SELECT EmployeeId FROM employee WHERE Username=? ";
+        ResultSet resultSet= SQLUtil.execute(sql,Username);
+        if (resultSet.next()){
+            return resultSet.getString(1);
+        }
+        return null;
+    }
+    public String getEmployeeName(String id) throws SQLException, ClassNotFoundException {
+        String sql="SELECT Name FROM employee WHERE EmployeeId=?";
+        ResultSet resultSet= SQLUtil.execute(sql,id);
+        if (resultSet.next()){
+
+            return resultSet.getString(1);
+        }
+
+        return null;
+    }
     public ArrayList getAll() throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM employee";
         ResultSet resultSet = SQLUtil.execute(sql);
@@ -63,7 +81,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     public boolean insert(Employee employeeDTO) throws SQLException, ClassNotFoundException {
-        PreparedStatement statement = DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO employee values(?,?,?,?,?,?)");
+        PreparedStatement statement = DBConnection.getDBConnection().getConnection().prepareStatement("INSERT " +
+                "INTO employee values(?,?,?,?,?,?)");
 
         statement.setObject(1, employeeDTO.getEmployeeId());
         statement.setObject(2, employeeDTO.getName());

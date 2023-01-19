@@ -11,16 +11,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PlaceOrderModel {
-    public static String getOrderId() throws SQLException, ClassNotFoundException {
+    /*public static String getOrderId() throws SQLException, ClassNotFoundException {
         String sql="SELECT CusOrderId FROM cusorder ORDER BY CusOrderId DESC LIMIT 1";
         ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
             return resultSet.getString(1);
         }
         return null;
-    }
+    }*/
 
-    public static ArrayList loadAllDescriptionIds() throws SQLException, ClassNotFoundException {
+    /*public static ArrayList loadAllDescriptionIds() throws SQLException, ClassNotFoundException {
         String sql="SELECT Description FROM item GROUP BY Description";
         ResultSet resultSet= SQLUtil.execute(sql);
         ArrayList <String> arrayList=new ArrayList();
@@ -28,9 +28,9 @@ public class PlaceOrderModel {
             arrayList.add(resultSet.getString(1));
         }
         return arrayList;
-    }
+    }*/
 
-    public static ItemDTO searchDescription(String text) throws SQLException, ClassNotFoundException {
+    /*public static ItemDTO searchDescription(String text) throws SQLException, ClassNotFoundException {
         String searchText="%"+text;
         String sql="SELECT * FROM item WHERE Description LIKE ?";
         ResultSet resultSet= SQLUtil.execute(sql,searchText);
@@ -39,8 +39,8 @@ public class PlaceOrderModel {
                     resultSet.getDouble(4),resultSet.getDouble(5),resultSet.getInt(6),resultSet.getString(7));
         }
         return null;
-    }
-    public static ArrayList getAllItemPrices(String ItemCode) throws SQLException, ClassNotFoundException {
+    }*/
+    /*public static ArrayList getAllItemPrices(String ItemCode) throws SQLException, ClassNotFoundException {
         String sql="SELECT * FROM item WHERE ItemId=?";
         ResultSet resultSet= SQLUtil.execute(sql,ItemCode);
         ArrayList arrayList=new ArrayList();
@@ -48,8 +48,8 @@ public class PlaceOrderModel {
             arrayList.add(resultSet.getString(5));
         }
         return arrayList;
-    }
-    public static int getItemQuantity(String ItemCode) throws SQLException, ClassNotFoundException {
+    }*/
+    /*public static int getItemQuantity(String ItemCode) throws SQLException, ClassNotFoundException {
         String sql="SELECT QuantityOnHand FROM item WHERE ItemId=?";
         ResultSet resultSet= SQLUtil.execute(sql,ItemCode);
         if (resultSet.next()){
@@ -57,13 +57,14 @@ public class PlaceOrderModel {
 
         }
         return -1;
-    }
+    }*/
 
 
     public static boolean placeOrder(CusOrderDTO cusOrderDTO) throws SQLException, ClassNotFoundException {
         try {
             DBConnection.getDBConnection().getConnection().setAutoCommit(false);
-            PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO cusorder VALUES(?,?,?,?,?) ");
+            PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT " +
+                    "INTO cusorder VALUES(?,?,?,?,?) ");
             statement.setObject(1, cusOrderDTO.getCusOrderId());
             statement.setObject(2, cusOrderDTO.getDate());
             statement.setObject(3, cusOrderDTO.getTime());
@@ -89,12 +90,12 @@ public class PlaceOrderModel {
         }
     }
 
-    public static int getQtyTotalOfOneItem(String itemId, double unitPrice) throws SQLException, ClassNotFoundException {
+    /*public static int getQtyTotalOfOneItem(String itemId, double unitPrice) throws SQLException, ClassNotFoundException {
         String sql="SELECT SUM(QuantityOnHand) FROM item WHERE ItemId=? AND SellingUnitPrice=?";
         ResultSet resultSet= SQLUtil.execute(sql,itemId,unitPrice);
         if (resultSet.next()){
             return resultSet.getInt(1);
         }
         return -1;
-    }
+    }*/
 }

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ReloadModel {
-    public static boolean updateAmount(ArrayList<CusReloadDetailsDTO> cusReloadDetailsDTOS) throws SQLException, ClassNotFoundException {
+   /* public static boolean updateAmount(ArrayList<CusReloadDetailsDTO> cusReloadDetailsDTOS) throws SQLException, ClassNotFoundException {
         for (CusReloadDetailsDTO detail : cusReloadDetailsDTOS) {
             if (!updateAmmount(detail)) {
                 return false;
@@ -25,5 +25,5 @@ public class ReloadModel {
 
 
         return stm.executeUpdate() > 0;
-    }
+    }*/
 }

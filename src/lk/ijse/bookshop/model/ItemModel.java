@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ItemModel {
-    public static boolean updateStock(ArrayList<OrderDetailDTO> orderDetailDTOS) throws SQLException, ClassNotFoundException {
+    /*public static boolean updateStock(ArrayList<OrderDetailDTO> orderDetailDTOS) throws SQLException, ClassNotFoundException {
         for (OrderDetailDTO detail : orderDetailDTOS) {
             if (!updateItem(detail)) {
                 return false;
@@ -121,5 +121,5 @@ return null;
     public static boolean updateItem(String itemCode, int batchNumber, String desCriptionText, double buyingPrice, double sellingPrice, int quantity) throws SQLException, ClassNotFoundException {
         String sql="UPDATE item SET Description=?,BuyingUnitPrice=?,SellingUnitPrice=?,QuantityOnHand=? WHERE ItemId=? AND  BatchNumber=?";
         return SQLUtil.execute(sql,desCriptionText,buyingPrice,sellingPrice,quantity,itemCode,batchNumber);
-    }
+    }*/
 }

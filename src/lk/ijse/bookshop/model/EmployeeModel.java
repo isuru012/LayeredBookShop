@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmployeeModel {
-    public static ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
+    /*public static ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
         String sql="SELECT * FROM employee";
         ResultSet resultSet= SQLUtil.execute(sql);
         ArrayList arrayList=new ArrayList();
@@ -54,5 +54,5 @@ public class EmployeeModel {
         statement.setObject(6, employeeDTO.getUserName());
 
         return statement.executeUpdate() > 0;
-    }
+    }*/
 }

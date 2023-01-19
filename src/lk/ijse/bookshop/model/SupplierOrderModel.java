@@ -12,16 +12,16 @@ import java.util.ArrayList;
 
 public class SupplierOrderModel {
 
-    public static String getOrderId() throws SQLException, ClassNotFoundException {
+    /*public static String getOrderId() throws SQLException, ClassNotFoundException {
         String sql="SELECT SupOrderId FROM suporder ORDER BY SupOrderId DESC LIMIT 1";
         ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
             return resultSet.getString(1);
         }
         return null;
-    }
+    }*/
 
-    public static ArrayList loadAllSupplierNames() throws SQLException, ClassNotFoundException {
+    /*public static ArrayList loadAllSupplierNames() throws SQLException, ClassNotFoundException {
         String sql="SELECT Name FROM supplier";
         ResultSet resultSet= SQLUtil.execute(sql);
         ArrayList <String> arrayList=new ArrayList();
@@ -29,9 +29,9 @@ public class SupplierOrderModel {
             arrayList.add(resultSet.getString(1));
         }
         return arrayList;
-    }
+    }*/
 
-    public static ArrayList loadAllDescriptionIds() throws SQLException, ClassNotFoundException {
+    /*public static ArrayList loadAllDescriptionIds() throws SQLException, ClassNotFoundException {
         String sql="SELECT Description FROM item GROUP BY Description";
         ResultSet resultSet= SQLUtil.execute(sql);
         ArrayList <String> arrayList=new ArrayList();
@@ -39,9 +39,9 @@ public class SupplierOrderModel {
             arrayList.add(resultSet.getString(1));
         }
         return arrayList;
-    }
+    }*/
 
-    public static ItemDTO searchDescription(String text) throws SQLException, ClassNotFoundException {
+    /*public static ItemDTO searchDescription(String text) throws SQLException, ClassNotFoundException {
         String searchText="%"+text+"%";
         String sql="SELECT * FROM item WHERE Description LIKE ?";
         ResultSet resultSet= SQLUtil.execute(sql,searchText);
@@ -50,9 +50,9 @@ public class SupplierOrderModel {
                     resultSet.getDouble(4),resultSet.getDouble(5),resultSet.getInt(6),resultSet.getString(7));
         }
         return null;
-    }
+    }*/
 
-    public static ArrayList getAllItemPrices(String text) throws SQLException, ClassNotFoundException {
+    /*public static ArrayList getAllItemPrices(String text) throws SQLException, ClassNotFoundException {
         String sql="SELECT * FROM item WHERE ItemId=?";
         ResultSet resultSet= SQLUtil.execute(sql,text);
         ArrayList arrayList=new ArrayList();
@@ -60,9 +60,9 @@ public class SupplierOrderModel {
             arrayList.add(resultSet.getString(5));
         }
         return arrayList;
-    }
+    }*/
 
-    public static SupplierDTO searchName(String text) throws SQLException, ClassNotFoundException {
+    /*public static SupplierDTO searchName(String text) throws SQLException, ClassNotFoundException {
         String searchText="%"+text+"%";
         String sql="SELECT * FROM supplier WHERE Name LIKE ?";
         ResultSet resultSet= SQLUtil.execute(sql,searchText);
@@ -71,9 +71,9 @@ public class SupplierOrderModel {
                     resultSet.getString(3),resultSet.getInt(4),resultSet.getString(5) );
         }
         return null;
-    }
+    }*/
 
-    public static int getItemQuantity(String text) throws SQLException, ClassNotFoundException {
+    /*public static int getItemQuantity(String text) throws SQLException, ClassNotFoundException {
         String sql="SELECT QuantityOnHand FROM item WHERE ItemId=?";
         ResultSet resultSet= SQLUtil.execute(sql,text);
         if (resultSet.next()){
@@ -81,9 +81,9 @@ public class SupplierOrderModel {
 
         }
         return -1;
-    }
+    }*/
 
-    public static double getSellingUnitPrice(String text) throws SQLException, ClassNotFoundException {
+    /*public static double getSellingUnitPrice(String text) throws SQLException, ClassNotFoundException {
         String sql="SELECT SellingUnitPrice FROM item WHERE ItemId=?";
         ResultSet resultSet= SQLUtil.execute(sql,text);
         if (resultSet.next()){
@@ -91,9 +91,9 @@ public class SupplierOrderModel {
 
         }
         return -1;
-    }
+    }*/
 
-    public static String getUserName() throws SQLException, ClassNotFoundException {
+    /*public static String getUserName() throws SQLException, ClassNotFoundException {
         String sql="SELECT Username FROM user WHERE Role='Admin'";
         ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
@@ -101,12 +101,13 @@ public class SupplierOrderModel {
 
         }
         return null;
-    }
+    }*/
 
     public static boolean placeOrder(SupplierOrderDTO supplierOrderDTO) throws SQLException, ClassNotFoundException {
         try {
             DBConnection.getDBConnection().getConnection().setAutoCommit(false);
-            PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO suporder VALUES(?,?,?,?,?) ");
+            PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT " +
+                    "INTO suporder VALUES(?,?,?,?,?) ");
             statement.setObject(1, supplierOrderDTO.getSupOrderId());
             statement.setObject(2, supplierOrderDTO.getDate());
             statement.setObject(3, supplierOrderDTO.getTime());
@@ -136,7 +137,7 @@ public class SupplierOrderModel {
         }
     }
 
-    private static boolean updatePayment(String supplierId, String supOrderId) throws SQLException, ClassNotFoundException {
+   /* private static boolean updatePayment(String supplierId, String supOrderId) throws SQLException, ClassNotFoundException {
         String paymentId=generateNextPaymentId(PaymentModel.generateCurrentPaymentId());
 
         double amount=0;
@@ -171,9 +172,9 @@ public class SupplierOrderModel {
 
 
 
-    }
+    }*/
 
-    private static String generateNextPaymentId(String generateCurrentPaymentId) {
+    /*private static String generateNextPaymentId(String generateCurrentPaymentId) {
         if (generateCurrentPaymentId != null) {
             String[] split = generateCurrentPaymentId.split("P");
             int id = Integer.parseInt(split[1]);
@@ -193,9 +194,9 @@ public class SupplierOrderModel {
             }
         }
         return "P00001";
-    }
+    }*/
 
-    public static boolean checkItem(ArrayList<SupplierOrderDetailsDTO> supplierOrderDetailsDTOS) throws SQLException, ClassNotFoundException {
+   /* public static boolean checkItem(ArrayList<SupplierOrderDetailsDTO> supplierOrderDetailsDTOS) throws SQLException, ClassNotFoundException {
         for (SupplierOrderDetailsDTO detail : supplierOrderDetailsDTOS) {
             if (!checkOneDetail(detail)) {
                 return false;
@@ -226,18 +227,18 @@ public class SupplierOrderModel {
             stm.setObject(7,null);
         }
         return stm.executeUpdate() > 0;
-    }
+    }*/
 
-    private static String getDescription(String itemId) throws SQLException, ClassNotFoundException {
+    /*private static String getDescription(String itemId) throws SQLException, ClassNotFoundException {
         String sql="SELECT Description FROM item WHERE ItemId=?";
         ResultSet resultSet= SQLUtil.execute(sql,itemId);
         if (resultSet.next()){
             return resultSet.getString(1);
         }
         return null;
-    }
+    }*/
 
-    private static int generateNextBatchNum(int currentBatchNumber) {
+    /*private static int generateNextBatchNum(int currentBatchNumber) {
         if (currentBatchNumber !=0) {
             return currentBatchNumber+1;
         }
@@ -251,14 +252,14 @@ public class SupplierOrderModel {
             return resultSet.getInt(1);
         }
         return 0;
-    }
+    }*/
 
-    public static int getQtyTotalOfOneItem(String itemId) throws SQLException, ClassNotFoundException {
+    /*public static int getQtyTotalOfOneItem(String itemId) throws SQLException, ClassNotFoundException {
         String sql="SELECT SUM(QuantityOnHand) FROM item WHERE ItemId=?";
         ResultSet resultSet= SQLUtil.execute(sql,itemId);
         if (resultSet.next()){
             return resultSet.getInt(1);
         }
         return -1;
-    }
+    }*/
 }

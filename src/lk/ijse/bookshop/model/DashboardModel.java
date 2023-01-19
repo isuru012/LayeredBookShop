@@ -8,34 +8,34 @@ import java.util.ArrayList;
 
 public class DashboardModel {
 
-    public static int getOrdersAmount() throws SQLException, ClassNotFoundException {
+    /*public static int getOrdersAmount() throws SQLException, ClassNotFoundException {
         String sql="SELECT COUNT(CusOrderId) FROM cusorder";
         ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
             return resultSet.getInt(1);
         }
         return -1;
-    }
+    }*/
 
-    public static int getProductsAmount() throws SQLException, ClassNotFoundException {
+    /*public static int getProductsAmount() throws SQLException, ClassNotFoundException {
         String sql="SELECT COUNT(ItemId) FROM item";
         ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
             return resultSet.getInt(1);
         }
         return -1;
-    }
+    }*/
 
-    public static int getCustomersAmount() throws SQLException, ClassNotFoundException {
+  /*  public static int getCustomersAmount() throws SQLException, ClassNotFoundException {
         String sql="SELECT COUNT(CusId) FROM customer";
         ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
             return resultSet.getInt(1);
         }
         return -1;
-    }
+    }*/
 
-    public static ArrayList getTrendingItems() throws SQLException, ClassNotFoundException {
+    /*public static ArrayList getTrendingItems() throws SQLException, ClassNotFoundException {
         String sql="select Description from item right join cusorderdetails  on item.ItemId = cusorderdetails.ItemId group by cusorderdetails.ItemId order by SUM(Quantity) desc";
         ResultSet resultSet= SQLUtil.execute(sql);
         ArrayList<String> arrayList=new ArrayList<>();
@@ -120,6 +120,6 @@ public class DashboardModel {
             return resultSet.getDouble(1);
         }
         return -1;
-    }
+    }*/
 
 }

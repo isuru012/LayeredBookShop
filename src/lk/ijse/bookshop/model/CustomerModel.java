@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class CustomerModel {
-    public static CustomerDTO search(String text) throws SQLException, ClassNotFoundException {
+    /*public static CustomerDTO search(String text) throws SQLException, ClassNotFoundException {
         String searchText="%"+text+"%";
         String sql="SELECT * FROM customer WHERE Name LIKE ? OR PhoneNumber LIKE ?";
         ResultSet resultSet= SQLUtil.execute(sql,searchText,searchText);
@@ -56,5 +56,5 @@ public class CustomerModel {
     public static boolean deleteCustomer(String cusId) throws SQLException, ClassNotFoundException {
         String sql="DELETE FROM customer WHERE CusId=? ";
         return SQLUtil.execute(sql,cusId);
-    }
+    }*/
 }

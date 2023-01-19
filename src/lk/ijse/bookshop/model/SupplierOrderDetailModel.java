@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SupplierOrderDetailModel {
-    public static boolean saveOrderDetails(ArrayList<SupplierOrderDetailsDTO> supplierOrderDetailsDTOS) throws SQLException, ClassNotFoundException {
+   /* public static boolean saveOrderDetails(ArrayList<SupplierOrderDetailsDTO> supplierOrderDetailsDTOS) throws SQLException, ClassNotFoundException {
         for (SupplierOrderDetailsDTO ord : supplierOrderDetailsDTOS) {
             if (!addOrderDetail(ord)) {
                 return false;
@@ -17,7 +17,8 @@ public class SupplierOrderDetailModel {
         return true;
     }
     private static boolean addOrderDetail(SupplierOrderDetailsDTO ord) throws SQLException, ClassNotFoundException {
-        PreparedStatement statement = DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO suporderdetails values(?,?,?,?,?)");
+        PreparedStatement statement = DBConnection.getDBConnection().getConnection().prepareStatement("INSERT " +
+                "INTO suporderdetails values(?,?,?,?,?)");
 
         statement.setObject(1, ord.getSupOrderId());
         statement.setObject(2, ord.getItemId());
@@ -26,5 +27,5 @@ public class SupplierOrderDetailModel {
         statement.setObject(5, ord.getTotalPrice());
 
         return statement.executeUpdate() > 0;
-    }
+    }*/
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class PlaceReloadModel {
 
-    public static ReloadDTO searchDescription(String text) throws SQLException, ClassNotFoundException {
+    /*public static ReloadDTO searchDescription(String text) throws SQLException, ClassNotFoundException {
         String searchText="%"+text+"%";
         String sql="SELECT * FROM reload WHERE ServiceProvider LIKE ?";
         ResultSet resultSet= SQLUtil.execute(sql,searchText);
@@ -22,9 +22,9 @@ public class PlaceReloadModel {
 
         }
         return null;
-    }
+    }*/
 
-    public static ArrayList loadAllServiceProviders() throws SQLException, ClassNotFoundException {
+    /*public static ArrayList loadAllServiceProviders() throws SQLException, ClassNotFoundException {
         String sql="SELECT ServiceProvider FROM reload";
         ResultSet resultSet= SQLUtil.execute(sql);
         ArrayList <String> arrayList=new ArrayList();
@@ -32,21 +32,22 @@ public class PlaceReloadModel {
             arrayList.add(resultSet.getString(1));
         }
         return arrayList;
-    }
+    }*/
 
-    public static String getOrderId() throws SQLException, ClassNotFoundException {
+    /*public static String getOrderId() throws SQLException, ClassNotFoundException {
         String sql="SELECT CusReloadId FROM cusreload ORDER BY CusReloadId DESC LIMIT 1";
         ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
             return resultSet.getString(1);
         }
         return null;
-    }
+    }*/
 
     public static boolean placeReload(CusReloadDTO cusReloadDTO) throws SQLException, ClassNotFoundException {
         try {
             DBConnection.getDBConnection().getConnection().setAutoCommit(false);
-            PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO cusreload VALUES(?,?,?,?,?) ");
+            PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT " +
+                    "INTO cusreload VALUES(?,?,?,?,?) ");
             statement.setObject(1, cusReloadDTO.getCusReloadId());
             statement.setObject(2, cusReloadDTO.getDate());
             statement.setObject(3, cusReloadDTO.getTime());

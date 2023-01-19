@@ -9,6 +9,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SupplierDAOImpl {
+
+
+    public ArrayList loadAllSupplierNames() throws SQLException, ClassNotFoundException {
+        String sql="SELECT Name FROM supplier";
+        ResultSet resultSet= SQLUtil.execute(sql);
+        ArrayList <String> arrayList=new ArrayList();
+        while (resultSet.next()){
+            arrayList.add(resultSet.getString(1));
+        }
+        return arrayList;
+    }
+    public SupplierDTO searchName(String text) throws SQLException, ClassNotFoundException {
+        String searchText="%"+text+"%";
+        String sql="SELECT * FROM supplier WHERE Name LIKE ?";
+        ResultSet resultSet= SQLUtil.execute(sql,searchText);
+        if (resultSet.next()){
+            return new SupplierDTO(resultSet.getString(1), resultSet.getString(2),
+                    resultSet.getString(3),resultSet.getInt(4),resultSet.getString(5) );
+        }
+        return null;
+    }
+
     public ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM supplier";
         ResultSet resultSet = SQLUtil.execute(sql);
@@ -64,12 +86,5 @@ public class SupplierDAOImpl {
         return null;
     }
 
-    public String getAdminUsername() throws SQLException, ClassNotFoundException {
-        String sql = "SELECT Username FROM user WHERE Role='Admin' ";
-        ResultSet resultSet = SQLUtil.execute(sql);
-        if (resultSet.next()) {
-            return resultSet.getString(1);
-        }
-        return null;
-    }
+
 }

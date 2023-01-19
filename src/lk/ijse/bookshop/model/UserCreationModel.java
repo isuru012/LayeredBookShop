@@ -10,11 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserCreationModel {
-    public static String role;
+
     public static boolean userAllDetailSave(UserDTO userDTO, EmployeeDTO employeeDTO) throws SQLException, ClassNotFoundException {
         try {
             DBConnection.getDBConnection().getConnection().setAutoCommit(false);
-            PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO user VALUES(?,?,?) ");
+            PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT " +
+                    "INTO user VALUES(?,?,?) ");
             statement.setObject(1, userDTO.getUserName());
             statement.setObject(2, userDTO.getPassword());
             statement.setObject(3, userDTO.getRole());
@@ -40,7 +41,7 @@ public class UserCreationModel {
 
 
 
-    public static UserDTO getLoginData(String username, String password) throws SQLException, ClassNotFoundException {
+    /*public static UserDTO getLoginData(String username, String password) throws SQLException, ClassNotFoundException {
         String sql="SELECT * FROM user WHERE Username=? AND Password=?";
         ResultSet resultSet= SQLUtil.execute(sql,username,password);
         if (resultSet.next()){
@@ -61,8 +62,8 @@ public class UserCreationModel {
     public static boolean passwordReset(String username,String password) throws SQLException, ClassNotFoundException {
         String sql="UPDATE user SET Password=? WHERE Username=?";
         return SQLUtil.execute(sql,password,username);
-    }
-    public static String getEmployeeId(String Username) throws SQLException, ClassNotFoundException {
+    }*/
+    /*public static String getEmployeeId(String Username) throws SQLException, ClassNotFoundException {
         String sql="SELECT EmployeeId FROM employee WHERE Username=? ";
        ResultSet resultSet= SQLUtil.execute(sql,Username);
        if (resultSet.next()){
@@ -79,5 +80,5 @@ public class UserCreationModel {
         }
 
         return null;
-    }
+    }*/
 }
