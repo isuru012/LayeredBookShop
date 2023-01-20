@@ -17,6 +17,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.bookshop.bo.BOFactory;
 import lk.ijse.bookshop.bo.custom.AdminEmployeeBO;
+import lk.ijse.bookshop.dto.EmployeeDTO;
+import lk.ijse.bookshop.entity.Employee;
 import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.EmployeeModel;
 import lk.ijse.bookshop.util.Notification;
@@ -62,7 +64,7 @@ public class AdminEmployeeController {
     private JFXTextField txtSalary;
     ObservableList observableList = FXCollections.observableArrayList();
 
-    AdminEmployeeBO adminEmployeeBO= BOFactory.getBOFactory().getBOTypes()
+    AdminEmployeeBO adminEmployeeBO= (AdminEmployeeBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.EMPLOYEE);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         Platform.runLater(() -> txtName.requestFocus());
@@ -74,7 +76,7 @@ public class AdminEmployeeController {
         colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
 
 
-        ArrayList arrayList = EmployeeModel.getAllDetails();
+        ArrayList arrayList = adminEmployeeBO.getAllDetails();
         for (Object employeeTm : arrayList) {
             observableList.add(employeeTm);
         }
@@ -92,7 +94,7 @@ public class AdminEmployeeController {
             Optional<ButtonType> result = alert.showAndWait();
             String employeeId = String.valueOf(colEmployeeId.getCellData(tblEmployee.getSelectionModel().getSelectedIndex()));
             if (result.get() == ButtonType.OK) {
-                boolean deleteEmployee = EmployeeModel.deleteEmployee(employeeId);
+                boolean deleteEmployee = adminEmployeeBO.deleteEmployee(employeeId);
                 if (deleteEmployee) {
                     txtName.setText("");
                     txtPhoneNumber.setText("");
@@ -133,8 +135,13 @@ public class AdminEmployeeController {
             String employeeId = String.valueOf(colEmployeeId.getCellData(tblEmployee.getSelectionModel().getSelectedIndex()));
             double salary = Double.parseDouble(txtSalary.getText());
 
+            EmployeeDTO employeeDTO=new EmployeeDTO();
+            employeeDTO.setEmployeeId(employeeId);
+            employeeDTO.setSalary(salary);
 
-            boolean updateCustomer = EmployeeModel.updateSalary(employeeId, salary);
+
+
+            boolean updateCustomer = adminEmployeeBO.updateSalary(employeeDTO);
             if (updateCustomer) {
                 Notification.notifie("Employee Data", "Employee Data Updated", NotificationType.INFORMATION);
                 observableList.clear();

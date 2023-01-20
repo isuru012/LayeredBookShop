@@ -9,5 +9,17 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
+import lk.ijse.bookshop.dto.ExpenditureDTO;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public interface AdminExpenditureBO extends SuperBO {
+    ArrayList <ExpenditureDTO> getAllDetails() throws SQLException, ClassNotFoundException;
+    boolean updateExpenditure(ExpenditureDTO expenditureDTO) throws SQLException, ClassNotFoundException;
+    boolean deleteExpenditure(String id) throws SQLException, ClassNotFoundException;
+    String getCurrentId() throws SQLException, ClassNotFoundException;
+    String getUsername() throws SQLException, ClassNotFoundException;
+    boolean insertExpenditureData(ExpenditureDTO expenditureDTO) throws SQLException, ClassNotFoundException;
+
 }

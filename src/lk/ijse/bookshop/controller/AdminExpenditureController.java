@@ -17,6 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.AdminExpenditureBO;
 import lk.ijse.bookshop.model.ExpenditureModel;
 import lk.ijse.bookshop.dto.ExpenditureDTO;
 import lk.ijse.bookshop.util.Notification;
@@ -70,7 +72,7 @@ public class AdminExpenditureController {
     private JFXButton btnDelete;
 
     static ObservableList observableList = FXCollections.observableArrayList();
-
+    AdminExpenditureBO adminExpenditureBO= (AdminExpenditureBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.EXPENDITURE);
     public void initialize() throws SQLException, ClassNotFoundException {
         Platform.runLater(() -> txtDescription.requestFocus());
         observableList.clear();
@@ -81,7 +83,7 @@ public class AdminExpenditureController {
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
-        ArrayList arrayList = ExpenditureModel.getAllDetails();
+        ArrayList arrayList = adminExpenditureBO.getAllDetails();
         for (Object payment : arrayList) {
             observableList.add(payment);
         }
@@ -133,7 +135,12 @@ public class AdminExpenditureController {
             String expenditureId= String.valueOf(colExpenditureId.getCellData
                     (tblExpenditure.getSelectionModel().getSelectedIndex()));
 
-            boolean updateExpenditure = ExpenditureModel.updateExpenditure(expenditureId,desCriptionText,buyingPrice);
+            ExpenditureDTO expenditureDTO=new ExpenditureDTO();
+            expenditureDTO.setExpenditure(expenditureId);
+            expenditureDTO.setAmount(buyingPrice);
+            expenditureDTO.setDescription(desCriptionText);
+
+            boolean updateExpenditure = adminExpenditureBO.updateExpenditure(expenditureDTO);
             if (updateExpenditure) {
                 Notification.notifie("Expenditure Data", "Expenditure Data Updated", NotificationType.INFORMATION);
                 observableList.clear();
@@ -162,7 +169,7 @@ public class AdminExpenditureController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                boolean deleteExpenditure = ExpenditureModel.deleteExpenditure(expenditureId);
+                boolean deleteExpenditure = adminExpenditureBO.deleteExpenditure(expenditureId);
                 if (deleteExpenditure) {
                     txtDescription.setText("");
                     txtAmount.setText("");
@@ -191,16 +198,16 @@ public class AdminExpenditureController {
             Date date = Date.valueOf(LocalDate.now());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
             Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
-            String nextExpenditureId=generateNextExpenditureId(ExpenditureModel.getCurrentId());
+            String nextExpenditureId=generateNextExpenditureId(adminExpenditureBO.getCurrentId());
 
 
-            String userName=ExpenditureModel.getUsername();
+            String userName=adminExpenditureBO.getUsername();
 
             ExpenditureTm expenditureTm = new ExpenditureTm(nextExpenditureId,description,time,date,amount);
 
             ExpenditureDTO expenditureDTO = new ExpenditureDTO(nextExpenditureId,description,amount,date,time,userName);
 
-            boolean expenditureData = ExpenditureModel.insertExpenditureData(expenditureDTO);
+            boolean expenditureData = adminExpenditureBO.insertExpenditureData(expenditureDTO);
 
             if (expenditureData) {
                 Notification.notifie("Expenditure Data", "Expenditure Data Added", NotificationType.INFORMATION);

@@ -15,6 +15,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.AdminItemBO;
 import lk.ijse.bookshop.model.ItemModel;
 import lk.ijse.bookshop.dto.ItemDTO;
 import lk.ijse.bookshop.util.Notification;
@@ -85,11 +87,13 @@ public class AdminItemsController {
     private Label lblBatchNumber;
     static ObservableList observableList = FXCollections.observableArrayList();
 
+    AdminItemBO adminItemBO= (AdminItemBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.ADMINITEM);
+
     public void initialize() throws SQLException, ClassNotFoundException {
         observableList.clear();
         Platform.runLater(() -> txtDesCription.requestFocus());
 
-        lblCode.setText(getNextItemId(ItemModel.getCurrentItemId()));
+        lblCode.setText(getNextItemId(adminItemBO.getCurrentItemId()));
 
         colItemCode.setCellValueFactory(new PropertyValueFactory<>("itemId"));
         colBatchNumber.setCellValueFactory(new PropertyValueFactory<>("batchNumber"));
@@ -99,7 +103,7 @@ public class AdminItemsController {
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantityOnHand"));
         colOfferAmount.setCellValueFactory(new PropertyValueFactory<>("offerAmount"));
 
-        ArrayList arrayList = ItemModel.getAllDetailsForAdminItem();
+        ArrayList arrayList = adminItemBO.getAllDetailsForAdminItem();
         for (Object customerTm : arrayList) {
             observableList.add(customerTm);
         }
@@ -178,7 +182,7 @@ public class AdminItemsController {
         String itemId= String.valueOf(colItemCode.getCellData(tblItem.getSelectionModel().getSelectedIndex()));
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            boolean deleteItem = ItemModel.deleteItem(itemId);
+            boolean deleteItem = adminItemBO.deleteItem(itemId);
             if (deleteItem) {
                 txtDesCription.setText("");
                 txtQty.setText("");
@@ -232,11 +236,11 @@ public class AdminItemsController {
 
             ItemDTO item=new ItemDTO(itemCode,batchNumber,description,buyingPrice,sellinPrice,quantity,null);
 
-            boolean insertItemData = ItemModel.insertItemData(item);
+            boolean insertItemData = adminItemBO.insertItemData(item);
 
             if (insertItemData) {
                 Notification.notifie("Item Data", "Item Data Added", NotificationType.INFORMATION);
-                lblCode.setText(getNextItemId(ItemModel.getCurrentItemId()));
+                lblCode.setText(getNextItemId(adminItemBO.getCurrentItemId()));
                 observableList.add(itemTm);
                 searchPart();
             } else {
@@ -289,9 +293,16 @@ public class AdminItemsController {
             int batchNumber=Integer.parseInt(String.valueOf(colBatchNumber.getCellData(tblItem.getSelectionModel().getSelectedIndex())));
             String itemCode=String.valueOf(colItemCode.getCellData(tblItem.getSelectionModel().getSelectedIndex()));
 
+            ItemDTO itemDTO=new ItemDTO();
+            itemDTO.setItemId(itemCode);
+            itemDTO.setBatchNumber(batchNumber);
+            itemDTO.setDescription(desCriptionText);
+            itemDTO.setBuyingUnitPrice(buyingPrice);
+            itemDTO.setSellingUnitPrice(sellingPrice);
+            itemDTO.setQuantityOnHand(quantity);
 
 
-            boolean updateItem = ItemModel.updateItem(itemCode,batchNumber,desCriptionText,buyingPrice,sellingPrice,quantity);
+            boolean updateItem = adminItemBO.updateItem(itemDTO);
             if (updateItem) {
                 Notification.notifie("Item Data", "Item Data Updated", NotificationType.INFORMATION);
                 observableList.clear();
@@ -319,7 +330,7 @@ public class AdminItemsController {
 
             clearFields();
             clearTableSelection();
-            lblCode.setText(getNextItemId(ItemModel.getCurrentItemId()));
+            lblCode.setText(getNextItemId(adminItemBO.getCurrentItemId()));
             lblBatchNumber.setText("1");
 
             btnAdd.setDisable(false);
