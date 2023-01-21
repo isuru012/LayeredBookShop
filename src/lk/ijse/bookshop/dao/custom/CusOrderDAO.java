@@ -7,4 +7,5 @@ import java.sql.SQLException;
 
 public interface CusOrderDAO extends CrudDAO<CusOrder>,SuperDAO{
     int getOrdersAmount() throws SQLException, ClassNotFoundException;
+    boolean saveCusOrder(CusOrder cusOrderDTO) throws SQLException, ClassNotFoundException;
 }

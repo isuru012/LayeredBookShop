@@ -43,7 +43,7 @@ public class PlaceReloadModel {
         return null;
     }*/
 
-    public static boolean placeReload(CusReloadDTO cusReloadDTO) throws SQLException, ClassNotFoundException {
+    /*public static boolean placeReload(CusReloadDTO cusReloadDTO) throws SQLException, ClassNotFoundException {
         try {
             DBConnection.getDBConnection().getConnection().setAutoCommit(false);
             PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT " +
@@ -72,5 +72,5 @@ public class PlaceReloadModel {
             DBConnection.getDBConnection().getConnection().setAutoCommit(true);
         }
 
-    }
+    }*/
 }

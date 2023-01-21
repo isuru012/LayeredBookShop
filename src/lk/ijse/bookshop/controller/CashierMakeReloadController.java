@@ -16,6 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.CashierMakeReloadBO;
 import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.PlaceReloadModel;
 import lk.ijse.bookshop.dto.*;
@@ -105,6 +107,9 @@ public class CashierMakeReloadController {
     static ObservableList observableList = CashierCustomersController.observableList;
     static String CusId = CashierCustomersController.CusId;
 
+    CashierMakeReloadBO cashierMakeReloadBO= (CashierMakeReloadBO) BOFactory.getBOFactory().
+            getBOTypes(BOFactory.BOTypes.CASHIERMAKERELOAD);
+
     public void initialize() throws SQLException, ClassNotFoundException {
         Platform.runLater(() -> txtSearch.requestFocus());
         btnPlaceOrder.setDisable(true);
@@ -114,7 +119,7 @@ public class CashierMakeReloadController {
         colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
 
-        ArrayList arrayList = CustomerModel.getAllDetails();
+        ArrayList arrayList = cashierMakeReloadBO.getAllDetails();
         for (Object customerTm : arrayList) {
             observableList.add(customerTm);
         }
@@ -122,8 +127,8 @@ public class CashierMakeReloadController {
         searchPart();
 
         lblOrderDate.setText(String.valueOf(LocalDate.now()));
-        lblOrderId.setText(generateNextReloadId(PlaceReloadModel.getOrderId()));
-        ArrayList loadAllServiceProviders = PlaceReloadModel.loadAllServiceProviders();
+        lblOrderId.setText(generateNextReloadId(cashierMakeReloadBO.getOrderId()));
+        ArrayList loadAllServiceProviders = cashierMakeReloadBO.loadAllServiceProviders();
         TextFields.bindAutoCompletion(txtDescription, loadAllServiceProviders);
 
         colReloadCode.setCellValueFactory(new PropertyValueFactory<>("reloadCode"));
@@ -188,13 +193,13 @@ public class CashierMakeReloadController {
             if (!txtName.getText().equals("") && !txtPhoneNumber.getText().equals("")) {
                 String name = txtName.getText();
                 int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-                String cusId = generateNextCustomeId(CustomerModel.getOrderId());
+                String cusId = generateNextCustomeId(cashierMakeReloadBO.getCusId());
                 /*LocalDate date= LocalDate.now();*/
                 java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
                 String employeeId = LoginFormController.employeeId;
 
                 CustomerDTO customerDTO = new CustomerDTO(cusId, name, phoneNumber, date, employeeId);
-                boolean customerData = CustomerModel.insertCustomerData(customerDTO);
+                boolean customerData = cashierMakeReloadBO.insertCustomerData(customerDTO);
                 if (customerData) {
                     Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
                 } else {
@@ -368,7 +373,7 @@ public class CashierMakeReloadController {
         try{
 
             String text = txtDescription.getText();
-            ReloadDTO reload = PlaceReloadModel.searchDescription(text);
+            ReloadDTO reload = cashierMakeReloadBO.searchDescription(text);
             if (reload != null) {
                 lblIReloadCode.setText(reload.getReloadId());
 
@@ -435,8 +440,12 @@ public class CashierMakeReloadController {
                 String name = txtName.getText();
                 int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
 
+                CustomerDTO customerDTO=new CustomerDTO();
+                customerDTO.setPhoneNumber(phoneNumber);
+                customerDTO.setCusId(CusId);
+                customerDTO.setName(name);
 
-                boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CusId);
+                boolean updateCustomer = cashierMakeReloadBO.updateCustomer(customerDTO);
                 if (updateCustomer) {
                     Notification.notifie("Customer Data", "Customer Data Updated",
                             NotificationType.INFORMATION);
@@ -474,7 +483,7 @@ public class CashierMakeReloadController {
             CusReloadDTO cusReloadDTO =new CusReloadDTO(reloadId,date,time,cusId,employeeId
                     , cusReloadDetailsDTOArrayList);
 
-            boolean placeReload= PlaceReloadModel.placeReload(cusReloadDTO);
+            boolean placeReload= cashierMakeReloadBO.placeReload(cusReloadDTO);
             if (placeReload){
                 Notification.notifie("Place Reload","Reload Added",NotificationType.INFORMATION);
                 clearFields();

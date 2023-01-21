@@ -1,10 +1,16 @@
 package lk.ijse.bookshop.dao.custom.impl;
 
+import lk.ijse.bookshop.dao.DAOFactory;
 import lk.ijse.bookshop.dao.SQLUtil;
+import lk.ijse.bookshop.dao.custom.PaymentDAO;
 import lk.ijse.bookshop.dao.custom.SupOrderDetailsDAO;
+import lk.ijse.bookshop.dao.custom.SupplierDAO;
+import lk.ijse.bookshop.dao.custom.UserDAO;
 import lk.ijse.bookshop.db.DBConnection;
+import lk.ijse.bookshop.dto.OrderDetailDTO;
 import lk.ijse.bookshop.dto.PaymentDTO;
 import lk.ijse.bookshop.dto.SupplierOrderDetailsDTO;
+import lk.ijse.bookshop.entity.SupOrderDetails;
 import lk.ijse.bookshop.model.PaymentModel;
 import lk.ijse.bookshop.model.SupplierModel;
 
@@ -14,8 +20,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class SupOrderDetailsDAOImpl implements SupOrderDetailsDAO {
+    PaymentDAO paymentDAO= (PaymentDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.PAYMENT);
+    UserDAO userDAO= (UserDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.USER);
     public boolean updatePayment(String supplierId, String supOrderId) throws SQLException, ClassNotFoundException {
-        String paymentId=generateNextPaymentId(PaymentModel.generateCurrentPaymentId());
+        String paymentId=generateNextPaymentId(paymentDAO.getId());
 
         double amount=0;
 
@@ -30,7 +38,7 @@ public class SupOrderDetailsDAOImpl implements SupOrderDetailsDAO {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
         Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
 
-        String username= SupplierModel.getAdminUsername();
+        String username= userDAO.getUserName();
 
         PaymentDTO paymentDTO =new PaymentDTO(paymentId,amount,date,time,username,supOrderId,null);
 
@@ -71,8 +79,8 @@ public class SupOrderDetailsDAOImpl implements SupOrderDetailsDAO {
         }
         return "P00001";
     }
-    public boolean saveOrderDetails(ArrayList<SupplierOrderDetailsDTO> supplierOrderDetailsDTOS) throws SQLException, ClassNotFoundException {
-        for (SupplierOrderDetailsDTO ord : supplierOrderDetailsDTOS) {
+    public boolean saveOrderDetails(ArrayList<SupOrderDetails> supplierOrderDetailsDTOS) throws SQLException, ClassNotFoundException {
+        for (SupOrderDetails ord : supplierOrderDetailsDTOS) {
             if (!addOrderDetail(ord)) {
                 return false;
             }
@@ -80,8 +88,9 @@ public class SupOrderDetailsDAOImpl implements SupOrderDetailsDAO {
         return true;
     }
 
-    private boolean addOrderDetail(SupplierOrderDetailsDTO ord) throws SQLException, ClassNotFoundException {
-        PreparedStatement statement = DBConnection.getDBConnection().getConnection().prepareStatement("INSERT INTO suporderdetails values(?,?,?,?,?)");
+    private boolean addOrderDetail(SupOrderDetails ord) throws SQLException, ClassNotFoundException {
+        PreparedStatement statement = DBConnection.getDBConnection().getConnection().
+                prepareStatement("INSERT INTO suporderdetails values(?,?,?,?,?)");
 
         statement.setObject(1, ord.getSupOrderId());
         statement.setObject(2, ord.getItemId());
@@ -90,5 +99,45 @@ public class SupOrderDetailsDAOImpl implements SupOrderDetailsDAO {
         statement.setObject(5, ord.getTotalPrice());
 
         return statement.executeUpdate() > 0;
+    }
+
+    @Override
+    public ArrayList<SupOrderDetails> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean insert(SupOrderDetails customerDTO) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(SupOrderDetails customerDTO) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public SupOrderDetails search(String newValue) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public String getId() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean saveO(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean saveD(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException {
+        return false;
     }
 }

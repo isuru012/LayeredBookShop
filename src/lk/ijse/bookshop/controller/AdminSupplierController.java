@@ -15,6 +15,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.AdminSupplierBO;
 import lk.ijse.bookshop.model.SupplierOrderModel;
 import lk.ijse.bookshop.dto.*;
 import lk.ijse.bookshop.util.Navigation;
@@ -106,14 +108,16 @@ public class AdminSupplierController {
     public static double sellingUnitPrice=0;
     ObservableList<SupplierTm> observableList1 = FXCollections.observableArrayList();
 
+    AdminSupplierBO adminSupplierBO= (AdminSupplierBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.ADMINSUPPLIER);
+
     public void initialize() throws SQLException, ClassNotFoundException {
         Platform.runLater(() -> txtSupplierName.requestFocus());
         lblOrderDate.setText(String.valueOf(LocalDate.now()));
-        lblOrderId.setText(generateNextOrderId(SupplierOrderModel.getOrderId()));
-        ArrayList loadAllSupplierNames = SupplierOrderModel.loadAllSupplierNames();
+        lblOrderId.setText(generateNextOrderId(adminSupplierBO.getOrderId()));
+        ArrayList loadAllSupplierNames = adminSupplierBO.loadAllSupplierNames();
         TextFields.bindAutoCompletion(txtSupplierName, loadAllSupplierNames);
 
-        ArrayList loadAllDescriptionIds = SupplierOrderModel.loadAllDescriptionIds();
+        ArrayList loadAllDescriptionIds = adminSupplierBO.loadAllDescriptionIds();
         TextFields.bindAutoCompletion(txtDescription, loadAllDescriptionIds);
 
         colItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
@@ -237,8 +241,8 @@ public class AdminSupplierController {
             lblItemCode.setText(supplierTm.getItemCode());
             txtDescription.setText(supplierTm.getDescription());
             txtQty.setText(String.valueOf(supplierTm.getQuantity()));
-            lblQtyOnHand.setText(String.valueOf(SupplierOrderModel.getItemQuantity(lblItemCode.getText())));
-            txtBuyingUnitPrice.setText(String.valueOf(SupplierOrderModel.getSellingUnitPrice(lblItemCode.getText())));
+            lblQtyOnHand.setText(String.valueOf(adminSupplierBO.getItemQuantity(lblItemCode.getText())));
+            txtBuyingUnitPrice.setText(String.valueOf(adminSupplierBO.getSellingUnitPrice(lblItemCode.getText())));
             btnAdd.setDisable(true);
             checkPlaceOrder();
         }catch (Exception exception){
@@ -257,7 +261,7 @@ public class AdminSupplierController {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
             Time time = Time.valueOf(simpleDateFormat.format(new java.util.Date()));
             String SupplierId = lblSupplierId.getText();
-            String getUsername=SupplierOrderModel.getUserName();
+            String getUsername=adminSupplierBO.getUserName();
 
             sellingUnitPrice= Double.parseDouble(txtSellingUnitPrice.getText());
 
@@ -278,7 +282,7 @@ public class AdminSupplierController {
 
             SupplierOrderDTO supplierOrderDTO = new SupplierOrderDTO(SupOrderId,date,time,SupplierId,getUsername, supplierOrderDetailsDTOS);
 
-            boolean placeOrder = SupplierOrderModel.placeOrder(supplierOrderDTO);
+            boolean placeOrder = adminSupplierBO.placeOrder(supplierOrderDTO);
             if (placeOrder) {
 
                 Notification.notifie("Place Order", "Order Added", NotificationType.INFORMATION);
@@ -318,7 +322,7 @@ public class AdminSupplierController {
 
     public void keyReleasedOnActionSupplierName(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
         String text = txtSupplierName.getText();
-        SupplierDTO supplierDTO = SupplierOrderModel.searchName(text);
+        SupplierDTO supplierDTO = adminSupplierBO.searchName(text);
         if (supplierDTO != null) {
             lblSupplierId.setText(supplierDTO.getSupplierId());
 
@@ -332,11 +336,11 @@ public class AdminSupplierController {
 
     public void keyReleasedOnActionDescription(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
         String text = txtDescription.getText();
-        ItemDTO item = SupplierOrderModel.searchDescription(text);
+        ItemDTO item = adminSupplierBO.searchDescription(text);
         if (item != null) {
             if (keyEvent.getCode() == KeyCode.ENTER) {
                 lblItemCode.setText(item.getItemId());
-                lblQtyOnHand.setText(String.valueOf(SupplierOrderModel.getQtyTotalOfOneItem(item.getItemId())));
+                lblQtyOnHand.setText(String.valueOf(adminSupplierBO.getQtyTotalOfOneItem(item.getItemId())));
                 txtBuyingUnitPrice.requestFocus();
             }
         }

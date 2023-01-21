@@ -13,6 +13,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.CreateAccountBO;
 import lk.ijse.bookshop.model.EmployeeModel;
 import lk.ijse.bookshop.model.UserCreationModel;
 import lk.ijse.bookshop.dto.EmployeeDTO;
@@ -53,6 +55,8 @@ public class CreateAccountController {
     @FXML
     private JFXTextField txtPhoneNumber;
 
+    CreateAccountBO createAccountBO= (CreateAccountBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.CREATEACCOUNT);
+
     public void initialize(){
         Platform.runLater(() -> txtUsername.requestFocus());
     }
@@ -88,7 +92,7 @@ public class CreateAccountController {
                                 userDTO.setPassword(txtPassword.getText());
                                 userDTO.setRole("Employee");
                                 EmployeeDTO employeeDTO = new EmployeeDTO();
-                                employeeDTO.setEmployeeId(generateNextEmployeeId(EmployeeModel.currentEmployeeId()));
+                                employeeDTO.setEmployeeId(generateNextEmployeeId(createAccountBO.currentEmployeeId()));
                                 employeeDTO.setAddress(txtAddess.getText());
                                 employeeDTO.setName(txtName.getText());
                                 employeeDTO.setSalary(0);
@@ -96,7 +100,7 @@ public class CreateAccountController {
                                 employeeDTO.setUserName(txtUsername.getText());
 
                                 try {
-                                    boolean isAdded = UserCreationModel.userAllDetailSave(userDTO, employeeDTO);
+                                    boolean isAdded = createAccountBO.userAllDetailSave(userDTO, employeeDTO);
                                     if (isAdded) {
                                         txtPhoneNumber.setText("");
                                         txtAddess.setText("");

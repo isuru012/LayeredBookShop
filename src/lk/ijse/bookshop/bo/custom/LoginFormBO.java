@@ -9,5 +9,11 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
+import lk.ijse.bookshop.dto.UserDTO;
+
+import java.sql.SQLException;
+
 public interface LoginFormBO  extends SuperBO{
+    UserDTO getLoginData(String username, String password) throws SQLException, ClassNotFoundException;
+    String getEmployeeId(String Username) throws SQLException, ClassNotFoundException;
 }

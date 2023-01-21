@@ -9,5 +9,8 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
+import java.sql.SQLException;
+
 public interface TrueResetPasswordBO  extends SuperBO{
+    boolean passwordReset(String username, String password) throws SQLException, ClassNotFoundException;
 }

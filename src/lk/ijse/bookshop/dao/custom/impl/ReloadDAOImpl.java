@@ -4,26 +4,66 @@ import lk.ijse.bookshop.dao.SQLUtil;
 import lk.ijse.bookshop.dao.custom.ReloadDAO;
 import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.CusReloadDetailsDTO;
+import lk.ijse.bookshop.dto.OrderDetailDTO;
 import lk.ijse.bookshop.dto.ReloadDTO;
+import lk.ijse.bookshop.entity.CusReloadDetails;
+import lk.ijse.bookshop.entity.Reload;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ReloadDAOImpl implements ReloadDAO {
 
-    public  ReloadDTO searchDescription(String text) throws SQLException, ClassNotFoundException {
+    @Override
+    public ArrayList<Reload> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean insert(Reload customerDTO) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(Reload customerDTO) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    public Reload search(String text) throws SQLException, ClassNotFoundException {
         String searchText="%"+text+"%";
         String sql="SELECT * FROM reload WHERE ServiceProvider LIKE ?";
         ResultSet resultSet= SQLUtil.execute(sql,searchText);
         if (resultSet.next()){
-            return new ReloadDTO(resultSet.getString(1), resultSet.getString(2),
+            return new Reload(resultSet.getString(1), resultSet.getString(2),
                     resultSet.getDouble(3),resultSet.getDouble(4));
 
         }
         return null;
     }
+
+    @Override
+    public String getId() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean saveO(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean saveD(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
     public  ArrayList loadAllServiceProviders() throws SQLException, ClassNotFoundException {
         String sql="SELECT ServiceProvider FROM reload";
         ResultSet resultSet= SQLUtil.execute(sql);
@@ -33,8 +73,8 @@ public class ReloadDAOImpl implements ReloadDAO {
         }
         return arrayList;
     }
-    public boolean updateAmount(ArrayList<CusReloadDetailsDTO> cusReloadDetailsDTOS) throws SQLException, ClassNotFoundException {
-        for (CusReloadDetailsDTO detail : cusReloadDetailsDTOS) {
+    public boolean updateAmount(ArrayList<CusReloadDetails> cusReloadDetailsDTOS) throws SQLException, ClassNotFoundException {
+        for (CusReloadDetails detail : cusReloadDetailsDTOS) {
             if (!updateAmmount(detail)) {
                 return false;
             }
@@ -42,7 +82,7 @@ public class ReloadDAOImpl implements ReloadDAO {
         return true;
     }
 
-    private boolean updateAmmount(CusReloadDetailsDTO detail) throws SQLException, ClassNotFoundException {
+    private boolean updateAmmount(CusReloadDetails detail) throws SQLException, ClassNotFoundException {
         PreparedStatement stm = DBConnection.getDBConnection().getConnection().
                 prepareStatement("UPDATE reload SET ReloadAmount=ReloadAmount-? WHERE ReloadId=?");
         stm.setObject(1, detail.getTotalPrice());
@@ -51,4 +91,6 @@ public class ReloadDAOImpl implements ReloadDAO {
 
         return stm.executeUpdate() > 0;
     }
+
+
 }

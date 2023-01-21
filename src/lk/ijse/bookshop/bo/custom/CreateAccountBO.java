@@ -9,5 +9,12 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
+import lk.ijse.bookshop.dto.EmployeeDTO;
+import lk.ijse.bookshop.dto.UserDTO;
+
+import java.sql.SQLException;
+
 public interface CreateAccountBO  extends SuperBO{
+    String  currentEmployeeId() throws SQLException, ClassNotFoundException;
+    boolean userAllDetailSave(UserDTO userDTO, EmployeeDTO employeeDTO) throws SQLException, ClassNotFoundException;
 }

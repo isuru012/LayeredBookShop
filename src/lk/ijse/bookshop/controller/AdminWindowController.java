@@ -13,6 +13,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.AdminDashboardBO;
 import lk.ijse.bookshop.model.DashboardModel;
 import lk.ijse.bookshop.util.Navigation;
 import lk.ijse.bookshop.util.Routes;
@@ -60,11 +62,11 @@ public class AdminWindowController {
     private JFXButton btnExpenditures;
     private static boolean bool = false;
     ArrayList<JFXButton> arrayListButton = new ArrayList<>();
-
+    AdminDashboardBO adminDashboardBO= (AdminDashboardBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.DASHBOARD);
 
     public void initialize() throws SQLException, ClassNotFoundException {
-        ArrayList arrayList=DashboardModel.getTrendingItems();
-        ObservableList observableList= FXCollections.observableArrayList(arrayList);
+        ArrayList arrayList = adminDashboardBO.getTrendingItems();
+        ObservableList observableList = FXCollections.observableArrayList(arrayList);
         listView.getItems().addAll(observableList);
         returnLineChart();
         btnDashboard.setTextFill(Paint.valueOf("#0aa119"));
@@ -87,13 +89,12 @@ public class AdminWindowController {
         });
         t1.start();
 
-        int ordersAmount = DashboardModel.getOrdersAmount();
+        int ordersAmount = adminDashboardBO.getOrdersAmount();
         lblOrder.setText(String.valueOf(ordersAmount));
-        int products = DashboardModel.getProductsAmount();
+        int products = adminDashboardBO.getProductsAmount();
         lblProduct.setText(String.valueOf(products));
-        int customers=DashboardModel.getCustomersAmount();
+        int customers = adminDashboardBO.getCustomersAmount();
         lblCustomer.setText(String.valueOf(customers));
-
 
 
         arrayListButton.add(btnDashboard);
@@ -105,19 +106,17 @@ public class AdminWindowController {
         arrayListButton.add(btnExpenditures);
 
 
-
-
-
     }
+
     public void returnLineChart() throws SQLException, ClassNotFoundException {
         XYChart.Series series = new XYChart.Series();
-        double monday=DashboardModel.getMonday();
-        double tuesday=DashboardModel.getTuesday();
-        double wednesday=DashboardModel.getWednesday();
-        double thursday=DashboardModel.getThursday();
-        double friday=DashboardModel.getFriday();
-        double saturday=DashboardModel.getSaturday();
-        double sunday=DashboardModel.getSunday();
+        double monday = adminDashboardBO.getMonday();
+        double tuesday = adminDashboardBO.getTuesday();
+        double wednesday = adminDashboardBO.getWednesday();
+        double thursday = adminDashboardBO.getThursday();
+        double friday = adminDashboardBO.getFriday();
+        double saturday = adminDashboardBO.getSaturday();
+        double sunday = adminDashboardBO.getSunday();
 
 
         series.getData().add(new XYChart.Data("Mon", monday));
@@ -140,24 +139,22 @@ public class AdminWindowController {
         for (int i = 0; i < arrayListButton.size(); i++) {
             if (arrayListButton.get(i) == button) {
                 button.setTextFill(Paint.valueOf("#0aa119"));
-            } else if(i==1){
+            } else if (i == 1) {
                 arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
                 btnEmployee.setStyle(null);
-            }else if(i==2){
+            } else if (i == 2) {
                 arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
                 btnSupplier.setStyle(null);
-            }else if(i==3){
+            } else if (i == 3) {
                 arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
                 btnItems.setStyle(null);
-            }else if(i==4){
+            } else if (i == 4) {
                 arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
                 btnOffers.setStyle(null);
-            }else if(i==6){
+            } else if (i == 6) {
                 arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
                 btnExpenditures.setStyle(null);
-            }
-
-            else {
+            } else {
                 arrayListButton.get(i).setTextFill(Paint.valueOf("#000000"));
                 btnDashboard.setStyle(null);
             }

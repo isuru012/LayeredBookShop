@@ -4,6 +4,7 @@ import lk.ijse.bookshop.controller.AdminSupplierController;
 import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.*;
 import lk.ijse.bookshop.dao.SQLUtil;
+import lk.ijse.bookshop.entity.SupOrder;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -103,7 +104,8 @@ public class SupplierOrderModel {
         return null;
     }*/
 
-    public static boolean placeOrder(SupplierOrderDTO supplierOrderDTO) throws SQLException, ClassNotFoundException {
+
+    /*public boolean placeOrder(SupOrder supplierOrderDTO) throws SQLException, ClassNotFoundException {
         try {
             DBConnection.getDBConnection().getConnection().setAutoCommit(false);
             PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT " +
@@ -135,8 +137,7 @@ public class SupplierOrderModel {
         }finally {
             DBConnection.getDBConnection().getConnection().setAutoCommit(true);
         }
-    }
-
+    }*/
    /* private static boolean updatePayment(String supplierId, String supOrderId) throws SQLException, ClassNotFoundException {
         String paymentId=generateNextPaymentId(PaymentModel.generateCurrentPaymentId());
 

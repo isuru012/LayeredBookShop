@@ -10,6 +10,16 @@ package lk.ijse.bookshop.bo.custom.impl;
 
 
 import lk.ijse.bookshop.bo.custom.PasswordResetFormBO;
+import lk.ijse.bookshop.dao.DAOFactory;
+import lk.ijse.bookshop.dao.custom.UserDAO;
+
+import java.sql.SQLException;
 
 public class PasswordResetFormBOImpl implements PasswordResetFormBO {
+
+    UserDAO userDAO= (UserDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.USER);
+    @Override
+    public boolean checkUsername(String Username) throws SQLException, ClassNotFoundException {
+        return userDAO.checkUsername(Username);
+    }
 }

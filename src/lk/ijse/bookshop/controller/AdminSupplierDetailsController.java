@@ -18,6 +18,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.AdminSupplierDetailsBO;
+import lk.ijse.bookshop.dao.DAOFactory;
 import lk.ijse.bookshop.model.SupplierModel;
 import lk.ijse.bookshop.model.SupplierOrderModel;
 import lk.ijse.bookshop.dto.SupplierDTO;
@@ -73,6 +76,8 @@ public class AdminSupplierDetailsController {
     public static String SupId;
     ObservableList observableList = FXCollections.observableArrayList();
 
+    AdminSupplierDetailsBO adminSupplierDetailsBO= (AdminSupplierDetailsBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.SUPPLIERDETAILS);
+
     public void initialize() throws SQLException, ClassNotFoundException {
         observableList.clear();
         Platform.runLater(() -> txtName.requestFocus());
@@ -82,7 +87,7 @@ public class AdminSupplierDetailsController {
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         colTotalOrders.setCellValueFactory(new PropertyValueFactory<>("totalOrders"));
 
-        ArrayList arrayList = SupplierModel.getAllDetails();
+        ArrayList arrayList = adminSupplierDetailsBO.getAllDetails();
         for (Object customerTm : arrayList) {
             observableList.add(customerTm);
         }
@@ -154,7 +159,7 @@ public class AdminSupplierDetailsController {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
 
-                boolean deleteSupplier = SupplierModel.deleteSupplier(SupId);
+                boolean deleteSupplier = adminSupplierDetailsBO.deleteSupplier(SupId);
                 if (deleteSupplier) {
                     txtName.setText("");
                     txtPhoneNumber.setText("");
@@ -189,8 +194,14 @@ public class AdminSupplierDetailsController {
             String address=txtAddess.getText();
             int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
 
+            SupplierDTO supplierDTO=new SupplierDTO();
+            supplierDTO.setSupplierId(SupId);
+            supplierDTO.setLocation(address);
+            supplierDTO.setName(name);
+            supplierDTO.setPhoneNumber(phoneNumber);
 
-            boolean updateCustomer = SupplierModel.updateSupplier(name,address, phoneNumber, SupId);
+
+            boolean updateCustomer = adminSupplierDetailsBO.updateSupplier(supplierDTO);
             if (updateCustomer) {
                 Notification.notifie("Supplier Data", "Supplier Data Updated", NotificationType.INFORMATION);
                 observableList.clear();
@@ -212,7 +223,7 @@ public class AdminSupplierDetailsController {
             txtName.setText(tm.getName());
             txtPhoneNumber.setText(String.valueOf(tm.getPhoneNumber()));
             txtAddess.setText(tm.getAddress());
-            SupId= SupplierModel.getSupplierIdFromNumber(String.valueOf(colPhoneNumber.getCellData(tblSupDetails.getSelectionModel().getSelectedIndex())));
+            SupId= adminSupplierDetailsBO.getSupplierIdFromNumber(String.valueOf(colPhoneNumber.getCellData(tblSupDetails.getSelectionModel().getSelectedIndex())));
 
             btnAdd.setDisable(true);
         }catch (Exception exception){
@@ -256,13 +267,13 @@ public class AdminSupplierDetailsController {
 
             String name = txtName.getText();
             int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-            String supId = generateNextSupplierId(SupplierModel.getSupplierId());
+            String supId = generateNextSupplierId(adminSupplierDetailsBO.getSupplierId());
             String address = txtAddess.getText();
-            String getUsername = SupplierOrderModel.getUserName();
+            String getUsername = adminSupplierDetailsBO.getUserName();
 
 
             SupplierDTO supplierDTO = new SupplierDTO(supId, name, address, phoneNumber, getUsername);
-            boolean supplierData = SupplierModel.insertSupplierData(supplierDTO);
+            boolean supplierData = adminSupplierDetailsBO.insertSupplierData(supplierDTO);
             if (supplierData) {
                 Notification.notifie("Supplier Data", "Supplier Data Added", NotificationType.INFORMATION);
                 observableList.clear();

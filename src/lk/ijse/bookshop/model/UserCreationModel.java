@@ -11,11 +11,11 @@ import java.sql.SQLException;
 
 public class UserCreationModel {
 
-    public static boolean userAllDetailSave(UserDTO userDTO, EmployeeDTO employeeDTO) throws SQLException, ClassNotFoundException {
+    /*public static boolean userAllDetailSave(UserDTO userDTO, EmployeeDTO employeeDTO) throws SQLException, ClassNotFoundException {
         try {
             DBConnection.getDBConnection().getConnection().setAutoCommit(false);
-            PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT " +
-                    "INTO user VALUES(?,?,?) ");
+            PreparedStatement statement=DBConnection.getDBConnection().getConnection().
+                    prepareStatement("INSERT INTO user VALUES(?,?,?) ");
             statement.setObject(1, userDTO.getUserName());
             statement.setObject(2, userDTO.getPassword());
             statement.setObject(3, userDTO.getRole());
@@ -38,7 +38,7 @@ public class UserCreationModel {
         }
 
     }
-
+*/
 
 
     /*public static UserDTO getLoginData(String username, String password) throws SQLException, ClassNotFoundException {

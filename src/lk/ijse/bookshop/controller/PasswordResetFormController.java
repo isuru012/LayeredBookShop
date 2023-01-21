@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.PasswordResetFormBO;
+import lk.ijse.bookshop.dao.custom.impl.UserDAOImpl;
 import lk.ijse.bookshop.model.UserCreationModel;
 import lk.ijse.bookshop.util.Navigation;
 import lk.ijse.bookshop.util.Notification;
@@ -24,6 +27,7 @@ public class PasswordResetFormController {
     public AnchorPane pane;
     public JFXTextField txtUsername;
     public Label lblBack;
+    PasswordResetFormBO passwordResetFormBO= (PasswordResetFormBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.PASSWORDRESETFORM);
 
     public void backOnAction(MouseEvent mouseEvent) throws IOException {
         Stage stage = (Stage) lblBack.getScene().getWindow();
@@ -38,8 +42,8 @@ public class PasswordResetFormController {
     public void continueOnAction(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
 
         try{
-            if (UserCreationModel.checkUsername(txtUsername.getText())) {
-                if (UserCreationModel.role.equals("Admin")) {
+            if (passwordResetFormBO.checkUsername(txtUsername.getText())) {
+                if (UserDAOImpl.role.equals("Admin")) {
                     Notification.notifie("Password Reset", "Admin can't reset password", NotificationType.ERROR);
                 } else {
                     Navigation.navigate(Routes.TRUERESET, pane);

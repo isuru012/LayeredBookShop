@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.AdminPaymentBO;
 import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.PaymentModel;
 import lk.ijse.bookshop.view.tm.CustomerTm;
@@ -35,6 +37,8 @@ public class AdminPaymentController {
 
     public void initialize() throws SQLException, ClassNotFoundException {
 
+        AdminPaymentBO adminPaymentBO= (AdminPaymentBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.ADMINPAYMENT);
+
         observableList.clear();
         colCode.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
         colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
@@ -43,7 +47,7 @@ public class AdminPaymentController {
         colSupplierName.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
         colExpenditure.setCellValueFactory(new PropertyValueFactory<>("expenditure"));
 
-        ArrayList arrayList = PaymentModel.getAllDetails();
+        ArrayList arrayList = adminPaymentBO.getAllDetails();
         for (Object payment : arrayList) {
             observableList.add(payment);
         }

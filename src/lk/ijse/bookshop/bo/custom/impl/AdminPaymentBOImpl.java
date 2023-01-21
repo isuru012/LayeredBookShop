@@ -10,6 +10,16 @@ package lk.ijse.bookshop.bo.custom.impl;
 
 
 import lk.ijse.bookshop.bo.custom.AdminPaymentBO;
+import lk.ijse.bookshop.dao.DAOFactory;
+import lk.ijse.bookshop.dao.custom.PaymentDAO;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AdminPaymentBOImpl implements AdminPaymentBO {
+    PaymentDAO paymentDAO= (PaymentDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.PAYMENT);
+    @Override
+    public ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
+        return paymentDAO.getAll();
+    }
 }

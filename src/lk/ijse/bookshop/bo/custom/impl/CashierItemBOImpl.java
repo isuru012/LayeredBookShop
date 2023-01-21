@@ -10,6 +10,16 @@ package lk.ijse.bookshop.bo.custom.impl;
 
 
 import lk.ijse.bookshop.bo.custom.CashierItemBO;
+import lk.ijse.bookshop.dao.DAOFactory;
+import lk.ijse.bookshop.dao.custom.ItemDAO;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CashierItemBOImpl implements CashierItemBO {
+    ItemDAO itemDAO= (ItemDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.ITEM);
+    @Override
+    public ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
+        return itemDAO.getAll();
+    }
 }

@@ -15,6 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.AdminOfferBO;
 import lk.ijse.bookshop.model.OfferModel;
 import lk.ijse.bookshop.dto.OfferDTO;
 import lk.ijse.bookshop.util.Notification;
@@ -78,6 +80,7 @@ public class AdminOffersController {
     private JFXTextField txtSellingPrice;
 
     static ObservableList observableList = FXCollections.observableArrayList();
+    AdminOfferBO adminOfferBO= (AdminOfferBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.ADMINOFFER);
 
     public void initialize() throws SQLException, ClassNotFoundException {
 
@@ -90,14 +93,14 @@ public class AdminOffersController {
         colStartingDate.setCellValueFactory(new PropertyValueFactory<>("startingDate"));
         colEndDate.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
 
-        ArrayList arrayList = OfferModel.getAllDetails();
+        ArrayList arrayList = adminOfferBO.getAllDetails();
         for (Object customerTm : arrayList) {
             observableList.add(customerTm);
         }
 
         searchPart();
 
-        ArrayList loadAllItemName = OfferModel.loadAllItemNames();
+        ArrayList loadAllItemName = adminOfferBO.loadAllItemNames();
         TextFields.bindAutoCompletion(txtItemName, loadAllItemName);
 
         txtStartingDate.setText(String.valueOf(LocalDate.now()));
@@ -105,7 +108,7 @@ public class AdminOffersController {
     }
 
     private void loadItemPrices() throws SQLException, ClassNotFoundException {
-        ArrayList loadAllItemPrices = OfferModel.loadAllItemPrices(txtItemName.getText());
+        ArrayList loadAllItemPrices = adminOfferBO.loadAllItemPrices(txtItemName.getText());
 
         cmbSellingPrice.setItems(FXCollections.observableArrayList(loadAllItemPrices));
         cmbSellingPrice.getSelectionModel().selectFirst();
@@ -151,19 +154,20 @@ public class AdminOffersController {
             Date dateStart= Date.valueOf(txtStartingDate.getText());
             Date dateEnd= Date.valueOf(txtEndingDate.getText());
 
-            String offerId=getNextOfferId(OfferModel.getNowOfferId());
+            String offerId=getNextOfferId(adminOfferBO.getNowOfferId());
 
-            int batchNumber = OfferModel.getBatchNumber(Double.parseDouble(
+            int batchNumber = adminOfferBO.getBatchNumber(Double.parseDouble(
                     String.valueOf(cmbSellingPrice.getSelectionModel().getSelectedItem())),itemCode);
 
             /*OfferTm offerTm=new OfferTm(itemCode,batchNumber,offerAmount,dateStart,dateEnd);*/
 
             OfferDTO offerDTO =new OfferDTO(offerId,offerAmount,dateStart,dateEnd);
 
-            boolean insertOfferData = OfferModel.insertOfferData(offerDTO);
+            boolean insertOfferData = adminOfferBO.insertOfferData(offerDTO);
 
             if (insertOfferData) {
-                if (OfferModel.updateItemData(itemCode, offerId, batchNumber)){
+
+                if (adminOfferBO.updateItemData(itemCode, offerId, batchNumber)){
                     Notification.notifie("Offer Data", "Offer Data Added", NotificationType.INFORMATION);
 
                     observableList.clear();
@@ -226,16 +230,16 @@ public class AdminOffersController {
 
 
             String itemId= String.valueOf(colItemCode.getCellData(tblOffer.getSelectionModel().getSelectedIndex()));
-            String offerId=OfferModel.getOfferId(itemId);
+            String offerId=adminOfferBO.getOfferId(itemId);
 
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == ButtonType.OK) {
 
-                boolean deleteOffer = OfferModel.deleteOffer(itemId);
+                boolean deleteOffer = adminOfferBO.deleteOffer(itemId);
 
                 if (deleteOffer) {
-                    boolean b=OfferModel.deleteOfferData(offerId);
+                    boolean b=adminOfferBO.deleteOfferData(offerId);
                     if(b) {
                         txtOffer.setText("");
                         txtItemName.setText("");
@@ -292,7 +296,7 @@ public class AdminOffersController {
             txtEndingDate.setText(String.valueOf(tm.getEndingDate()));
             lblItemId.setText(tm.getItemCode());
 
-            txtItemName.setText(OfferModel.getItemName(lblItemId.getText()));
+            txtItemName.setText(adminOfferBO.getItemName(lblItemId.getText()));
             loadItemPrices();
 
             btnAdd.setDisable(true);
@@ -311,9 +315,9 @@ public class AdminOffersController {
             Date startDate= Date.valueOf(txtStartingDate.getText());
             Date endDate= Date.valueOf(txtEndingDate.getText());
 
-            String offerId=OfferModel.getOfferId(lblItemId.getText());
+            String offerId=adminOfferBO.getOfferId(lblItemId.getText());
 
-            boolean updateOffer = OfferModel.updateOffer(offerId,offerAmount,startDate,endDate);
+            boolean updateOffer = adminOfferBO.updateOffer(new OfferDTO(offerId,offerAmount,startDate,endDate));
             if (updateOffer) {
                 Notification.notifie("Offer Data", "Offer Data Updated", NotificationType.INFORMATION);
                 observableList.clear();
@@ -333,6 +337,6 @@ public class AdminOffersController {
     public void itemNameKeyReleasedOnAction(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
 
         loadItemPrices();
-        lblItemId.setText(OfferModel.getItemId(txtItemName.getText()));
+        lblItemId.setText(adminOfferBO.getItemId(txtItemName.getText()));
     }
 }

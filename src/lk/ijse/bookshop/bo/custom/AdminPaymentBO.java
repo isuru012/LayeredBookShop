@@ -9,5 +9,10 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public interface AdminPaymentBO extends SuperBO {
+ArrayList getAllDetails() throws SQLException, ClassNotFoundException;
+
 }

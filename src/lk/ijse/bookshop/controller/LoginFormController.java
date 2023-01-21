@@ -10,6 +10,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.LoginFormBO;
 import lk.ijse.bookshop.model.UserCreationModel;
 import lk.ijse.bookshop.dto.UserDTO;
 import lk.ijse.bookshop.util.Navigation;
@@ -40,6 +42,8 @@ public class LoginFormController {
     public static String employeeId;
     static boolean boolUsername=false;
     static boolean boolPassword=false;
+
+    LoginFormBO getLoginData= (LoginFormBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.LOGINFORM);
 
     public void initialize(){
         Platform.runLater(()->txtUsername.requestFocus());
@@ -88,13 +92,13 @@ public class LoginFormController {
         if (!txtUsername.getText().equals("") & !txtPasswordField.getText().equals("")) {
             if (boolUsername) {
                 if (boolPassword) {
-                    UserDTO userDTO = UserCreationModel.getLoginData(txtUsername.getText(), txtPasswordField.getText());
+                    UserDTO userDTO = getLoginData.getLoginData(txtUsername.getText(), txtPasswordField.getText());
 
                     if (userDTO != null) {
                         if (userDTO.getUserName().equals(txtUsername.getText()) && userDTO.getPassword().equals(txtPasswordField.getText()) && userDTO.getRole().equals("Admin")) {
                             Navigation.navigate(Routes.ADMINWINDOW, pane);
                         } else if (userDTO.getUserName().equals(txtUsername.getText()) && userDTO.getPassword().equals(txtPasswordField.getText()) && userDTO.getRole().equals("Employee")) {
-                            employeeId = UserCreationModel.getEmployeeId(userDTO.getUserName());
+                            employeeId = getLoginData.getEmployeeId(userDTO.getUserName());
                             Navigation.navigate(Routes.CASHIERWINDOW, pane);
 
                         }

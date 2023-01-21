@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class SupplierOrderDetailModel {
+public  class SupplierOrderDetailModel {
    /* public static boolean saveOrderDetails(ArrayList<SupplierOrderDetailsDTO> supplierOrderDetailsDTOS) throws SQLException, ClassNotFoundException {
         for (SupplierOrderDetailsDTO ord : supplierOrderDetailsDTOS) {
             if (!addOrderDetail(ord)) {

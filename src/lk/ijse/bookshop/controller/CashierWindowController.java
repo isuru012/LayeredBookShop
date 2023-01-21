@@ -12,6 +12,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.CashierWindowBO;
 import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.UserCreationModel;
 import lk.ijse.bookshop.dto.CustomerDTO;
@@ -79,9 +81,11 @@ public class CashierWindowController {
     Thread t1;
     private static boolean bool = false;
 
+    CashierWindowBO cashierWindowBO= (CashierWindowBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.CASHIERWINDOW);
+
     public void initialize() throws SQLException, ClassNotFoundException {
 
-        lblNameSet.setText(UserCreationModel.getEmployeeName(LoginFormController.employeeId));
+        lblNameSet.setText(cashierWindowBO.getEmployeeName(LoginFormController.employeeId));
         CashierCustomersController.observableList.clear();
         btnCustomers.setTextFill(Paint.valueOf("#0aa119"));
         btnCustomers.setStyle("-fx-background-color: #dcf6dd;-fx-border-color: #0aa119;-fx-border-width: 0px 0px 0px 6px;");
@@ -113,7 +117,7 @@ public class CashierWindowController {
         colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
 
-        ArrayList arrayList = CustomerModel.getAllDetails();
+        ArrayList arrayList = cashierWindowBO.getAllDetails();
         for (Object customerTm : arrayList) {
             CashierCustomersController.observableList.add(customerTm);
         }
@@ -171,13 +175,13 @@ public class CashierWindowController {
 
             String name = txtName.getText();
             int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-            String cusId = generateNextCustomeId(CustomerModel.getOrderId());
+            String cusId = generateNextCustomeId(cashierWindowBO.getOrderId());
             /*LocalDate date= LocalDate.now();*/
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             String employeeId = LoginFormController.employeeId;
 
             CustomerDTO customerDTO = new CustomerDTO(cusId, name, phoneNumber, date, employeeId);
-            boolean customerData = CustomerModel.insertCustomerData(customerDTO);
+            boolean customerData = cashierWindowBO.insertCustomerData(customerDTO);
             if (customerData) {
                 Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
             } else {
@@ -227,7 +231,7 @@ public class CashierWindowController {
         alert.setContentText("Do you want to delete customer " + txtName.getText() + "?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            boolean deleteCustomer = CustomerModel.deleteCustomer(CashierCustomersController.CusId);
+            boolean deleteCustomer = cashierWindowBO.deleteCustomer(CashierCustomersController.CusId);
             if (deleteCustomer) {
                 txtName.setText("");
                 txtPhoneNumber.setText("");
@@ -251,8 +255,13 @@ public class CashierWindowController {
             String name = txtName.getText();
             int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
 
+            CustomerDTO customerDTO=new CustomerDTO();
+            customerDTO.setName(name);
+            customerDTO.setPhoneNumber(phoneNumber);
+            customerDTO.setCusId(CashierCustomersController.CusId);
 
-            boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CashierCustomersController.CusId);
+
+            boolean updateCustomer = cashierWindowBO.updateCustomer(customerDTO);
             if (updateCustomer) {
                 Notification.notifie("Customer Data", "Customer Data Updated", NotificationType.INFORMATION);
                 CashierCustomersController.observableList.clear();

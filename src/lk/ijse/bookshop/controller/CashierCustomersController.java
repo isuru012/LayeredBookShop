@@ -14,6 +14,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.CashierCustomerBO;
 import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.dto.CustomerDTO;
 import lk.ijse.bookshop.util.Notification;
@@ -53,6 +55,8 @@ public class CashierCustomersController {
     public static String CusId;
     public static ObservableList observableList = FXCollections.observableArrayList();
 
+    CashierCustomerBO cashierCustomerBO= (CashierCustomerBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.CASHIERCUSTOMER);
+
     public void initialize() throws SQLException, ClassNotFoundException {
         observableList.clear();
 
@@ -61,7 +65,7 @@ public class CashierCustomersController {
         colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
 
-        ArrayList arrayList = CustomerModel.getAllDetails();
+        ArrayList arrayList = cashierCustomerBO.getAllDetails();
         for (Object customerTm : arrayList) {
             observableList.add(customerTm);
         }
@@ -106,7 +110,7 @@ public class CashierCustomersController {
 
             String name = txtName.getText();
             int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-            String cusId = generateNextCustomeId(CustomerModel.getOrderId());
+            String cusId = generateNextCustomeId(cashierCustomerBO.getOrderId());
             /*LocalDate date= LocalDate.now();*/
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             String employeeId = LoginFormController.employeeId;
@@ -119,7 +123,7 @@ public class CashierCustomersController {
 
             CustomerDTO customerDTO = new CustomerDTO(cusId, name, phoneNumber, date, employeeId);
 
-            boolean customerData = CustomerModel.insertCustomerData(customerDTO);
+            boolean customerData = cashierCustomerBO.insertCustomerData(customerDTO);
 
             if (customerData) {
                 Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
@@ -165,7 +169,7 @@ public class CashierCustomersController {
             alert.setContentText("Do you want to delete customer "+txtName.getText()+"?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                boolean deleteCustomer = CustomerModel.deleteCustomer(CusId);
+                boolean deleteCustomer = cashierCustomerBO.deleteCustomer(CusId);
                 if (deleteCustomer) {
                     txtName.setText("");
                     txtPhoneNumber.setText("");
@@ -191,8 +195,11 @@ public class CashierCustomersController {
             String name = txtName.getText();
             int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
 
-
-            boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CusId);
+            CustomerDTO customerDTO=new CustomerDTO();
+            customerDTO.setCusId(CusId);
+            customerDTO.setName(name);
+            customerDTO.setPhoneNumber(phoneNumber);
+            boolean updateCustomer = cashierCustomerBO.updateCustomer(customerDTO);
             if (updateCustomer) {
                 Notification.notifie("Customer Data", "Customer Data Updated", NotificationType.INFORMATION);
                 observableList.clear();

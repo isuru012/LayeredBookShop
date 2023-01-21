@@ -9,5 +9,9 @@ package lk.ijse.bookshop.bo.custom;
 */
 
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public interface CashierItemBO extends SuperBO {
+    ArrayList getAllDetails() throws SQLException, ClassNotFoundException;
 }

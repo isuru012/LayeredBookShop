@@ -7,7 +7,9 @@ import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
 import lk.ijse.bookshop.dto.ItemDTO;
 import lk.ijse.bookshop.dto.SupplierOrderDetailsDTO;
+import lk.ijse.bookshop.entity.CusOrderDetails;
 import lk.ijse.bookshop.entity.Item;
+import lk.ijse.bookshop.entity.SupOrderDetails;
 import lk.ijse.bookshop.view.tm.AdminItemTm;
 import lk.ijse.bookshop.view.tm.CashierItemTm;
 
@@ -26,7 +28,7 @@ public class ItemDAOImpl implements ItemDAO {
         }
         return -1;
     }
-    private  String getDescription(String itemId) throws SQLException, ClassNotFoundException {
+    public  String getDescription(String itemId) throws SQLException, ClassNotFoundException {
         String sql="SELECT Description FROM item WHERE ItemId=?";
         ResultSet resultSet= SQLUtil.execute(sql,itemId);
         if (resultSet.next()){
@@ -66,7 +68,7 @@ public class ItemDAOImpl implements ItemDAO {
         return -1;
     }
 
-    private int currentBatchNumber(SupplierOrderDetailsDTO detail) throws SQLException, ClassNotFoundException {
+    private int currentBatchNumber(SupOrderDetails detail) throws SQLException, ClassNotFoundException {
         String sql="SELECT BatchNumber FROM item WHERE ItemId=? ORDER BY BatchNumber  DESC LIMIT 1;";
         ResultSet resultSet= SQLUtil.execute(sql,detail.getItemId());
         if (resultSet.next()){
@@ -74,8 +76,8 @@ public class ItemDAOImpl implements ItemDAO {
         }
         return 0;
     }
-    public boolean checkItem(ArrayList<SupplierOrderDetailsDTO> supplierOrderDetailsDTOS) throws SQLException, ClassNotFoundException {
-        for (SupplierOrderDetailsDTO detail : supplierOrderDetailsDTOS) {
+    public boolean checkItem(ArrayList<SupOrderDetails> supplierOrderDetailsDTOS) throws SQLException, ClassNotFoundException {
+        for (SupOrderDetails detail : supplierOrderDetailsDTOS) {
             if (!checkOneDetail(detail)) {
                 return false;
             }
@@ -83,7 +85,7 @@ public class ItemDAOImpl implements ItemDAO {
         return true;
     }
 
-    private boolean checkOneDetail(SupplierOrderDetailsDTO detail) throws SQLException, ClassNotFoundException {
+    private boolean checkOneDetail(SupOrderDetails detail) throws SQLException, ClassNotFoundException {
         String sql="SELECT * FROM item WHERE ItemId=? AND BuyingUnitPrice=?";
         ResultSet resultSet= SQLUtil.execute(sql,detail.getItemId(),detail.getUnitPrice());
         PreparedStatement stm;
@@ -140,12 +142,12 @@ public class ItemDAOImpl implements ItemDAO {
         }
         return null;
     }
-    public ItemDTO searchDescription(String text) throws SQLException, ClassNotFoundException {
+    public Item search(String text) throws SQLException, ClassNotFoundException {
         String searchText="%"+text;
         String sql="SELECT * FROM item WHERE Description LIKE ?";
         ResultSet resultSet= SQLUtil.execute(sql,searchText);
         if (resultSet.next()){
-            return new ItemDTO(resultSet.getString(1),resultSet.getInt(2),resultSet.getString(3),
+            return new Item(resultSet.getString(1),resultSet.getInt(2),resultSet.getString(3),
                     resultSet.getDouble(4),resultSet.getDouble(5),resultSet.getInt(6),resultSet.getString(7));
         }
         return null;
@@ -175,6 +177,7 @@ public class ItemDAOImpl implements ItemDAO {
             return resultSet.getInt(1);
 
         }
+
         return -1;
     }
 
@@ -187,9 +190,9 @@ public class ItemDAOImpl implements ItemDAO {
         return -1;
     }
 
-    public boolean updateStock(ArrayList<OrderDetailDTO> orderDetailDTOS)
+    public boolean updateStock(ArrayList<CusOrderDetails> orderDetailDTOS)
             throws SQLException, ClassNotFoundException {
-        for (OrderDetailDTO detail : orderDetailDTOS) {
+        for (CusOrderDetails detail : orderDetailDTOS) {
             if (!updateItem(detail)) {
                 return false;
             }
@@ -197,7 +200,7 @@ public class ItemDAOImpl implements ItemDAO {
         return true;
     }
 
-    private boolean updateItem(OrderDetailDTO detail) throws SQLException, ClassNotFoundException {
+    private boolean updateItem(CusOrderDetails detail) throws SQLException, ClassNotFoundException {
         PreparedStatement stm = DBConnection.getDBConnection().getConnection()
                 .prepareStatement("UPDATE item SET QuantityOnHand=QuantityOnHand-? WHERE ItemId=? " +
                         "AND SellingUnitPrice=?");
@@ -236,9 +239,9 @@ public class ItemDAOImpl implements ItemDAO {
         return arrayList;
     }
 
-    public boolean updateSupplierStock(ArrayList<SupplierOrderDetailsDTO> supplierOrderDetailsDTOS)
+    public boolean updateSupplierStock(ArrayList<SupOrderDetails> supplierOrderDetailsDTOS)
             throws SQLException, ClassNotFoundException {
-        for (SupplierOrderDetailsDTO detail : supplierOrderDetailsDTOS) {
+        for (SupOrderDetails detail : supplierOrderDetailsDTOS) {
             if (!updateSupplerItem(detail)) {
                 return false;
             }
@@ -246,7 +249,7 @@ public class ItemDAOImpl implements ItemDAO {
         return true;
     }
 
-    private boolean updateSupplerItem(SupplierOrderDetailsDTO detail) throws SQLException, ClassNotFoundException {
+    private boolean updateSupplerItem(SupOrderDetails detail) throws SQLException, ClassNotFoundException {
         PreparedStatement stm = DBConnection.getDBConnection().getConnection()
                 .prepareStatement("UPDATE item SET QuantityOnHand=QuantityOnHand+? WHERE ItemId=?");
         stm.setObject(1, detail.getQuantity());
@@ -280,9 +283,6 @@ public class ItemDAOImpl implements ItemDAO {
         return arrayList;
     }
 
-    public String getBatchNumber() {
-        return null;
-    }
 
     public boolean insert(Item item) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO item VALUES (?,?,?,?,?,?,?)";
@@ -315,10 +315,6 @@ public class ItemDAOImpl implements ItemDAO {
         return SQLUtil.execute(sql, itemId);
     }
 
-    @Override
-    public Item search(String newValue) throws SQLException, ClassNotFoundException {
-        return null;
-    }
 
     /*public boolean update(String itemCode, int batchNumber, String desCriptionText, double buyingPrice, double
     sellingPrice, int quantity) throws SQLException, ClassNotFoundException {

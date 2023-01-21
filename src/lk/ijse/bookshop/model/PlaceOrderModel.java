@@ -60,7 +60,7 @@ public class PlaceOrderModel {
     }*/
 
 
-    public static boolean placeOrder(CusOrderDTO cusOrderDTO) throws SQLException, ClassNotFoundException {
+   /* public static boolean placeOrder(CusOrderDTO cusOrderDTO) throws SQLException, ClassNotFoundException {
         try {
             DBConnection.getDBConnection().getConnection().setAutoCommit(false);
             PreparedStatement statement=DBConnection.getDBConnection().getConnection().prepareStatement("INSERT " +
@@ -88,7 +88,7 @@ public class PlaceOrderModel {
         }finally {
             DBConnection.getDBConnection().getConnection().setAutoCommit(true);
         }
-    }
+    }*/
 
     /*public static int getQtyTotalOfOneItem(String itemId, double unitPrice) throws SQLException, ClassNotFoundException {
         String sql="SELECT SUM(QuantityOnHand) FROM item WHERE ItemId=? AND SellingUnitPrice=?";

@@ -18,6 +18,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.CashierPlaceOrderBO;
 import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.model.CustomerModel;
 import lk.ijse.bookshop.model.PlaceOrderModel;
@@ -123,6 +125,9 @@ public class CashierPlaceOrderController {
     static String CusId = CashierCustomersController.CusId;
     static boolean boolPassword = false;
 
+    CashierPlaceOrderBO cashierPlaceOrderBO= (CashierPlaceOrderBO) BOFactory.getBOFactory().
+            getBOTypes(BOFactory.BOTypes.CASHIERPLACEORDER);
+
     public void initialize() throws SQLException, ClassNotFoundException {
         Platform.runLater(() -> txtSearch.requestFocus());
         btnPlaceOrder.setDisable(true);
@@ -132,7 +137,7 @@ public class CashierPlaceOrderController {
         colPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
 
-        ArrayList arrayList = CustomerModel.getAllDetails();
+        ArrayList arrayList = cashierPlaceOrderBO.getAllDetails();
         for (Object customerTm : arrayList) {
             observableList.add(customerTm);
         }
@@ -141,8 +146,8 @@ public class CashierPlaceOrderController {
         searchPart();
 
         lblOrderDate.setText(String.valueOf(LocalDate.now()));
-        lblOrderId.setText(generateNextOrderId(PlaceOrderModel.getOrderId()));
-        ArrayList loadAllDescriptionIds = PlaceOrderModel.loadAllDescriptionIds();
+        lblOrderId.setText(generateNextOrderId(cashierPlaceOrderBO.getOrderId()));
+        ArrayList loadAllDescriptionIds = cashierPlaceOrderBO.loadAllDescriptionIds();
         TextFields.bindAutoCompletion(txtDescription, loadAllDescriptionIds);
 
         colItemCode.setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -270,7 +275,13 @@ public class CashierPlaceOrderController {
             String name = txtName.getText();
             int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
 
-            boolean updateCustomer = CustomerModel.updateCustomer(name, phoneNumber, CusId);
+            CustomerDTO customerDTO=new CustomerDTO();
+            customerDTO.setName(name);
+            customerDTO.setPhoneNumber(phoneNumber);
+            customerDTO.setCusId(CusId);
+
+
+            boolean updateCustomer = cashierPlaceOrderBO.updateCustomer(customerDTO);
             if (updateCustomer) {
                 Notification.notifie("Customer Data", "Customer Data Updated", NotificationType.INFORMATION);
                 observableList.clear();
@@ -288,13 +299,13 @@ public class CashierPlaceOrderController {
         if (!txtName.getText().equals("") && !txtPhoneNumber.getText().equals("")) {
             String name = txtName.getText();
             int phoneNumber = Integer.parseInt(txtPhoneNumber.getText());
-            String cusId = generateNextCustomeId(CustomerModel.getOrderId());
+            String cusId = generateNextCustomeId(cashierPlaceOrderBO.getCusId());
             /*LocalDate date= LocalDate.now();*/
             java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             String employeeId = LoginFormController.employeeId;
 
             CustomerDTO customerDTO = new CustomerDTO(cusId, name, phoneNumber, date, employeeId);
-            boolean customerData = CustomerModel.insertCustomerData(customerDTO);
+            boolean customerData = cashierPlaceOrderBO.insertCustomerData(customerDTO);
             if (customerData) {
                 Notification.notifie("Customer Data", "Customer Data Added", NotificationType.INFORMATION);
             } else {
@@ -349,7 +360,7 @@ public class CashierPlaceOrderController {
         }
         CusOrderDTO cusOrderDTO = new CusOrderDTO(orderId, date, time, cusId, employeeId, orderDetailDTOArrayList);
 
-        boolean placeOrder = PlaceOrderModel.placeOrder(cusOrderDTO);
+        boolean placeOrder = cashierPlaceOrderBO.placeOrder(cusOrderDTO);
         if (placeOrder) {
             InputStream resource = this.getClass().getResourceAsStream("../report/bk3.jrxml");
 
@@ -407,10 +418,10 @@ public class CashierPlaceOrderController {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             observableListKey.clear();
             String text = txtDescription.getText();
-            ItemDTO item = PlaceOrderModel.searchDescription(text);
+            ItemDTO item = cashierPlaceOrderBO.searchDescription(text);
             if (item != null) {
                 lblItemCode.setText(item.getItemId());
-                ArrayList allItemPrices = PlaceOrderModel.getAllItemPrices(lblItemCode.getText());
+                ArrayList allItemPrices = cashierPlaceOrderBO.getAllItemPrices(lblItemCode.getText());
 
                 for (Object unitPrice : allItemPrices) {
                     observableListKey.add(Double.parseDouble(String.valueOf(unitPrice)));
@@ -419,10 +430,10 @@ public class CashierPlaceOrderController {
 
                 cmbUnitPrice.setItems(observableListKey);
                 cmbUnitPrice.getSelectionModel().selectFirst();
-
+                double unitPrice = Double.parseDouble(String.valueOf(cmbUnitPrice.getSelectionModel().getSelectedItem()));
 
                 itemId = item.getItemId();
-                lblQtyOnHand.setText(String.valueOf(SupplierOrderModel.getQtyTotalOfOneItem(item.getItemId())));
+                lblQtyOnHand.setText(String.valueOf(cashierPlaceOrderBO.getQtyTotalOfOneItem(item.getItemId(),unitPrice)));
 
 
                 /*cmbUnitPrice.getSelectionModel().selectFirst();*/
@@ -454,8 +465,8 @@ public class CashierPlaceOrderController {
             lblItemCode.setText(orderTm.getCode());
             txtDescription.setText(orderTm.getDescription());
             txtQty.setText(String.valueOf(orderTm.getQty()));
-            lblQtyOnHand.setText(String.valueOf(PlaceOrderModel.getItemQuantity(lblItemCode.getText())));
-            ArrayList allItemPrices = PlaceOrderModel.getAllItemPrices(lblItemCode.getText());
+            lblQtyOnHand.setText(String.valueOf(cashierPlaceOrderBO.getItemQuantity(lblItemCode.getText())));
+            ArrayList allItemPrices = cashierPlaceOrderBO.getAllItemPrices(lblItemCode.getText());
             ObservableList observableList = FXCollections.observableArrayList();
             for (Object unitPrice : allItemPrices) {
                 observableList.add(unitPrice);
@@ -582,7 +593,7 @@ public class CashierPlaceOrderController {
 
         if (cmbUnitPrice.getSelectionModel().getSelectedItem() != null) {
             double unitPrice = Double.parseDouble(String.valueOf(cmbUnitPrice.getSelectionModel().getSelectedItem()));
-            lblQtyOnHand.setText(String.valueOf(PlaceOrderModel.getQtyTotalOfOneItem(itemId, unitPrice)));
+            lblQtyOnHand.setText(String.valueOf(cashierPlaceOrderBO.getQtyTotalOfOneItem(itemId, unitPrice)));
         }
 
 

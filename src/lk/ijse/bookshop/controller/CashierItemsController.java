@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.bookshop.bo.BOFactory;
+import lk.ijse.bookshop.bo.custom.CashierItemBO;
 import lk.ijse.bookshop.model.ItemModel;
 import lk.ijse.bookshop.view.tm.CustomerTm;
 import lk.ijse.bookshop.view.tm.CashierItemTm;
@@ -43,6 +45,7 @@ public class CashierItemsController {
     private TableColumn<?, ?> colOffer;
 
     static ObservableList observableList= FXCollections.observableArrayList();
+    CashierItemBO cashierItemBO= (CashierItemBO) BOFactory.getBOFactory().getBOTypes(BOFactory.BOTypes.CASHIERITEM);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         observableList.clear();
@@ -53,7 +56,7 @@ public class CashierItemsController {
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantityOnHand"));
         colOffer.setCellValueFactory(new PropertyValueFactory<>("offerAmount"));
 
-        ArrayList arrayList = ItemModel.getAllDetails();
+        ArrayList arrayList = cashierItemBO.getAllDetails();
         for (Object customerTm : arrayList) {
             observableList.add(customerTm);
         }
