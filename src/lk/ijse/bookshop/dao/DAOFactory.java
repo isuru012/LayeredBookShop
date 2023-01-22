@@ -20,7 +20,7 @@ public class DAOFactory {
     }
     public enum DAOTypes{
         CUSTOMER,ITEM,CUSORDER,CUSORDERDETAILS,CUSRELOAD,EMPLOYEE,EXPENDITURE,OFFER,PAYMENT,QUERYDAO,SUPORDER,SUPORDERDETAILS,
-        SUPPLIER,USER,CUSRELOADDETAILS
+        SUPPLIER,USER,CUSRELOADDETAILS,RELOAD
     }
     public SuperDAO getDAOTypes(DAOTypes daoTypes){
         switch (daoTypes){
@@ -54,6 +54,8 @@ public class DAOFactory {
                 return new SupOrderDetailsDAOImpl();
             case CUSRELOADDETAILS:
                 return new CusReloadDetailsDAOImpl();
+            case RELOAD:
+                return new ReloadDAOImpl();
 
             default:
                 return null;

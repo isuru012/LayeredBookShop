@@ -17,7 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.bookshop.bo.BOFactory;
 import lk.ijse.bookshop.bo.custom.AdminOfferBO;
-import lk.ijse.bookshop.model.OfferModel;
+
 import lk.ijse.bookshop.dto.OfferDTO;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.view.tm.OfferTm;

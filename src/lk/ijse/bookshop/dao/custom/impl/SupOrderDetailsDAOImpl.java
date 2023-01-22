@@ -11,8 +11,6 @@ import lk.ijse.bookshop.dto.OrderDetailDTO;
 import lk.ijse.bookshop.dto.PaymentDTO;
 import lk.ijse.bookshop.dto.SupplierOrderDetailsDTO;
 import lk.ijse.bookshop.entity.SupOrderDetails;
-import lk.ijse.bookshop.model.PaymentModel;
-import lk.ijse.bookshop.model.SupplierModel;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;

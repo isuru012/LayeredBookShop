@@ -23,14 +23,15 @@ import java.util.ArrayList;
 public class AdminEmployeeBOImpl implements AdminEmployeeBO {
     EmployeeDAO employeeDAO= (EmployeeDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.EMPLOYEE);
     @Override
-    public ArrayList<EmployeeDTO> getAllDetails() throws SQLException, ClassNotFoundException {
-        ArrayList<EmployeeDTO> employeeDTOS = new ArrayList<>();
+    public ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
+        /*ArrayList<EmployeeDTO> employeeDTOS = new ArrayList<>();
         ArrayList<Employee> employees = employeeDAO.getAll();
         for (Employee i : employees) {
             employeeDTOS.add(new EmployeeDTO(i.getEmployeeId(),i.getName(),i.getAddress(),i.getPhoneNumber(),i.getSalary(),i.getUserName()));
 
         }
-        return employeeDTOS;
+        return employeeDTOS;*/
+        return employeeDAO.getAll();
     }
 
     @Override

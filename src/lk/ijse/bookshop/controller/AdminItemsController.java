@@ -17,7 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.bookshop.bo.BOFactory;
 import lk.ijse.bookshop.bo.custom.AdminItemBO;
-import lk.ijse.bookshop.model.ItemModel;
+
 import lk.ijse.bookshop.dto.ItemDTO;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.view.tm.AdminItemTm;

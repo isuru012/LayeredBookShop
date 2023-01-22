@@ -27,12 +27,7 @@ public class AdminOfferBOImpl implements AdminOfferBO {
 
     @Override
     public ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
-        ArrayList<OfferDTO> offerDTOS=new ArrayList<>();
-        ArrayList<Offer> offers= offerDAO.getAll();
-        for (Offer i:offers) {
-            offerDTOS.add(new OfferDTO(i.getOfferId(),i.getAmmount(),i.getStartedDate(),i.getEndedDate()));
-        }
-        return offerDTOS;
+        return offerDAO.getAll();
     }
 
     @Override

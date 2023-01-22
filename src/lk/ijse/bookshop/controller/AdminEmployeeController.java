@@ -19,8 +19,6 @@ import lk.ijse.bookshop.bo.BOFactory;
 import lk.ijse.bookshop.bo.custom.AdminEmployeeBO;
 import lk.ijse.bookshop.dto.EmployeeDTO;
 import lk.ijse.bookshop.entity.Employee;
-import lk.ijse.bookshop.model.CustomerModel;
-import lk.ijse.bookshop.model.EmployeeModel;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.view.tm.CustomerTm;
 import lk.ijse.bookshop.view.tm.EmployeeTm;

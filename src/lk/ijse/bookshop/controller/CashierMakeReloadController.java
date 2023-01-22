@@ -18,8 +18,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.bookshop.bo.BOFactory;
 import lk.ijse.bookshop.bo.custom.CashierMakeReloadBO;
-import lk.ijse.bookshop.model.CustomerModel;
-import lk.ijse.bookshop.model.PlaceReloadModel;
 import lk.ijse.bookshop.dto.*;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.view.tm.CustomerTm;

@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.bookshop.bo.BOFactory;
 import lk.ijse.bookshop.bo.custom.TrueResetPasswordBO;
-import lk.ijse.bookshop.model.UserCreationModel;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.util.WindowControll;
 import tray.notification.NotificationType;

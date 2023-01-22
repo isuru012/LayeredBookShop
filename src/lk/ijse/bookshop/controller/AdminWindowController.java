@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import lk.ijse.bookshop.bo.BOFactory;
 import lk.ijse.bookshop.bo.custom.AdminDashboardBO;
-import lk.ijse.bookshop.model.DashboardModel;
+
 import lk.ijse.bookshop.util.Navigation;
 import lk.ijse.bookshop.util.Routes;
 import lk.ijse.bookshop.util.WindowControll;

@@ -19,7 +19,7 @@ public class ReloadDAOImpl implements ReloadDAO {
 
     @Override
     public ArrayList<Reload> getAll() throws SQLException, ClassNotFoundException {
-        return null;
+       return null;
     }
 
     @Override
@@ -51,6 +51,11 @@ public class ReloadDAOImpl implements ReloadDAO {
 
     @Override
     public String getId() throws SQLException, ClassNotFoundException {
+        String sql="SELECT ReloadId FROM reload ORDER BY ReloadId DESC LIMIT 1";
+        ResultSet resultSet= SQLUtil.execute(sql);
+        if (resultSet.next()){
+            return resultSet.getString(1);
+        }
         return null;
     }
 

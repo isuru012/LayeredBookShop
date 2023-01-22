@@ -14,8 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import lk.ijse.bookshop.bo.BOFactory;
 import lk.ijse.bookshop.bo.custom.CashierWindowBO;
-import lk.ijse.bookshop.model.CustomerModel;
-import lk.ijse.bookshop.model.UserCreationModel;
 import lk.ijse.bookshop.dto.CustomerDTO;
 import lk.ijse.bookshop.util.Navigation;
 import lk.ijse.bookshop.util.Notification;

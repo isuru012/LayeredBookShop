@@ -15,8 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.bookshop.bo.BOFactory;
 import lk.ijse.bookshop.bo.custom.CreateAccountBO;
-import lk.ijse.bookshop.model.EmployeeModel;
-import lk.ijse.bookshop.model.UserCreationModel;
 import lk.ijse.bookshop.dto.EmployeeDTO;
 import lk.ijse.bookshop.dto.UserDTO;
 import lk.ijse.bookshop.util.Notification;

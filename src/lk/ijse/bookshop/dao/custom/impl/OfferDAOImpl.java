@@ -5,6 +5,7 @@ import lk.ijse.bookshop.dao.custom.OfferDAO;
 import lk.ijse.bookshop.dto.OfferDTO;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
 import lk.ijse.bookshop.entity.Offer;
+import lk.ijse.bookshop.view.tm.EmployeeTm;
 import lk.ijse.bookshop.view.tm.OfferTm;
 
 import java.sql.Date;
@@ -34,8 +35,16 @@ public class OfferDAOImpl implements OfferDAO {
     }
 
     @Override
-    public ArrayList<Offer> getAll() throws SQLException, ClassNotFoundException {
-        return null;
+    public ArrayList getAll() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM offer";
+        ResultSet resultSet = SQLUtil.execute(sql);
+        ArrayList arrayList = new ArrayList();
+        while (resultSet.next()) {
+            arrayList.add(new OfferTm(resultSet.getString(1), 1
+                    , resultSet.getDouble(2), resultSet.getDate(3), resultSet.getDate(4)));
+
+        }
+        return arrayList;
     }
 
     public  boolean insert(Offer offerDTO) throws SQLException, ClassNotFoundException {

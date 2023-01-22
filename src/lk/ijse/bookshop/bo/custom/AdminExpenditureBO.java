@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface AdminExpenditureBO extends SuperBO {
-    ArrayList <ExpenditureDTO> getAllDetails() throws SQLException, ClassNotFoundException;
+    ArrayList getAllDetails() throws SQLException, ClassNotFoundException;
     boolean updateExpenditure(ExpenditureDTO expenditureDTO) throws SQLException, ClassNotFoundException;
     boolean deleteExpenditure(String id) throws SQLException, ClassNotFoundException;
     String getCurrentId() throws SQLException, ClassNotFoundException;

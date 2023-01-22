@@ -28,16 +28,8 @@ public class AdminDashboardBOImpl implements AdminDashboardBO {
     QueryDAO queryDAO = (QueryDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.QUERYDAO);
 
     @Override
-    public ArrayList<ItemDTO> getTrendingItems() throws SQLException, ClassNotFoundException {
-        ArrayList<ItemDTO> itemDTOS = new ArrayList<>();
-        ArrayList<Item> items = itemDAO.getAll();
-        for (Item i : items) {
-            itemDTOS.add(new ItemDTO(i.getItemId(), i.getBatchNumber(), i.getDescription(),
-                    i.getBuyingUnitPrice(), i.getSellingUnitPrice(), i.getQuantityOnHand(),
-                    i.getOfferId()));
-
-        }
-        return itemDTOS;
+    public ArrayList getTrendingItems() throws SQLException, ClassNotFoundException {
+        return queryDAO.getTrendingItems();
     }
 
     @Override

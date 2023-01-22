@@ -15,8 +15,6 @@ import lk.ijse.bookshop.dao.custom.*;
 import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.*;
 import lk.ijse.bookshop.entity.*;
-import lk.ijse.bookshop.model.ReloadDetailModel;
-import lk.ijse.bookshop.model.ReloadModel;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -26,7 +24,7 @@ import java.util.ArrayList;
 public class CashierMakeReloadBOImpl implements CashierMakeReloadBO {
     CusReloadDetailsDAO cusReloadDetailsDAO= (CusReloadDetailsDAO) DAOFactory.getDAOFactory().
             getDAOTypes(DAOFactory.DAOTypes.CUSRELOADDETAILS);
-    ReloadDAO reloadDAO= (ReloadDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.CUSRELOAD);
+    ReloadDAO reloadDAO= (ReloadDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.RELOAD);
     CusReloadDAO cusReloadDAO= (CusReloadDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.CUSRELOAD);
 
     CustomerDAO customerDAO= (CustomerDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.CUSTOMER);
@@ -39,7 +37,7 @@ public class CashierMakeReloadBOImpl implements CashierMakeReloadBO {
 
     @Override
     public String getOrderId() throws SQLException, ClassNotFoundException {
-        return itemDAO.getId();
+        return cusReloadDAO.getId();
     }
 
     @Override

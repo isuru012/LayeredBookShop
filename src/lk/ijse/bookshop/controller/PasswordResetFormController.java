@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import lk.ijse.bookshop.bo.BOFactory;
 import lk.ijse.bookshop.bo.custom.PasswordResetFormBO;
 import lk.ijse.bookshop.dao.custom.impl.UserDAOImpl;
-import lk.ijse.bookshop.model.UserCreationModel;
 import lk.ijse.bookshop.util.Navigation;
 import lk.ijse.bookshop.util.Notification;
 import lk.ijse.bookshop.util.Routes;

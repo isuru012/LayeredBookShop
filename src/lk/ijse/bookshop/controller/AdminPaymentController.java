@@ -14,8 +14,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.bookshop.bo.BOFactory;
 import lk.ijse.bookshop.bo.custom.AdminPaymentBO;
-import lk.ijse.bookshop.model.CustomerModel;
-import lk.ijse.bookshop.model.PaymentModel;
 import lk.ijse.bookshop.view.tm.CustomerTm;
 import lk.ijse.bookshop.view.tm.PaymentTm;
 

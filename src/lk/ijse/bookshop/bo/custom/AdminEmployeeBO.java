@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface AdminEmployeeBO extends SuperBO{
-    ArrayList<EmployeeDTO> getAllDetails() throws SQLException, ClassNotFoundException;
+    ArrayList getAllDetails() throws SQLException, ClassNotFoundException;
     boolean deleteEmployee(String employeeId) throws SQLException, ClassNotFoundException;
 
     boolean updateSalary(EmployeeDTO employee) throws SQLException, ClassNotFoundException;

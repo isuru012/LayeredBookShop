@@ -10,13 +10,12 @@ package lk.ijse.bookshop.bo.custom;
 
 
 import lk.ijse.bookshop.dto.ItemDTO;
-import lk.ijse.bookshop.model.DashboardModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface AdminDashboardBO extends SuperBO {
-    ArrayList<ItemDTO> getTrendingItems() throws SQLException, ClassNotFoundException;
+    ArrayList getTrendingItems() throws SQLException, ClassNotFoundException;
     int getOrdersAmount() throws SQLException, ClassNotFoundException;
     int getProductsAmount() throws SQLException, ClassNotFoundException;
     int getCustomersAmount() throws SQLException, ClassNotFoundException;

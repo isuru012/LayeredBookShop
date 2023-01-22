@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import lk.ijse.bookshop.bo.BOFactory;
 import lk.ijse.bookshop.bo.custom.AdminDashboardBO;
-import lk.ijse.bookshop.model.DashboardModel;
 import lk.ijse.bookshop.util.WindowControll;
 
 import java.sql.SQLException;

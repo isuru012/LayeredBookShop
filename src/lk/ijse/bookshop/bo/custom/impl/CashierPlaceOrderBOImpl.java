@@ -15,9 +15,6 @@ import lk.ijse.bookshop.dao.custom.*;
 import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.*;
 import lk.ijse.bookshop.entity.*;
-import lk.ijse.bookshop.model.ItemModel;
-import lk.ijse.bookshop.model.OrderDetailModel;
-import lk.ijse.bookshop.model.SupplierOrderDetailModel;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;

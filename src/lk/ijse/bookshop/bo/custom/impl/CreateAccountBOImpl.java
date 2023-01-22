@@ -18,7 +18,7 @@ import lk.ijse.bookshop.dto.EmployeeDTO;
 import lk.ijse.bookshop.dto.UserDTO;
 import lk.ijse.bookshop.entity.Employee;
 import lk.ijse.bookshop.entity.User;
-import lk.ijse.bookshop.model.EmployeeModel;
+
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

@@ -26,14 +26,15 @@ public class AdminItemBOImpl implements AdminItemBO {
     }
 
     @Override
-    public ArrayList<ItemDTO> getAllDetailsForAdminItem() throws SQLException, ClassNotFoundException {
-        ArrayList<ItemDTO> itemDTOS=new ArrayList<>();
+    public ArrayList getAllDetailsForAdminItem() throws SQLException, ClassNotFoundException {
+        /*ArrayList<ItemDTO> itemDTOS=new ArrayList<>();
         ArrayList<Item> items= itemDAO.getAll();
         for (Item i:items) {
             itemDTOS.add(new ItemDTO(i.getItemId(),i.getBatchNumber(),i.getDescription(),i.getBuyingUnitPrice(),i.getSellingUnitPrice(),i.getQuantityOnHand(),
                     i.getOfferId()));
         }
-        return itemDTOS;
+        return itemDTOS;*/
+return itemDAO.getAll();
     }
 
     @Override

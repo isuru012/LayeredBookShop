@@ -24,13 +24,14 @@ public class AdminExpenditureBOImpl implements AdminExpenditureBO {
     UserDAO userDAO= (UserDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.USER);
 
     @Override
-    public ArrayList<ExpenditureDTO> getAllDetails() throws SQLException, ClassNotFoundException {
-        ArrayList<ExpenditureDTO> expenditureDTOS=new ArrayList<>();
+    public ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
+        /*ArrayList<ExpenditureDTO> expenditureDTOS=new ArrayList<>();
         ArrayList<Expenditure> expenditures= expenditureDAO.getAll();
         for (Expenditure i:expenditures) {
             expenditureDTOS.add(new ExpenditureDTO(i.getExpenditureId(),i.getDescription(),i.getAmount(),i.getDate(),i.getTime(),i.getUserName()));
         }
-        return expenditureDTOS;
+        return expenditureDTOS;*/
+        return expenditureDAO.getAll();
     }
 
     @Override
