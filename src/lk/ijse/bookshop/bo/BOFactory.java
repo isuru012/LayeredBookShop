@@ -39,7 +39,7 @@ public class BOFactory {
             case ADMINPAYMENT:
                 return new AdminPaymentBOImpl();
             case ADMINSUPPLIER:
-                return new AdminSupplierBOImpl();
+                return new AdminSupplierOrderBOImpl();
             case CASHIERWINDOW:
                 return new CashierWindowBOImpl();
             case CREATEACCOUNT:

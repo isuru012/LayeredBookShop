@@ -46,8 +46,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     public boolean update(Employee employee) throws SQLException, ClassNotFoundException {
-        String sql = "UPDATE employee SET Salary=? WHERE EmployeeId=?";
-        return SQLUtil.execute(sql, employee.getSalary(), employee.getEmployeeId());
+        String sql = "UPDATE employee SET Salary=?,Name=?,PhoneNumber=?,Address=? WHERE EmployeeId=?";
+        return SQLUtil.execute(sql, employee.getSalary(),employee.getName(),employee.getPhoneNumber()
+                ,employee.getAddress(),employee.getEmployeeId());
     }
 
     public boolean delete(String employeeId) throws SQLException, ClassNotFoundException {

@@ -57,7 +57,12 @@ public class AdminExpenditureBOImpl implements AdminExpenditureBO {
 
     @Override
     public boolean insertExpenditureData(ExpenditureDTO expenditureDTO) throws SQLException, ClassNotFoundException {
-        return expenditureDAO.insert(new Expenditure(expenditureDTO.getExpenditure(),expenditureDTO.getDescription(),expenditureDTO.getAmount(),
-                expenditureDTO.getDate(),expenditureDTO.getTime(),expenditureDTO.getUserName()));
+        boolean updatePayment = expenditureDAO.updatePayment(expenditureDTO.getExpenditure());
+        if (updatePayment) {
+            return expenditureDAO.insert(new Expenditure(expenditureDTO.getExpenditure(), expenditureDTO.getDescription(), expenditureDTO.getAmount(),
+                    expenditureDTO.getDate(), expenditureDTO.getTime(), expenditureDTO.getUserName()));
+        }
+        return false;
     }
+
 }

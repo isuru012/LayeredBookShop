@@ -121,7 +121,7 @@ public class AdminExpenditureController {
     }
 
     @FXML
-    void addOnAction(ActionEvent event) {
+    void addOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         addToTblExpenditure();
 
     }
@@ -190,9 +190,9 @@ public class AdminExpenditureController {
 
     }
 
-    private void addToTblExpenditure() {
+    private void addToTblExpenditure() throws SQLException, ClassNotFoundException {
 
-        try{
+        /*try{*/
             String description = txtDescription.getText();
             double amount= Double.parseDouble(txtAmount.getText());
             Date date = Date.valueOf(LocalDate.now());
@@ -217,9 +217,9 @@ public class AdminExpenditureController {
                 Notification.notifie("Expenditure Data", "Expenditure Data  Not Added", NotificationType.ERROR);
             }
 
-        }catch (Exception exception){
+       /* }catch (Exception exception){
             Notification.notifie("Error",""+exception,NotificationType.ERROR);
-        }
+        }*/
 
 
     }
@@ -246,7 +246,7 @@ public class AdminExpenditureController {
     }
 
     @FXML
-    void amountOnKeyReleased(KeyEvent event) {
+    void amountOnKeyReleased(KeyEvent event) throws SQLException, ClassNotFoundException {
         if (event.getCode()== KeyCode.ENTER){
             addToTblExpenditure();
             txtDescription.requestFocus();

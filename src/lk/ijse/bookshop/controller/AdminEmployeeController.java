@@ -135,6 +135,9 @@ public class AdminEmployeeController {
 
             EmployeeDTO employeeDTO=new EmployeeDTO();
             employeeDTO.setEmployeeId(employeeId);
+            employeeDTO.setName(txtName.getText());
+            employeeDTO.setAddress(txtAddess.getText());
+            employeeDTO.setPhoneNumber(Integer.parseInt(txtPhoneNumber.getText()));
             employeeDTO.setSalary(salary);
 
 

@@ -9,7 +9,7 @@ package lk.ijse.bookshop.bo.custom.impl;
 */
 
 
-import lk.ijse.bookshop.bo.custom.AdminSupplierBO;
+import lk.ijse.bookshop.bo.custom.AdminSupplierOrderBO;
 import lk.ijse.bookshop.dao.DAOFactory;
 import lk.ijse.bookshop.dao.custom.*;
 import lk.ijse.bookshop.db.DBConnection;
@@ -25,7 +25,7 @@ import lk.ijse.bookshop.entity.Supplier;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class AdminSupplierBOImpl implements AdminSupplierBO {
+public class AdminSupplierOrderBOImpl implements AdminSupplierOrderBO {
     SupOrderDAO saveOrderAdd= (SupOrderDAO) DAOFactory.getDAOFactory().
             getDAOTypes(DAOFactory.DAOTypes.SUPORDER);
     SupOrderDetailsDAO supOrderDetailsDAO= (SupOrderDetailsDAO) DAOFactory.getDAOFactory().

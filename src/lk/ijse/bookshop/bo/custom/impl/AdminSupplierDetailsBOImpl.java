@@ -36,7 +36,7 @@ public class AdminSupplierDetailsBOImpl implements AdminSupplierDetailsBO {
     @Override
     public boolean updateSupplier(SupplierDTO supplierDTO) throws SQLException, ClassNotFoundException {
         return supplierDAO.update(new Supplier(supplierDTO.getSupplierId(),
-                supplierDTO.getName(),supplierDTO.getSupplierId(),supplierDTO.getPhoneNumber(),
+                supplierDTO.getName(),supplierDTO.getLocation(),supplierDTO.getPhoneNumber(),
                 supplierDTO.getUserName()));
     }
 
@@ -58,7 +58,7 @@ public class AdminSupplierDetailsBOImpl implements AdminSupplierDetailsBO {
     @Override
     public boolean insertSupplierData(SupplierDTO supplierDTO) throws SQLException, ClassNotFoundException {
         return supplierDAO.insert(new Supplier(supplierDTO.getSupplierId(),
-                supplierDTO.getName(),supplierDTO.getSupplierId(),supplierDTO.getPhoneNumber(),
+                supplierDTO.getName(),supplierDTO.getLocation(),supplierDTO.getPhoneNumber(),
                 supplierDTO.getUserName()));
     }
 }

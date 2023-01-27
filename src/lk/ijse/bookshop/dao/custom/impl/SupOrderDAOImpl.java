@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class SupOrderDAOImpl implements SupOrderDAO {
-    public  String getOrderId() throws SQLException, ClassNotFoundException {
+    public  String getId() throws SQLException, ClassNotFoundException {
         String sql="SELECT SupOrderId FROM suporder ORDER BY SupOrderId DESC LIMIT 1";
         ResultSet resultSet= SQLUtil.execute(sql);
         if (resultSet.next()){
@@ -47,10 +47,6 @@ public class SupOrderDAOImpl implements SupOrderDAO {
         return null;
     }
 
-    @Override
-    public String getId() throws SQLException, ClassNotFoundException {
-        return null;
-    }
 
     @Override
     public boolean saveO(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {

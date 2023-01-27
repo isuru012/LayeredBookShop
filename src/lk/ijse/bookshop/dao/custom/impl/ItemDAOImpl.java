@@ -1,12 +1,10 @@
 package lk.ijse.bookshop.dao.custom.impl;
 
-import lk.ijse.bookshop.controller.AdminSupplierController;
+import lk.ijse.bookshop.controller.AdminSupplierOrderController;
 import lk.ijse.bookshop.dao.SQLUtil;
 import lk.ijse.bookshop.dao.custom.ItemDAO;
 import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
-import lk.ijse.bookshop.dto.ItemDTO;
-import lk.ijse.bookshop.dto.SupplierOrderDetailsDTO;
 import lk.ijse.bookshop.entity.CusOrderDetails;
 import lk.ijse.bookshop.entity.Item;
 import lk.ijse.bookshop.entity.SupOrderDetails;
@@ -102,7 +100,7 @@ public class ItemDAOImpl implements ItemDAO {
             stm.setObject(2,generateNextBatchNum(currentBatchNumber(detail)));
             stm.setObject(3,getDescription(detail.getItemId()));
             stm.setObject(4,detail.getUnitPrice());
-            stm.setObject(5, AdminSupplierController.sellingUnitPrice);
+            stm.setObject(5, AdminSupplierOrderController.sellingUnitPrice);
             stm.setObject(6,detail.getQuantity());
             stm.setObject(7,null);
         }

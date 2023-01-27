@@ -16,7 +16,7 @@
           <TableColumn fx:id="colAmount" prefWidth="176.0" text="Amount" />
             <TableColumn fx:id="colDate" prefWidth="200.0" text="Date" />
             <TableColumn fx:id="colTime" prefWidth="145.0" text="Time" />
-            <TableColumn fx:id="colSupplierName" prefWidth="187.0" text="Suplier Id" />
+            <TableColumn fx:id="colSupplierName" prefWidth="187.0" text="Suplier Order Id" />
             <TableColumn fx:id="colExpenditure" prefWidth="230.0" text="Expenditure Id" />
         </columns>
       </TableView>

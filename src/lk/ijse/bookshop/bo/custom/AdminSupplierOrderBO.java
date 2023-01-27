@@ -16,7 +16,7 @@ import lk.ijse.bookshop.dto.SupplierOrderDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface AdminSupplierBO extends SuperBO{
+public interface AdminSupplierOrderBO extends SuperBO{
    String  getOrderId() throws SQLException, ClassNotFoundException;
    ArrayList loadAllSupplierNames() throws SQLException, ClassNotFoundException;
    ArrayList loadAllDescriptionIds() throws SQLException, ClassNotFoundException;

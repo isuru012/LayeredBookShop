@@ -122,6 +122,10 @@
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
 }
+.table-row-cell:focused{
+    -fx-background-color: rgba(50, 196, 36, 0.8);
+    -fx-text-fill: #cc0000;
+}
 
 .table-view .virtual-flow .scroll-bar:vertical,
 .table-view .virtual-flow .scroll-bar:vertical .track,
