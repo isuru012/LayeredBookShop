@@ -3,6 +3,8 @@ package lk.ijse.bookshop.dao.custom.impl;
 import lk.ijse.bookshop.dao.SQLUtil;
 import lk.ijse.bookshop.dao.custom.PaymentDAO;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
+import lk.ijse.bookshop.entity.CusOrder;
+import lk.ijse.bookshop.entity.CusOrderDetails;
 import lk.ijse.bookshop.entity.Payment;
 import lk.ijse.bookshop.view.tm.PaymentTm;
 
@@ -62,12 +64,9 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 
     @Override
-    public boolean saveO(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
+    public boolean saveO(CusOrder cusOrder) throws SQLException, ClassNotFoundException {
         return false;
     }
 
-    @Override
-    public boolean saveD(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException {
-        return false;
-    }
+
 }

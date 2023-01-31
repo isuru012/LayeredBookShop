@@ -5,6 +5,6 @@ import lk.ijse.bookshop.entity.CusReload;
 
 import java.sql.SQLException;
 
-public interface CusReloadDAO extends CrudDAO<CusReload>,SuperDAO {
+public interface CusReloadDAO extends CrudDAO<CusReload>{
     boolean saveReload(CusReload cusReloadDTO) throws SQLException, ClassNotFoundException;
 }

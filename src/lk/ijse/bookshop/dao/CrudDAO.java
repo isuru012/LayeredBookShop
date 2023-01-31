@@ -2,6 +2,8 @@ package lk.ijse.bookshop.dao;
 
 import lk.ijse.bookshop.dao.custom.SuperDAO;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
+import lk.ijse.bookshop.entity.CusOrder;
+import lk.ijse.bookshop.entity.CusOrderDetails;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -14,6 +16,5 @@ public interface CrudDAO<T> extends SuperDAO {
     boolean delete(String id) throws SQLException, ClassNotFoundException;
     T search(String newValue) throws SQLException, ClassNotFoundException;
     String getId() throws SQLException, ClassNotFoundException;
-    boolean saveO(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException;
-    boolean saveD(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException;
+    boolean saveO(/*String orderId, LocalDate orderDate, String customerId*/CusOrder cusOrder) throws SQLException, ClassNotFoundException;
 }

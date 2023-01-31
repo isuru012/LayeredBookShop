@@ -5,6 +5,8 @@ import lk.ijse.bookshop.dao.custom.UserDAO;
 import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
 import lk.ijse.bookshop.dto.UserDTO;
+import lk.ijse.bookshop.entity.CusOrder;
+import lk.ijse.bookshop.entity.CusOrderDetails;
 import lk.ijse.bookshop.entity.User;
 
 import java.sql.PreparedStatement;
@@ -83,14 +85,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean saveO(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
+    public boolean saveO(CusOrder cusOrder) throws SQLException, ClassNotFoundException {
         return false;
     }
 
-    @Override
-    public boolean saveD(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException {
-        return false;
-    }
+
     public boolean userDetails(User userDTO) throws SQLException, ClassNotFoundException {
         PreparedStatement statement= DBConnection.getDBConnection().getConnection().
                 prepareStatement("INSERT INTO user VALUES(?,?,?) ");

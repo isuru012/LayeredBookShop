@@ -4,6 +4,8 @@ import lk.ijse.bookshop.dao.SQLUtil;
 import lk.ijse.bookshop.dao.custom.SupplierDAO;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
 import lk.ijse.bookshop.dto.SupplierDTO;
+import lk.ijse.bookshop.entity.CusOrder;
+import lk.ijse.bookshop.entity.CusOrderDetails;
 import lk.ijse.bookshop.entity.Supplier;
 import lk.ijse.bookshop.view.tm.SupplierDetailTm;
 
@@ -65,14 +67,11 @@ public class SupplierDAOImpl implements SupplierDAO {
     }
 
     @Override
-    public boolean saveO(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
+    public boolean saveO(CusOrder cusOrder) throws SQLException, ClassNotFoundException {
         return false;
     }
 
-    @Override
-    public boolean saveD(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException {
-        return false;
-    }
+
 
     public boolean insert(Supplier supplier) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO supplier VALUES (?,?,?,?,?)";

@@ -5,7 +5,6 @@ import lk.ijse.bookshop.entity.CusOrder;
 
 import java.sql.SQLException;
 
-public interface CusOrderDAO extends CrudDAO<CusOrder>,SuperDAO{
+public interface CusOrderDAO extends CrudDAO<CusOrder>{
     int getOrdersAmount() throws SQLException, ClassNotFoundException;
-    boolean saveCusOrder(CusOrder cusOrderDTO) throws SQLException, ClassNotFoundException;
 }

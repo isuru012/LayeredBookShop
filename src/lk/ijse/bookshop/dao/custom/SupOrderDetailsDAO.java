@@ -8,7 +8,7 @@ import lk.ijse.bookshop.entity.SupOrderDetails;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface SupOrderDetailsDAO extends CrudDAO<SupOrderDetails>,SuperDAO {
+public interface SupOrderDetailsDAO extends CrudDAO<SupOrderDetails>{
     boolean updatePayment(String supplierId, String supOrderId) throws SQLException,
             ClassNotFoundException;
     boolean saveOrderDetails(ArrayList<SupOrderDetails> supplierOrderDetailsDTOS)

@@ -66,7 +66,7 @@ public class CashierPlaceOrderBOImpl implements CashierPlaceOrderBO {
             DBConnection.getDBConnection().getConnection().setAutoCommit(false);
 
 
-            boolean isAddedOrder=cusOrderDAO.saveCusOrder(new CusOrder(cusOrderDTO.getCusOrderId(),
+            boolean isAddedOrder=cusOrderDAO.saveO(new CusOrder(cusOrderDTO.getCusOrderId(),
                     cusOrderDTO.getDate(),cusOrderDTO.getTime(),cusOrderDTO.getCusId(),cusOrderDTO.
                     getEmployeeId()));
             if (isAddedOrder){

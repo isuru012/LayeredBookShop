@@ -5,6 +5,7 @@ import lk.ijse.bookshop.dao.custom.CusOrderDAO;
 import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
 import lk.ijse.bookshop.entity.CusOrder;
+import lk.ijse.bookshop.entity.CusOrderDetails;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,15 +48,9 @@ public class CusOrderDAOImpl implements CusOrderDAO {
         return null;
     }
 
-    @Override
-    public boolean saveO(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
-        return false;
-    }
 
-    @Override
-    public boolean saveD(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException {
-        return false;
-    }
+
+
 
     public  int getOrdersAmount() throws SQLException, ClassNotFoundException {
         String sql="SELECT COUNT(CusOrderId) FROM cusorder";
@@ -65,7 +60,7 @@ public class CusOrderDAOImpl implements CusOrderDAO {
         }
         return -1;
     }
-    public boolean saveCusOrder(CusOrder cusOrderDTO) throws SQLException, ClassNotFoundException {
+    public boolean saveO(CusOrder cusOrderDTO) throws SQLException, ClassNotFoundException {
         PreparedStatement statement= DBConnection.getDBConnection().getConnection().prepareStatement("INSERT " +
                 "INTO cusorder VALUES(?,?,?,?,?) ");
         statement.setObject(1, cusOrderDTO.getCusOrderId());

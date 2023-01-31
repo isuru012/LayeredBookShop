@@ -10,7 +10,7 @@ import lk.ijse.bookshop.entity.Reload;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface ReloadDAO extends CrudDAO<Reload>,SuperDAO{
+public interface ReloadDAO extends CrudDAO<Reload>{
     Reload search(String text) throws SQLException, ClassNotFoundException;
     ArrayList loadAllServiceProviders() throws SQLException, ClassNotFoundException;
     boolean updateAmount(ArrayList<CusReloadDetails> cusReloadDetailsDTOS)

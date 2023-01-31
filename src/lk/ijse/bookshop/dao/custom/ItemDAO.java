@@ -9,7 +9,7 @@ import lk.ijse.bookshop.entity.SupOrderDetails;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface ItemDAO extends CrudDAO<Item>,SuperDAO {
+public interface ItemDAO extends CrudDAO<Item>{
     int getProductsAmount() throws SQLException, ClassNotFoundException;
     ArrayList loadAllDescriptionIds() throws SQLException, ClassNotFoundException;
     ArrayList loadAllItemPrices(String text) throws SQLException, ClassNotFoundException;

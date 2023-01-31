@@ -3,6 +3,7 @@ package lk.ijse.bookshop.dao.custom.impl;
 import lk.ijse.bookshop.dao.custom.CusOrderDetailsDAO;
 import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
+import lk.ijse.bookshop.entity.CusOrder;
 import lk.ijse.bookshop.entity.CusOrderDetails;
 
 import java.sql.PreparedStatement;
@@ -63,12 +64,9 @@ public class CusOrderDetailsDAOImpl implements CusOrderDetailsDAO {
     }
 
     @Override
-    public boolean saveO(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
+    public boolean saveO(CusOrder cusOrder) throws SQLException, ClassNotFoundException {
         return false;
     }
 
-    @Override
-    public boolean saveD(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException {
-        return false;
-    }
+
 }

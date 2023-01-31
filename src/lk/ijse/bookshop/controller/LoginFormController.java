@@ -94,9 +94,11 @@ public class LoginFormController {
                     UserDTO userDTO = getLoginData.getLoginData(txtUsername.getText(), txtPasswordField.getText());
 
                     if (userDTO != null) {
-                        if (userDTO.getUserName().equals(txtUsername.getText()) && userDTO.getPassword().equals(txtPasswordField.getText()) && userDTO.getRole().equals("Admin")) {
+                        if (userDTO.getUserName().equals(txtUsername.getText()) && userDTO.getPassword().
+                                equals(txtPasswordField.getText()) && userDTO.getRole().equals("Admin")) {
                             Navigation.navigate(Routes.ADMINWINDOW, pane);
-                        } else if (userDTO.getUserName().equals(txtUsername.getText()) && userDTO.getPassword().equals(txtPasswordField.getText()) && userDTO.getRole().equals("Employee")) {
+                        } else if (userDTO.getUserName().equals(txtUsername.getText()) && userDTO.getPassword().
+                                equals(txtPasswordField.getText()) && userDTO.getRole().equals("Employee")) {
                             employeeId = getLoginData.getEmployeeId(userDTO.getUserName());
                             Navigation.navigate(Routes.CASHIERWINDOW, pane);
 

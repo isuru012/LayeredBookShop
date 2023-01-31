@@ -5,7 +5,7 @@ import lk.ijse.bookshop.entity.Expenditure;
 
 import java.sql.SQLException;
 
-public interface ExpenditureDAO extends CrudDAO<Expenditure>,SuperDAO {
+public interface ExpenditureDAO extends CrudDAO<Expenditure>{
     boolean updatePayment(String expenditureId) throws SQLException,
             ClassNotFoundException;
 }

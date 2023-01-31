@@ -6,6 +6,6 @@ import lk.ijse.bookshop.entity.SupOrder;
 
 import java.sql.SQLException;
 
-public interface SupOrderDAO extends CrudDAO<SupOrder>,SuperDAO {
+public interface SupOrderDAO extends CrudDAO<SupOrder>{
     boolean saveOrder(SupOrder supOrder) throws SQLException, ClassNotFoundException;
 }

@@ -6,7 +6,7 @@ import lk.ijse.bookshop.entity.User;
 
 import java.sql.SQLException;
 
-public interface UserDAO extends CrudDAO<User>,SuperDAO {
+public interface UserDAO extends CrudDAO<User>{
     String getUserName() throws SQLException, ClassNotFoundException;
     boolean passwordReset(String username, String password) throws SQLException, ClassNotFoundException;
     boolean checkUsername(String Username) throws SQLException, ClassNotFoundException;

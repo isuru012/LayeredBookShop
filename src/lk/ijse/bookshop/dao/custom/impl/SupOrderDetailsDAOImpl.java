@@ -10,6 +10,8 @@ import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
 import lk.ijse.bookshop.dto.PaymentDTO;
 import lk.ijse.bookshop.dto.SupplierOrderDetailsDTO;
+import lk.ijse.bookshop.entity.CusOrder;
+import lk.ijse.bookshop.entity.CusOrderDetails;
 import lk.ijse.bookshop.entity.SupOrderDetails;
 
 import java.sql.*;
@@ -130,12 +132,9 @@ public class SupOrderDetailsDAOImpl implements SupOrderDetailsDAO {
     }
 
     @Override
-    public boolean saveO(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
+    public boolean saveO(CusOrder cusOrder) throws SQLException, ClassNotFoundException {
         return false;
     }
 
-    @Override
-    public boolean saveD(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException {
-        return false;
-    }
+
 }

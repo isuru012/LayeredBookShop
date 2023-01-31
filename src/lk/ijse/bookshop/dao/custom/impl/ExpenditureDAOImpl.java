@@ -9,6 +9,8 @@ import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.ExpenditureDTO;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
 import lk.ijse.bookshop.dto.PaymentDTO;
+import lk.ijse.bookshop.entity.CusOrder;
+import lk.ijse.bookshop.entity.CusOrderDetails;
 import lk.ijse.bookshop.entity.Expenditure;
 import lk.ijse.bookshop.view.tm.ExpenditureTm;
 
@@ -95,14 +97,10 @@ public class ExpenditureDAOImpl implements ExpenditureDAO {
     }
 
     @Override
-    public boolean saveO(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
+    public boolean saveO(CusOrder cusOrder) throws SQLException, ClassNotFoundException {
         return false;
     }
 
-    @Override
-    public boolean saveD(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException {
-        return false;
-    }
 
     public boolean insert(Expenditure expenditure) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO expenditure VALUES (?,?,?,?,?,?)";

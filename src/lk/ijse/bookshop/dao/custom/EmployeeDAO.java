@@ -5,7 +5,7 @@ import lk.ijse.bookshop.entity.Employee;
 
 import java.sql.SQLException;
 
-public interface EmployeeDAO extends CrudDAO<Employee>,SuperDAO {
+public interface EmployeeDAO extends CrudDAO<Employee>{
     String getEmployeeId(String Username) throws SQLException, ClassNotFoundException;
     String getEmployeeName(String id) throws SQLException, ClassNotFoundException;
 }

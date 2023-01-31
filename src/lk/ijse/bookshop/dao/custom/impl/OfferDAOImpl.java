@@ -4,6 +4,8 @@ import lk.ijse.bookshop.dao.SQLUtil;
 import lk.ijse.bookshop.dao.custom.OfferDAO;
 import lk.ijse.bookshop.dto.OfferDTO;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
+import lk.ijse.bookshop.entity.CusOrder;
+import lk.ijse.bookshop.entity.CusOrderDetails;
 import lk.ijse.bookshop.entity.Offer;
 import lk.ijse.bookshop.view.tm.EmployeeTm;
 import lk.ijse.bookshop.view.tm.OfferTm;
@@ -25,14 +27,11 @@ public class OfferDAOImpl implements OfferDAO {
     }
 
     @Override
-    public boolean saveO(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
+    public boolean saveO(CusOrder cusOrder) throws SQLException, ClassNotFoundException {
         return false;
     }
 
-    @Override
-    public boolean saveD(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException {
-        return false;
-    }
+
 
     @Override
     public ArrayList getAll() throws SQLException, ClassNotFoundException {

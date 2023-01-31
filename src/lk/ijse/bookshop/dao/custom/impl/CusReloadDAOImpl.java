@@ -4,6 +4,8 @@ import lk.ijse.bookshop.dao.SQLUtil;
 import lk.ijse.bookshop.dao.custom.CusReloadDAO;
 import lk.ijse.bookshop.db.DBConnection;
 import lk.ijse.bookshop.dto.OrderDetailDTO;
+import lk.ijse.bookshop.entity.CusOrder;
+import lk.ijse.bookshop.entity.CusOrderDetails;
 import lk.ijse.bookshop.entity.CusReload;
 
 import java.sql.PreparedStatement;
@@ -48,14 +50,11 @@ public class CusReloadDAOImpl implements CusReloadDAO {
     }
 
     @Override
-    public boolean saveO(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException {
+    public boolean saveO(CusOrder cusOrder) throws SQLException, ClassNotFoundException {
         return false;
     }
 
-    @Override
-    public boolean saveD(OrderDetailDTO detail, String orderId) throws SQLException, ClassNotFoundException {
-        return false;
-    }
+
     public boolean saveReload(CusReload cusReloadDTO) throws SQLException, ClassNotFoundException {
         PreparedStatement statement= DBConnection.getDBConnection().
                 getConnection().prepareStatement("INSERT " +
