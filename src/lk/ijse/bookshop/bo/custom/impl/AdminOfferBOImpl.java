@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 public class AdminOfferBOImpl implements AdminOfferBO {
     ItemDAO itemDAO= (ItemDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.ITEM);
+
     OfferDAO offerDAO= (OfferDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.OFFER);
 
     @Override

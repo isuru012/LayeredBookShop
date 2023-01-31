@@ -35,5 +35,5 @@ public interface CashierPlaceOrderBO extends SuperBO{
     int getItemQuantity(String itemId) throws SQLException, ClassNotFoundException;
 
 
-
+    double getOfferAmount(String code, double sellingUnitPrice) throws SQLException, ClassNotFoundException;
 }

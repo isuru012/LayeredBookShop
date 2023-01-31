@@ -28,6 +28,7 @@ public class CashierPlaceOrderBOImpl implements CashierPlaceOrderBO {
             getDAOTypes(DAOFactory.DAOTypes.CUSORDERDETAILS);
     ItemDAO itemDAO= (ItemDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.ITEM);
     CustomerDAO customerDAO= (CustomerDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.CUSTOMER);
+    QueryDAO queryDAO= (QueryDAO) DAOFactory.getDAOFactory().getDAOTypes(DAOFactory.DAOTypes.QUERYDAO);
     @Override
     public ArrayList getAllDetails() throws SQLException, ClassNotFoundException {
         return customerDAO.getAll();
@@ -115,6 +116,11 @@ public class CashierPlaceOrderBOImpl implements CashierPlaceOrderBO {
     @Override
     public int getItemQuantity(String itemId) throws SQLException, ClassNotFoundException {
         return itemDAO.getItemQuantity(itemId);
+    }
+
+    @Override
+    public double getOfferAmount(String code, double sellingUnitPrice) throws SQLException, ClassNotFoundException {
+        return queryDAO.getOfferAmount(code,sellingUnitPrice);
     }
 
 }

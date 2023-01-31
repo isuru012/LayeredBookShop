@@ -14,4 +14,6 @@ public interface QueryDAO extends SuperDAO{
     double getSaturday() throws SQLException, ClassNotFoundException;
     double getSunday() throws SQLException, ClassNotFoundException;
 
+    double getOfferAmount(String code, double sellingUnitPrice) throws SQLException, ClassNotFoundException;
+
 }

@@ -111,4 +111,14 @@ public class QueryDAOImpl implements QueryDAO {
         return -1;
     }
 
+    @Override
+    public double getOfferAmount(String code, double sellingUnitPrice) throws SQLException, ClassNotFoundException {
+        String sql="SELECT Amount FROM offer where OfferId=(SELECT OfferId from item where ItemId=? AND SellingUnitPrice=?)";
+        ResultSet resultSet=SQLUtil.execute(sql,code,sellingUnitPrice);
+        if (resultSet.next()){
+            return resultSet.getDouble(1);
+        }
+        return 0;
+    }
+
 }

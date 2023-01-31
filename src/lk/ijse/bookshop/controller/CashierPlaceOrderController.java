@@ -320,7 +320,7 @@ public class CashierPlaceOrderController {
 
     ObservableList<OrderTm> observableList1 = FXCollections.observableArrayList();
 
-    public void addToCartOnAction(ActionEvent actionEvent) {
+    public void addToCartOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         Pattern pattern2 = Pattern.compile("^[0-9]*$");
         Matcher matcher2 = pattern2.matcher(txtQty.getText());
 
@@ -478,7 +478,7 @@ public class CashierPlaceOrderController {
 
     }
 
-    public void addToCartOnEnterKey(KeyEvent keyEvent) {
+    public void addToCartOnEnterKey(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
 
 
         Pattern pattern2 = Pattern.compile("^[0-9]*$");
@@ -498,12 +498,22 @@ public class CashierPlaceOrderController {
 
     }
 
-    private void addToTableOrder() {
+    private void addToTableOrder() throws SQLException, ClassNotFoundException {
 
         String code = lblItemCode.getText();
         String description = txtDescription.getText();
-        int qty = Integer.parseInt(txtQty.getText());
         double sellingUnitPrice = Double.parseDouble(String.valueOf(cmbUnitPrice.getSelectionModel().getSelectedItem()));
+
+        int qty = Integer.parseInt(txtQty.getText());
+        double itemDiscount;
+        if (txtItemDiscount.getText().equals("")){
+            itemDiscount=0;
+        }else{
+            itemDiscount= Double.parseDouble(txtItemDiscount.getText());
+        }
+        double offerAmount=cashierPlaceOrderBO.getOfferAmount(code,sellingUnitPrice);
+
+        sellingUnitPrice=sellingUnitPrice-(itemDiscount+offerAmount);
         double total = qty * sellingUnitPrice;
 
         OrderTm orderTm = new OrderTm(code, description, qty, sellingUnitPrice, total);
@@ -511,7 +521,7 @@ public class CashierPlaceOrderController {
 
         for (int i = 0; i < tblOrder.getItems().size(); i++) {
             if (colItemCode.getCellData(i).equals(lblItemCode.getText()) && colUnitPrice.getCellData(i)
-                    .equals(cmbUnitPrice.getSelectionModel().getSelectedItem())) {
+                    .equals(/*cmbUnitPrice.getSelectionModel().getSelectedItem())*/sellingUnitPrice)) {
 
                 int tempQty = observableList1.get(i).getQty() + qty;
                 double tempTotal = sellingUnitPrice * tempQty;
