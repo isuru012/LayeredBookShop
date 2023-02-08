@@ -19,8 +19,8 @@ public interface ItemDAO extends CrudDAO<Item>{
     boolean deleteOffer(String offerId) throws SQLException, ClassNotFoundException;
     String getDescription(String itemId) throws SQLException, ClassNotFoundException;
     String getItemId(String text) throws SQLException, ClassNotFoundException;
-    boolean updateSupplierStock(ArrayList<SupOrderDetails> supplierOrderDetailsDTOS)
-            throws SQLException, ClassNotFoundException;
+    /*boolean updateSupplierStock(ArrayList<SupOrderDetails> supplierOrderDetailsDTOS)
+            throws SQLException, ClassNotFoundException;*/
     ArrayList getAllDetailsForAdminItem() throws SQLException, ClassNotFoundException;
     int getQtyTotalOfOneItem(String itemId, double unitPrice) throws SQLException, ClassNotFoundException;
     boolean updateStock(ArrayList<CusOrderDetails> orderDetailDTOS)
@@ -31,5 +31,6 @@ public interface ItemDAO extends CrudDAO<Item>{
             , ClassNotFoundException;
     int getQtyTotalOfOneItem(String itemId) throws SQLException, ClassNotFoundException;
     double getSellingUnitPrice(String text) throws SQLException, ClassNotFoundException;
+
 
 }

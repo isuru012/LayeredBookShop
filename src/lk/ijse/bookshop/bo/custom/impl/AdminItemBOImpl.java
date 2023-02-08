@@ -34,7 +34,7 @@ public class AdminItemBOImpl implements AdminItemBO {
                     i.getOfferId()));
         }
         return itemDTOS;*/
-return itemDAO.getAll();
+return itemDAO.getAllDetailsForAdminItem();
     }
 
     @Override

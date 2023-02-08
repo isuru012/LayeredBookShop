@@ -267,8 +267,9 @@ public class AdminItemsController {
     @FXML
     void tblItemOnActionMouseClick(MouseEvent event) {
 
-        try{
-            AdminItemTm tm = tblItem.getItems().get(tblItem.getSelectionModel().getSelectedIndex());
+        /*try{*/
+            /*AdminItemTm tm = tblItem.getItems().get(tblItem.getSelectionModel().getSelectedIndex());*/
+            AdminItemTm tm=tblItem.getItems().get(tblItem.getSelectionModel().getSelectedIndex());
             txtDesCription.setText(tm.getDescription());
             txtBuyingPrice.setText(String.valueOf(tm.getBuyingUnitPrice()));
             txtSellingPrice.setText(String.valueOf(tm.getSellingUnitPrice()));
@@ -277,9 +278,9 @@ public class AdminItemsController {
             lblBatchNumber.setText(String.valueOf(colBatchNumber.getCellData(tblItem.getSelectionModel().getSelectedIndex())));
             btnAdd.setDisable(true);
 
-        }catch (Exception exception){
+        /*}catch (Exception exception){
             Notification.notifie("Error",""+exception,NotificationType.ERROR);
-        }
+        }*/
     }
 
     @FXML
