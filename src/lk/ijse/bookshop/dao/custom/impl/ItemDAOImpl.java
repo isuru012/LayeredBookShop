@@ -238,7 +238,7 @@ public class ItemDAOImpl implements ItemDAO {
         return arrayList;
     }
 
-    public boolean updateSupplierStock(ArrayList<SupOrderDetails> supplierOrderDetailsDTOS)
+    /*public boolean updateSupplierStock(ArrayList<SupOrderDetails> supplierOrderDetailsDTOS)
             throws SQLException, ClassNotFoundException {
         for (SupOrderDetails detail : supplierOrderDetailsDTOS) {
             if (!updateSupplerItem(detail)) {
@@ -246,16 +246,16 @@ public class ItemDAOImpl implements ItemDAO {
             }
         }
         return true;
-    }
+    }*/
 
-    private boolean updateSupplerItem(SupOrderDetails detail) throws SQLException, ClassNotFoundException {
+    /*private boolean updateSupplerItem(SupOrderDetails detail) throws SQLException, ClassNotFoundException {
         PreparedStatement stm = DBConnection.getDBConnection().getConnection()
                 .prepareStatement("UPDATE item SET QuantityOnHand=QuantityOnHand+? WHERE ItemId=?");
         stm.setObject(1, detail.getQuantity());
         stm.setObject(2, detail.getItemId());
 
         return stm.executeUpdate() > 0;
-    }
+    }*/
 
     public ArrayList getAllDetailsForAdminItem() throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM item";
